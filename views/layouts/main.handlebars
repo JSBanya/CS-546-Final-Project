@@ -3,11 +3,17 @@
 <head>
     <meta charset="utf-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="/public/index.css">
+
+    {{#each css}}
+    	<link rel="stylesheet" href="/public/{{this}}.css">
+    {{/each}}
 </head>
 <body>
-    <main>        
-        {{{body}}}
-    </main>
+    {{{body}}}
+
+    <script src="/public/jquery-3.4.0.min.js"></script>
+	{{#each js}}
+        <script src="/public/{{this}}.js"></script>
+    {{/each}}
 </body>
 </html>

@@ -1,6 +1,6 @@
 const constructorMethod = app => {
 	app.get("/", (req, res) => {
-		res.render('index', {title: 'Not implemented!'})
+		res.render('index', {title: 'Bits4Hire', css: ["index"], js: ["index"]});
 	});
 
 	app.use("*", (req, res) => {
