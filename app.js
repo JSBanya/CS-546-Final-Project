@@ -26,5 +26,6 @@ https.createServer({
 
 // Redirect HTTP to HTTPs
 http.createServer(function (req, res) {
-    res.writeHead(301, { "Location": "https://" + req.headers.host + req.url }).send();
+    res.writeHead(301, { "Location": "https://" + req.headers.host + req.url });
+    res.end();
 }).listen(80);
