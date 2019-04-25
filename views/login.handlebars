@@ -1,5 +1,15 @@
 <main>
 	<div id="loginContainer">
-		
+		<h1 id="loginHeader">Bits4Hire()</h1>
+		<form id="loginForm" action="/login" method="post">
+			<input type="email" name="email" id="userEmail" class="formInput" autocomplete="on" placeholder="Email" required autofocus>
+			<input type="password" name="password" id="userPassword" class="formInput" autocomplete="off" placeholder="Password" required>
+			<input type="submit" value="Submit" id="loginSubmit">
+		</form> 
+
+		<div id="registerContainer">
+			<p id="registerDescription">Don't have an account?</p>
+			<a href="/create" id="registerLink">Sign Up</a>
+		</div>
 	</div>
 </main>
