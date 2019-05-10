@@ -1,7 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const mongoConfig = {
   serverUrl: "mongodb://localhost:27017/",
-  database: "TBD"
+  database: "JobSrc"
 };
 
 let _connection = undefined;
