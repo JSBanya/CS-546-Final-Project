@@ -3,24 +3,40 @@ const jobs = mongoCollections.jobs;
 const uuid = require("node-uuid");
 
 let exportedMethods = {
+    /**
+     * Grabs all jobs in the collections
+     */
     async getAllJobs() {
 
     }
 
-    async getJobById() {
+    /**
+     * Grabs the job with the given id
+     */
+    async getJobById(id) {
 
     }
 
-    async addJob() {
+    /**
+     * Adds a job of the given object
+     */
+    async addJob(newJob) {
 
     }
 
+    /**
+     * Removes a job with the given id
+     */
     async removeJob() {
 
     }
 
-    async updateJob() {
+    /**
+     * Updates a job with the given id and object
+     */
+    async updateJob(id, updatedJob) {
 
+    }
 };
 
 module.exports = exportedMethods;

@@ -3,24 +3,40 @@ const employers = mongoCollections.employers;
 const uuid = require("node-uuid");
 
 let exportedMethods = {
+    /**
+     * Grabs all employers in the collection
+     */
     async getAllEmployers() {
 
     }
 
-    async getEmployerById() {
+    /**
+     * Grabs the employer with the given id
+     */
+    async getEmployerById(id) {
 
     }
 
-    async addEmployer() {
+    /**
+     * Adds an employer of the given profile object
+     */
+    async addEmployer(profile) {
 
     }
 
-    async removeEmployer() {
+    /**
+     * Removes the employer by the given id
+     */
+    async removeEmployer(id) {
 
     }
 
-    async updateEmployer() {
+    /**
+     * Update an employer with the given id and object
+     */
+    async updateEmployer(id, updatedEmployer) {
 
+    }
 };
 
 module.exports = exportedMethods;

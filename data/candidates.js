@@ -3,23 +3,38 @@ const candidates = mongoCollections.candidates;
 const uuid = require("node-uuid");
 
 let exportedMethods = {
+    /**
+     * Grabs all candidates in the collection
+     */
     async getAllCandidates() {
 
     }
 
-    async getCandidateById() {
+    /**
+     * Grabs the candidate with the given id
+     */
+    async getCandidateById(id) {
 
     }
 
-    async addCandidate() {
+    /**
+     * Adds a candidate of the given profile object
+     */
+    async addCandidate(profile) {
 
     }
 
-    async removeCandidate() {
+    /**
+     * Removes a candidate by the given id
+     */
+    async removeCandidate(id) {
 
     }
 
-    async updateCandidate() {
+    /**
+     * Update a candidate with the given id and object
+     */
+    async updateCandidate(id, updatedCandidate) {
 
 };
 
