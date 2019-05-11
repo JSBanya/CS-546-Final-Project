@@ -17,4 +17,5 @@ module.exports = {
     employers: getCollectionFn("employers"),
     candidates: getCollectionFn("candidates"),
     jobs: getCollectionFn("jobs")
+    messages: getCollectionFn("messages")
 };
