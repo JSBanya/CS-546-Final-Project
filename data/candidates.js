@@ -1,6 +1,5 @@
 const mongoCollections = require("./collections");
 const candidates = mongoCollections.candidates;
-<<<<<<< HEAD
 const jobData = require("./jobs");
 const employerData = require("./employers");
 const uuid = require("node-uuid");
@@ -35,41 +34,8 @@ const uuid = require("node-uuid");
                                                                             $elemMatch: {name: k}}
                                                                         ))
                                                                     }
-=======
-
-/**
- * Grabs all candidates in the collection
- * @return candidates A list of all the candidates in the collection
- */
-const getAllCandidates = async() => {
-    const candidatesCollection = await candidates();
-    const candidatesList = await candidatesCollection.find({}).toArray();
-    if(!candidatesList) {
-        throw "ERROR: Candidates collection may not exist";
-    }
-    return candidatesList;
-};
-
-/**
- * Grabs all candidates that match all the given keywords
- * @param keywords A list of all the keywords to find candidates
- * @return candidates A list of candidates that match the keywords
- */
-const candidateSearch = async(keywords) => {
-    if (!keywords) {
-        throw "ERROR: No keywords provided";
-    }
-    const candidatesCollection = await candidates();
-    const filteredCandidates = await candidatesCollection.find({profile: 
-                                                            {skills: 
-                                                                {$and:
-                                                                    keywords.map(k => ({
-                                                                        $elemMatch: {name: k}}
-                                                                    ))
->>>>>>> 6a145b893c3a02037a6827e02c6aaa8acf92aec3
                                                                 }
-                                                            }
-                                                        });
+                                                            });
 
     return filteredCandidates;
 };
