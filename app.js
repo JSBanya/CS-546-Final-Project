@@ -7,23 +7,33 @@ const https = require("https");
 const http = require("http");
 const bodyParser = require("body-parser");
 const session = require('express-session');
-const uuid = require("uuid");
 const middleware = require('./middleware');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
+// Set up session storage
+var store = new MongoDBStore({
+  uri: "mongodb://localhost:27017/",
+  databaseName: "JobSrc",
+  collection: 'sessions'
+});
 
+store.on('error', function(error) {
+  console.log(error);
+});
+
+// Set up middleware
 app.use("/public", express.static("./public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-	genid: (req) => {
-    	return uuid() // use UUIDs for the session IDs
-  	},
 	name: 'AuthCookie',
 	secret: '96be76e6abc3414d3876e427e8209f08e1314af983a2540571712d625ab9a93b',
 	resave: false,
-	saveUninitialized: true
+	saveUninitialized: true,
+	store: store
 }));
 
+// Our defined middleware
 app.use(middleware.log);
 app.get("/", middleware.auth);
 app.get("/login", middleware.auth);
