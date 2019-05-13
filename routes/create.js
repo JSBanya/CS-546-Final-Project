@@ -177,7 +177,7 @@ router.post('/candidate', async (req, res) => {
 		return;
 	}
 
-	res.status(200).redirect("/");
+	res.status(200).redirect("/login");
 });
 
 router.post('/employer', async (req, res) => {
@@ -239,7 +239,7 @@ router.post('/employer', async (req, res) => {
 		return;
 	}
 
-	res.redirect("/");
+	res.redirect("/login");
 });
 
 module.exports = router;
