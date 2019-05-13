@@ -270,47 +270,29 @@ let exportedMethods = {
         return true;
     },
 
-    /**
+    /**  modify it referring from Nate's code of candidate removeSkill
      * Remove the given skills from a job
      * @param jobId The id for the job to be updated
      * @param skills The skills to be removed from the requested job
      * @return updated True if the job was updated; False otherwise
      */
-    async removeSkills(jobId, skills) {//[Chen]: the skill is an object, I think the
-        if (!jobId) throw "You must provide an id to search for";
-
-        if (!newSkills) throw "You must provide a new skills set object for the job";
+    async removeSkills(jobId, oldSkills) {
+        if (!jobId || !oldSkills) {
+            throw "ERROR: Not enough arguments given to update function";
+        }
 
         const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        let newSkillsSet = job.ListOfDesiredSkills;
+        const job = jobsCollection.find({ _id: jobId});
+        let currentSkills = job.ListOfDesiredSkills;
+        let skills = currentSkills.filter(s => { oldSkills.includes(s) })
 
-        // newSkillsSet.push(newSkills);
-        /*
-        * To do
-        * remove the skills those are passed as parameter
-        * and generate a set of new skills -> newSkillsSet
-        * if do so, the code below does not need to be modified
-        * */
+        let updatedJob = {"ListOfDesiredSkills":skills};
 
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:job.Open,
-                Title:job.Title,
-                Description:job.Description,
-                ListOfDesiredSkills:newSkillsSet,
-                PayRate:job.PayRate
-            }
-        };
+        const updated = await jobsCollection.updateOne({ _id: jobId }, {$set: updatedJob});
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot update the job skills set of ${jobId}`);
-            return false;
+        if (!updated) {
+            throw "ERROR: There was an error updating the candidate";
         }
-        return true;
     },
 
     /**
@@ -399,6 +381,9 @@ let exportedMethods = {
     * */
 
     async searchJobsBykeywordAndId(keywordList, candidateID) {
+        if (!keywordList || !candidateID)
+            throw "[ERROR] [searchJobByKeyword] parameters are wrong"
+
         const allJobs = await getAllJobs();
         // let applicant = await candidate.getCandidateById(candidateID);
         let keyworSplit = keywordList.split(' ');
