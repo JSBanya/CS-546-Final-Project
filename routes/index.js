@@ -2,6 +2,7 @@ const loginRoutes = require("./login");
 const createRoutes = require("./create");
 const homeRoutes = require("./home");
 const logoutRoutes = require("./logout")
+const newjobRoutes = require("./newjob")
 const candidates = require("../data/candidates");
 
 const constructorMethod = app => {
@@ -9,6 +10,7 @@ const constructorMethod = app => {
 	app.use("/create", createRoutes);
 	app.use("/home", homeRoutes);
 	app.use("/logout", logoutRoutes);
+	app.use("/newjob", newjobRoutes);
 
 	app.get("/", async (req, res) => {
 		res.render('index', {title: 'JobSrc', css: ["index"], js: ["index"]});
