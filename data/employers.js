@@ -1,6 +1,5 @@
 const mongoCollections = require("../data/collections");
 const employers = mongoCollections.employers;
-const uuid = require("uuid");
 
 /**
  * Grabs all employers in the collection

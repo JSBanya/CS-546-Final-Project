@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jobs = require("../data/jobs");
 
 router.get('/', async (req, res) => {
 	if(req.session._id !== undefined) {
@@ -99,8 +100,7 @@ router.post('/', async (req, res) => {
 	newjob.name = job.jobName;
 	newjob.description = job.jobDescription;
 	newjob.open = true;
-	newjob.owner = req.session._id;
-
+	
 	newjob.skills = [];
 	if(Array.isArray(job.jobSkill)) {
 		for(let i = 0; i < job.jobSkill.length; i++) {
@@ -110,7 +110,15 @@ router.post('/', async (req, res) => {
 		newjob.skills.push({skill: job.jobSkill, years: job.jobSkillYears})
 	}
 
-
+	try {
+		await jobs.addJob(req.session._id, newjob);	
+	} catch(e) {
+		res.status(500).send(`500 - Internal Server Error (Unable to store job)`);
+		console.log(e);
+		return;
+	}
+	
+	console.log("New Job by " + req.session._id)
 	console.log(newjob);
 
 	// Return to home
