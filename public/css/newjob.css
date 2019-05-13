@@ -1,0 +1,183 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+main {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	justify-content: center;
+	background-color: rgba(0, 0, 100, 0.1);
+	background-image: url("../images/newjob/background.jpg");
+}
+
+#mainContent {
+	width: 60%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.92);
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#title {
+	width: 90%;
+	margin: 0px;
+	margin-top: 1%;
+	padding: 0px;
+	padding-bottom: 5px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.5vw;
+	text-align: center;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#jobForm {
+	width: 100%;
+	margin: 0px;
+	margin-top: 2%;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.formLine {
+	width: 90%;
+	margin-bottom: 2%;
+	display: flex;
+	flex-direction: row;
+}
+
+.formLabel {
+	width: 20%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 200, 1.0);
+	font-weight: 100;
+	font-size: 1.0vw;
+}
+
+.formTextInput {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 0, 1.0);
+	font-weight: 100;
+	font-size: 0.8vw;
+	background-color: rgba(255, 255, 255, 0.4);
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+	padding: 5px;
+	padding-left: 10px;
+	width: 80%;
+}
+
+.formTextInput:focus {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	border-color: rgba(0, 0, 200, 1.0);
+}
+
+#jobDescription {
+	width: 80%;
+	resize: none;
+}
+
+#skillContainer {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+}
+
+#jobSkillList {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.jobSkillItem {
+	width: 100%;
+	margin-bottom: 1%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0em;
+	display: flex;
+	flex-direction: row;
+}
+
+.skillTextInput {
+	width: 70%;
+	margin-right: 1%;
+}
+
+.skillNumberInput {
+	width: 20%;
+	margin-right: 5px;
+}
+
+.skillRemove {
+	padding: 0px;
+	margin: 0px;
+	background: none;
+	border: none;
+	color: rgba(0, 0, 0, 0.5);
+	font-size: 0.8vw;
+}
+
+.skillRemove:hover {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 1.0);
+}
+
+.addButton {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 0.6vw;
+	color: rgba(0, 0, 255, 0.8);
+	width: 5.0vw;
+	padding: 2px;
+	margin: 5px;
+	margin-bottom: 1%;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 255, 0.5);
+	border-radius: 5px;
+}
+
+.addButton:hover {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	cursor: pointer;
+	color: rgba(0, 0, 255, 1.0);
+	border: 1px solid rgba(0, 0, 255, 1.0);
+}
+
+#submitButton {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0vw;
+	color: rgba(0, 0, 255, 0.8);
+	padding: 5px 40px;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 255, 0.5);
+	border-radius: 5px;
+}
+
+#submitButton:hover {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	cursor: pointer;
+	color: rgba(0, 0, 255, 1.0);
+	border: 1px solid rgba(0, 0, 255, 1.0);
+}

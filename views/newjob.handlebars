@@ -1,0 +1,27 @@
+<main>
+	<div id="mainContent">
+		<h2 id="title">Customize Your Job</h2>
+		<form id="jobForm" action="/newjob" method="post">
+			<div class="formLine">
+				<label class="formLabel" for="jobName">Job Title:</label>
+				<input type="text" name="jobName" id="jobName" class="formTextInput" placeholder="Job Title" maxlength="50" required>
+			</div>
+
+			<div class="formLine">
+				<label class="formLabel" for="jobDescription">Job Description:</label>
+				<textarea name="jobDescription" id="jobDescription" class="formTextInput" placeholder="Describe the job" rows=4 maxlength="1000" required></textarea>
+			</div>
+
+			<div class="formLine">
+				<label class="formLabel" for="jobSkill">Desired Skills:</label>
+				<div id="skillContainer">
+					<ul id="jobSkillList">
+					</ul>
+					<button type="button" class="addButton" onclick="addSkill()">New Skill</button>
+				</div>
+			</div>
+
+			<input type="submit" value="Create Job" id="submitButton">
+		</form>
+	</div>
+</main>
