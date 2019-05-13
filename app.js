@@ -7,16 +7,26 @@ const https = require("https");
 const http = require("http");
 const bodyParser = require("body-parser");
 const session = require('express-session');
+const uuid = require("uuid");
+const middleware = require('./middleware');
+
 
 app.use("/public", express.static("./public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-  name: 'AuthCookie',
-  secret: '96be76e6abc3414d3876e427e8209f08e1314af983a2540571712d625ab9a93b',
-  resave: false,
-  saveUninitialized: true
+	genid: (req) => {
+    	return uuid() // use UUIDs for the session IDs
+  	},
+	name: 'AuthCookie',
+	secret: '96be76e6abc3414d3876e427e8209f08e1314af983a2540571712d625ab9a93b',
+	resave: false,
+	saveUninitialized: true
 }));
+
+app.use(middleware.log);
+app.get("/", middleware.auth);
+app.get("/login", middleware.auth);
 
 // Configure handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname + '/views/layouts/' }));

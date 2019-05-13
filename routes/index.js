@@ -1,11 +1,14 @@
 const loginRoutes = require("./login");
 const createRoutes = require("./create");
+const homeRoutes = require("./home");
+const candidates = require("../data/candidates");
 
 const constructorMethod = app => {
 	app.use("/login", loginRoutes);
 	app.use("/create", createRoutes);
+	app.use("/home", homeRoutes);
 
-	app.get("/", (req, res) => {
+	app.get("/", async (req, res) => {
 		res.render('index', {title: 'JobSrc', css: ["index"], js: ["index"]});
 	});
 
