@@ -1,4 +1,4 @@
-const mongoCollections = require("../data/Collections");
+const mongoCollections = require("../data/collections");
 const messages = mongoCollections.messages;
 const uuid = require("node-uuid");
 

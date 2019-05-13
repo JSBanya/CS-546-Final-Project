@@ -1,4 +1,4 @@
-const mongoCollections = require("../data/Collections");
+const mongoCollections = require("../data/collections");
 const jobs = mongoCollections.jobs;
 const uuid = require("node-uuid");
 
