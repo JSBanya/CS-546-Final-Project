@@ -137,7 +137,7 @@ section {
 #sectionSignUpButton:hover {
 	transition: all .3s ease;
 	-webkit-transition: all .3s ease;
-	color: rgba(0, 0, 255, 0.7);
+	color: rgba(0, 0, 255, 1.0);
 	border-color: rgba(0, 0, 255, 0.7);;
 }
 

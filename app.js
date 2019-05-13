@@ -5,9 +5,11 @@ const exphbs = require("express-handlebars");
 const fs = require("fs");
 const https = require("https");
 const http = require("http");
+const bodyParser = require("body-parser");
 
 app.use("/public", express.static("./public"));
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname + '/views/layouts/' }));
