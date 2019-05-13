@@ -1,5 +1,7 @@
-const mongoCollections = require("../data/collections");
+const mongoCollections = require("./collections");
 const candidates = mongoCollections.candidates;
+const jobData = require("./jobs");
+const employerData = require("./employers");
 const uuid = require("node-uuid");
 
     /**
@@ -292,9 +294,9 @@ const uuid = require("node-uuid");
         let updatedCandidate = { "applied": newApplied };
         let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
         let employerId = (jobData.getJobById(jobId)).owner;
-        let newMessage = "";
+        let job = await jobData.getJobById(jobId);
+        let newMessage = `The candidate, ${candidate.profile.name}, has applied to your posting for position, ${job.title}.`;
         await messageData.sendMessageToEmpl(candidateId, employerId, newMessage);
-
         return updated;
     };
 
