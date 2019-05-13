@@ -110,14 +110,14 @@ router.post('/candidate', async (req, res) => {
 
 	// Check for valid numbers of skill years
 	if(Array.isArray(data.candidateSkillYears)) {
-		for(let i = 0; i < data.candidateSkillYears; i++) {
-			if(Number(data.candidateSkillYears[i]) == NaN) {
+		for(let i = 0; i < data.candidateSkillYears.length; i++) {
+			if(Number(data.candidateSkillYears[i]) == NaN || data.candidateSkillYears[i] < 0.1 || data.candidateSkillYears[i] > 100) {
 				res.status(400).send("400 - Bad Request (bad skill years)");
 				return;
 			}
 		}
 	} else if(!isEmpty(data.candidateSkillYears)) {
-		if(Number(data.candidateSkillYears) == NaN) {
+		if(Number(data.candidateSkillYears) == NaN || data.candidateSkillYears[i] < 0.1 || data.candidateSkillYears[i] > 100) {
 			res.status(400).send("400 - Bad Request (bad skill years)");
 			return;
 		}
