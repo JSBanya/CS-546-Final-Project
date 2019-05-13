@@ -1,0 +1,60 @@
+<main>
+	<div id="mainContent">
+		<!-- Candidate information edit page -->
+		<div id="candidateEditPage">
+			<header class="pageHeader">
+				<h2 class="pageTitle">Edit your Information</h2>
+			</header>
+
+			<form class="infoForm" id="candidateForm" action="/create/candidate" onsubmit="return validateCandidateForm()" method="post">
+				<div class="formSection">
+					<h3 class="formSectionHeader">1. Name and Email</h3>
+					<span class="formLine">
+						<input type="text" name="candidateFirstName" id="candidateFirstName" class="formTextInput" placeholder="First Name" maxlength="30">
+						<input type="text" name="candidateLastName" id="candidateLastName" class="formTextInput" placeholder="Last Name" maxlength="30">
+					</span>
+
+					<span class="formLine">
+						<input type="email" name="candidateEmail" id="candidateEmail" class="formTextInput" placeholder="Email" maxlength="30">
+					</span>
+				</div>
+
+				<div class="formSection">
+					<h3 class="formSectionHeader">2. Biography</h3>
+					<span class="formLine">
+						<textarea name="candidateBiography" id="candidateBiography" class="formTextInput" rows=3 placeholder="Say something about yourself!" maxlength="500"></textarea>
+					</span>
+				</div>
+
+				<div class="formSection">
+					<h3 class="formSectionHeader">3. Your Skills</h3>
+					<ol class="listContainer" id="skillsContainer">
+					</ol>
+					<button type="button" class="addButton" onclick="addSkill()">New Skill</button>
+				</div>
+
+				<div class="formSection">
+					<h3 class="formSectionHeader">4. Previous Experience</h3>
+					<ul class="listContainer" id="experienceContainer">
+					</ul>
+					<button type="button" class="addButton" id="addExperienceButton" onclick="addExperience()">New Experience</button>
+				</div>
+
+				<div class="formSection">
+					<h3 class="formSectionHeader">5. Password</h3>
+					<span class="formLine">
+						<input type="password" name="candidatePassword" id="candidatePassword" class="formTextInput" placeholder="Password" minlength="8" maxlength="30">
+					</span>
+
+					<span class="formLine">
+						<input type="password" name="candidateConfirmPassword" id="candidateConfirmPassword" class="formTextInput" placeholder="Confirm Password" minlength="8" maxlength="30">
+					</span>
+				</div>
+
+				<p class="error"></p>
+				<input type="submit" value="Save changes">
+			</form> 
+		</div>
+
+	</div>
+</main>
