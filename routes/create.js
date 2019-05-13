@@ -166,6 +166,8 @@ router.post('/candidate', async (req, res) => {
 		newCandidate.experience.push({experience: data.candidateExperience, description: data.experienceDescription, from: data.candidateExperienceFrom, to: data.candidateExperienceTo});
 	}
 
+	newCandidate.profileImage = "default.png";
+
 	console.log("New candidate:")
 	console.log(newCandidate);
 
