@@ -10,7 +10,7 @@ let exportedMethods = {
      */
     async getAllEmployers() {
 
-    }
+    },
 
     /**
      * Grabs the employer with the given employer id
@@ -19,7 +19,7 @@ let exportedMethods = {
      */
     async getEmployerById(employerId) {
 
-    }
+    },
 
     /**
      * Adds an employer of the given profile object
@@ -28,7 +28,7 @@ let exportedMethods = {
      */
     async addEmployer(profile) {
 
-    }
+    },
 
     /**
      * Removes the employer by the given employer id
@@ -37,7 +37,7 @@ let exportedMethods = {
      */
     async removeEmployer(employerId) {
 
-    }
+    },
 
     /**
      * Update an employer name with the given employer id and name
@@ -47,7 +47,7 @@ let exportedMethods = {
      */
     async updateEmployerName(employerId, newName) {
 
-    }
+    },
 
     /**
      * Update an employer description with the given employer id and description
@@ -57,7 +57,7 @@ let exportedMethods = {
      */
     async updateEmployerDesc(employerId, newDesc) {
 
-    }
+    },
 
     /**
      * Update an employer image with the given employer id and image

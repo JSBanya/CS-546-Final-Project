@@ -40,7 +40,7 @@ let exportedMethods = {
      */
     async getAllMessages() {
 
-    }
+    },
     
     /**
      * Grabs all the conversations of an employer
@@ -49,7 +49,7 @@ let exportedMethods = {
      */
     async getAllEmployerConversations(employerId) {
 
-    }
+    },
 
     /**
      * Grabs all the conversations of a candidate
@@ -58,7 +58,7 @@ let exportedMethods = {
      */
     async getAllCandidateConversations(candidateId) {
 
-    }
+    },
 
     /**
      * Adds a message of the given object to the given candidate
@@ -69,7 +69,7 @@ let exportedMethods = {
      */
     async sendMessageToCand(candidateId, employerId, newMessage) {
 
-    }
+    },
 
     /**
      * Adds a message of the given object to the given employer
@@ -80,7 +80,7 @@ let exportedMethods = {
      */
     async sendMessageToEmpl(candidateId, employerId, newMessage) {
 
-    }
+    },
 
     /**
      * Deletes a conversation with the given candidate and employer id 

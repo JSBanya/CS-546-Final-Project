@@ -9,7 +9,7 @@ let exportedMethods = {
      */
     async getAllJobs() {
 
-    }
+    },
 
     /**
      * Grabs the job with the given job id
@@ -18,7 +18,7 @@ let exportedMethods = {
      */
     async getJobById(jobId) {
 
-    }
+    },
 
     /**
      * Adds a job of the given object under the given employer id
@@ -28,7 +28,7 @@ let exportedMethods = {
      */
     async addJob(employerId, newJob) {
 
-    }
+    },
 
     /**
      * Removes a job with the given job id
@@ -37,7 +37,7 @@ let exportedMethods = {
      */
     async removeJob(jobId) {
 
-    }
+    },
 
     /**
      * Updates a job posting to open
@@ -46,7 +46,7 @@ let exportedMethods = {
      */
     async openJob(jobId) {
 
-    }
+    },
     
     /**
      * Updates a job posting to closed
@@ -55,7 +55,7 @@ let exportedMethods = {
      */
     async closeJob(jobId) {
 
-    }
+    },
 
     /**
      * Updates a job with a new title
@@ -65,7 +65,7 @@ let exportedMethods = {
      */
     async updateJobTitle(jobId, newTitle) {
 
-    }
+    },
 
     /**
      * Updates a job with a new description
@@ -75,7 +75,7 @@ let exportedMethods = {
      */
     async updateJobDesc(jobId, newDesc) {
 
-    }
+    },
 
     /**
      * Add the given skills to a job
@@ -85,7 +85,7 @@ let exportedMethods = {
      */
     async addSkills(jobId, newSkills) {
 
-    }
+    },
 
     /**
      * Remove the given skills from a job
@@ -95,7 +95,7 @@ let exportedMethods = {
      */
     async removeSkills(jobId, skills) {
 
-    }
+    },
 
     /**
      * Updates a job with a new rate
@@ -105,7 +105,7 @@ let exportedMethods = {
      */
     async updateJobRate(jobId, newRate) {
 
-    }
+    },
 
     /**
      * Updates a job with a new rate type
@@ -115,7 +115,7 @@ let exportedMethods = {
      */
     async updateJobRateType(jobId, newRateType) {
 
-    }
+    },
 
     /**
      * Updates a job with a new type

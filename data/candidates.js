@@ -9,7 +9,7 @@ let exportedMethods = {
      */
     async getAllCandidates() {
 
-    }
+    },
 
     /**
      * Grabs all candidates that match all the given keywords
@@ -18,7 +18,7 @@ let exportedMethods = {
      */
     async candidateSearch(keywords) {
 
-    }
+    },
 
     /**
      * Grabs the candidate with the given id
@@ -27,7 +27,7 @@ let exportedMethods = {
      */
     async getCandidateById(candidateId) {
 
-    }
+    },
 
     /**
      * Adds a candidate of the given profile object
@@ -36,7 +36,7 @@ let exportedMethods = {
      */
     async addCandidate(profile) {
 
-    }
+    },
 
     /**
      * Removes a candidate by the given id
@@ -45,7 +45,7 @@ let exportedMethods = {
      */
     async removeCandidate(candidateId) {
 
-    }
+    },
 
     /**
      * Update a candidate name with the given id and name
@@ -55,7 +55,7 @@ let exportedMethods = {
      */
     async updateCandidateName(candidateId, newName) {
 
-    }
+    },
 
     /**
      * Update a candidate biography with the given id and biography
@@ -65,7 +65,7 @@ let exportedMethods = {
      */
     async updateCandidateBio(candidateId, newBio) {
 
-    }
+    },
 
     /**
      * Add the given skills to a candidate
@@ -75,7 +75,7 @@ let exportedMethods = {
      */
     async addSkills(candidateId, newSkills) {
 
-    }
+    },
 
     /**
      * Remove the given skills from a candidate
@@ -85,7 +85,7 @@ let exportedMethods = {
      */
     async removeSkills(candidateId, skills) {
 
-    }
+    },
 
     /**
      * Add the given experiences to a candidate
@@ -95,7 +95,7 @@ let exportedMethods = {
      */
     async addExp(candidateId, newExp) {
 
-    }
+    },
 
     /**
      * Remove the given experiences from a candidate
@@ -105,7 +105,7 @@ let exportedMethods = {
      */
     async removeExp(candidateId, exp) {
 
-    }
+    },
 
     /**
      * Update a candidate image with the given id and image
@@ -115,7 +115,7 @@ let exportedMethods = {
      */
     async updateCandidateImg(candidateId, newImg) {
 
-    }
+    },
 
     /**
      * Sends in application notice to the company that posted the job
@@ -125,7 +125,7 @@ let exportedMethods = {
      */
     async applyToJob(candidateId, jobId) {
 
-    }
+    },
 
     /**
      * Adds hired job to candidate's information
