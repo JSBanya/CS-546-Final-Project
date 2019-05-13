@@ -1,0 +1,40 @@
+<main>
+    <div id="mainContent">
+<!-- Employer information edit-->
+		<div id="employerEditPage">
+			<header class="pageHeader">
+				<h2 class="pageTitle">Edit Your Company's Information</h2>
+			</header>
+			<form class="infoForm" id="employerForm" action="/create/employer" onsubmit="return validateEmployerForm()" method="post">
+				<div class="formSection">
+					<h3 class="formSectionHeader">1. Name and Email</h3>
+					<span class="formLine">
+						<input type="text" name="employerName" id="employerName" class="formTextInput" placeholder="Company Name" maxlength="50">
+						<input type="email" name="employerEmail" id="employerEmail" class="formTextInput" placeholder="Email" maxlength="30">
+					</span>
+				</div>
+
+				<div class="formSection">
+					<h3 class="formSectionHeader">2. Description</h3>
+					<span class="formLine">
+						<textarea name="employerDescription" id="employerDescription" class="formTextInput" rows=3 placeholder="Say something about your company!" maxlength="500"></textarea>
+					</span>
+				</div>
+
+				<div class="formSection">
+					<h3 class="formSectionHeader">3. Password</h3>
+					<span class="formLine">
+						<input type="password" name="employerPassword" id="employerPassword" class="formTextInput" placeholder="Password" minlength="8" maxlength="30">
+					</span>
+
+					<span class="formLine">
+						<input type="password" name="employerConfirmPassword" id="employerConfirmPassword" class="formTextInput" placeholder="Confirm Password" minlength="8" maxlength="30">
+					</span>
+				</div>
+
+				<p class="error"></p>
+				<input type="submit" value="Save changes">
+			</form>
+		</div>
+    </div>>
+</main>

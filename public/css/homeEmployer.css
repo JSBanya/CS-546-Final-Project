@@ -1,0 +1,313 @@
+body, main {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
+/******************
+* 	Header
+*******************/
+
+#homeBar {
+	width: 100%;
+	padding: 10px;
+	margin: 0px;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+#homeBarLeft {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	width: 50%;
+}
+
+#homeBarRight {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-end;
+	align-items: center;
+	width: 50%;
+}
+
+.headerLink {
+	color: rgba(255, 255, 255, 1.0);
+	padding: 10px 20px 10px 20px;
+	margin: 0px 10px 0px 10px;
+	text-decoration: none;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-weight: bold;
+	font-size: 0.8em;
+	border: 1px solid rgba(255, 255, 255, 0.8);
+	border-radius: 50px;
+}
+
+.headerLink:hover {
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	background-color: rgba(255, 255, 255, 0.8);
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.headerLink:visited {
+	text-decoration: none;
+}
+
+#profileImage {
+	width: 50px;
+	height: 50px;
+	margin-left: 1%;
+	background-size: 100% 100%;
+	background-color: rgba(0, 0, 0, 1.0);
+	background-image: url("/public/images/profile/default.png");
+}
+
+#profileImage:hover {
+	cursor: pointer;
+}
+
+#profileName {
+	padding: 0px;
+	margin: 0px;
+	margin-left: 1%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(255, 255, 255, 1.0);
+	font-weight: 100;
+	font-size: 1.3em;
+}
+
+/******************
+* 	Search
+*******************/
+
+#searchContainer {
+	margin-top: 1%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#searchForm {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#searchTermsList {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	padding: 0px;
+	margin: 0px;
+}
+
+.searchTerm {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.search {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 0, 1.0);
+	font-weight: 100;
+	background-color: rgba(255, 255, 255, 0.4);
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	padding: 5px;
+	padding-left: 10px;
+	width: 50%;
+}
+
+.years {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 0, 1.0);
+	font-weight: 100;
+	background-color: rgba(255, 255, 255, 0.4);
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-left: none;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding: 5px 10px;
+	width: 20%;
+}
+
+.termRemove {
+	padding: 0px;
+	margin: 0px;
+	margin-left: 5px;
+	background: none;
+	border: none;
+	color: rgba(0, 0, 0, 0.5);
+	font-size: 1.1em;
+}
+
+.termRemove:hover {
+	cursor: pointer;
+	color: rgba(255, 0, 0, 0.5);
+}
+
+#formBottom {
+	width: 100%;
+	margin-top: 1%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+#newTermButton {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 1.2em;
+	color: rgba(0, 0, 0, 0.7);
+	padding: 5px 10px;
+	margin: 5px;
+	margin-bottom: 1%;
+	background-color: rgba(255, 255, 255, 1.0);
+	border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+#newTermButton:hover {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	cursor: pointer;
+	color: rgba(0, 0, 0, 1.0);
+	border: 1px solid rgba(0, 0, 0, 1.0);
+}
+
+#submitSearch {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 1.2em;
+	color: rgba(0, 0, 255, 0.8);
+	padding: 5px 40px;
+	margin: 5px;
+	margin-bottom: 1%;
+	background-color: rgba(255, 255, 255, 1.0);
+	border: 1px solid rgba(0, 0, 255, 0.5);
+}
+
+#submitSearch:hover {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	cursor: pointer;
+	color: rgba(0, 0, 255, 1.0);
+	border: 1px solid rgba(0, 0, 255, 1.0);
+}
+
+/******************
+* 	Candidate List
+*******************/
+
+#candidatesContainer {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	margin: 0px;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#candidatesHeader {
+	width: 80%;
+	margin: 0px;
+	margin-top: 20px;
+	text-align: center;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 255, 1.0);
+	font-weight: 100;
+	font-size: 1.5em;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#candidatesHeader:hover {
+	cursor: pointer;
+}
+
+#candidates {
+	width: 80%;
+	padding: 5px;
+	margin: 0px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+#noCandidatesMessage {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 0, 1.0);
+	font-weight: 100;
+}
+
+.candidatesEntry {
+	width: 20%;
+	height: 200px;
+	padding: 5px;
+	margin: 2px 1.25%;
+	background-color: rgba(255, 255, 255, 1.0);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.candidatesEntry:hover {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	cursor: pointer;
+	background-color: rgba(240, 240, 250, 1.0);
+	border: 1px solid rgba(0, 0, 255, 0.2);
+}
+
+.candidatesImage {
+	width: 50px;
+	height: 50px;
+	background-size: 100% 100%;
+	background-color: rgba(255, 255, 255, 1.0);
+	margin-left: 1%;
+}
+
+.candidatesName {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 200, 1.0);
+	font-size: 1.2em;
+}
+
+.candidatesBio {
+	height: 5em;
+	width: 100%;
+	text-align: center;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 0, 0.5);
+	font-weight: 100;
+	font-style: italic;
+	overflow-y: hidden;
+	word-wrap: break-word;
+}
