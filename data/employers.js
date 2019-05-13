@@ -1,4 +1,4 @@
-const mongoCollections = require("../data/ollections");
+const mongoCollections = require("../data/collections");
 const employers = mongoCollections.employers;
 const uuid = require("node-uuid");
 
@@ -102,7 +102,6 @@ module.exports = {
 	addEmployer,
 	getEmployerByEmail,
 	removeEmployer,
-    updateEmployer,
     updateEmployerName,
     updateEmployerDesc,
     updateEmployerImg
