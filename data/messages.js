@@ -65,7 +65,7 @@ let exportedMethods = {
      * @param candidateId The candidate's id of the message
      * @param employerId The employer's id of the message
      * @param newMessage The new message object
-     * @return sent True if the message was sent; False otherwise
+     * @return none Throws an error if the message was not sent
      */
     async sendMessageToCand(candidateId, employerId, newMessage) {
 
@@ -76,7 +76,7 @@ let exportedMethods = {
      * @param candidateId The candidate's id of the message
      * @param employerId The employer's id of the message
      * @param newMessage The new message object
-     * @return sent True if the message was sent; False otherwise
+     * @return none Throws an error if the message was not sent
      */
     async sendMessageToEmpl(candidateId, employerId, newMessage) {
 
@@ -88,7 +88,7 @@ let exportedMethods = {
      * @param condidateId The id of the message's candidate
      * @param employerId The id of the message's employer
      * @param whoDeleted A string indicating who is deleting the conversation ("candidate" | "employer")
-     * @return deleted True is the conversation was deleted; False otherwise
+     * @return none Throws an error if the conversation was not deleted
      */
     async deleteConversation(candidateId, employerId, whoDeleted) {
 

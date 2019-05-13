@@ -24,7 +24,7 @@ let exportedMethods = {
      * Adds a job of the given object under the given employer id
      * @param employerId The id of the employer that is posting the new job
      * @param newJob The new job object to be added
-     * @return added True if the new job was added; False otherwise
+     * @return none Throws an error if the job was not added
      */
     async addJob(employerId, newJob) {
 
@@ -33,7 +33,7 @@ let exportedMethods = {
     /**
      * Removes a job with the given job id
      * @param jobId The id of the requested job to be removed
-     * @return removed True if the job was removed; False otherwise
+     * @return none Throws an error if the job was not removed
      */
     async removeJob(jobId) {
 
@@ -42,7 +42,7 @@ let exportedMethods = {
     /**
      * Updates a job posting to open
      * @param jobId The id of the job to be opened
-     * @return opened True if the job was opened; False otherwise
+     * @return none Throws an error if the job was not opened
      */
     async openJob(jobId) {
 
@@ -51,7 +51,7 @@ let exportedMethods = {
     /**
      * Updates a job posting to closed
      * @param jobId The id of the job to be closed
-     * @return opened True if the job was closed; False otherwise
+     * @return none Throws an error if the job was not closed
      */
     async closeJob(jobId) {
 
@@ -61,7 +61,7 @@ let exportedMethods = {
      * Updates a job with a new title
      * @param jobId The id for the job to be updated
      * @param newTitle The new title for the requested job
-     * @return updated True if the job was updated; False otherwise
+     * @return none Throws an error if the job title was not updated
      */
     async updateJobTitle(jobId, newTitle) {
 
@@ -71,7 +71,7 @@ let exportedMethods = {
      * Updates a job with a new description
      * @param jobId The id for the job to be updated
      * @param newDesc The new description for the requested job
-     * @return updated True if the job was updated; False otherwise
+     * @return none Throws an error if the job description was not updated
      */
     async updateJobDesc(jobId, newDesc) {
 
@@ -81,7 +81,7 @@ let exportedMethods = {
      * Add the given skills to a job
      * @param jobId The id for the job to be updated
      * @param newSkills The new skills for the requested job
-     * @return updated True if the job was updated; False otherwise
+     * @return none Throws an error if the skills were not added
      */
     async addSkills(jobId, newSkills) {
 
@@ -91,7 +91,7 @@ let exportedMethods = {
      * Remove the given skills from a job
      * @param jobId The id for the job to be updated
      * @param skills The skills to be removed from the requested job
-     * @return updated True if the job was updated; False otherwise
+     * @return none Throws an error if the skills were not removed
      */
     async removeSkills(jobId, skills) {
 
@@ -101,7 +101,7 @@ let exportedMethods = {
      * Updates a job with a new rate
      * @param jobId The id for the job to be updated
      * @param newRate The new rate for the requested job
-     * @return updated True if the job was updated; False otherwise
+     * @return none Throws an error if the job rate was not updated
      */
     async updateJobRate(jobId, newRate) {
 
@@ -111,7 +111,7 @@ let exportedMethods = {
      * Updates a job with a new rate type
      * @param jobId The id for the job to be updated
      * @param newRateType The new rate type for the requested job
-     * @return updated True if the job was updated; False otherwise
+     * @return none Throws an error if the job rate type was not updated
      */
     async updateJobRateType(jobId, newRateType) {
 
@@ -121,7 +121,7 @@ let exportedMethods = {
      * Updates a job with a new type
      * @param jobId The id for the job to be updated
      * @param newType The new type for the requested job
-     * @return updated True if the job was updated; False otherwise
+     * @return none Throws an error if the job type was not updated
      */
     async updateJobType(jobId, newType) {
 
