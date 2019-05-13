@@ -1,15 +1,13 @@
 const candidates = require("../data/candidates");
+const employers = require("../data/employers");
 
 const auth = async (req, res, next) => {
-  	try {
-		let c = await candidates.getCandidateBySession(req.sessionID);
-
-		// Candidate is logged in
+	if(req.session._id !== undefined) {
 		res.redirect("/home")
 		return;
-	} catch(e) { 
-		next()
 	}
+
+	next();
 }
 
 module.exports = auth;

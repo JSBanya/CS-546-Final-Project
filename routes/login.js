@@ -22,31 +22,36 @@ router.post('/', async (req, res) => {
 		return;
 	}
 
+	let isCandidate = false;
+	let isEmployer = false;
+	let profile;
 	try {
-		let c = await candidates.getCandidateByEmail(data.email);
-		if(!bcrypt.compareSync(data.password, c.password)) {
-			// Invalid password
-			res.status(401).render('login', {title: 'Log in', css: ["login"], js: ["login"]});
-			return;
-		}
+		profile = await candidates.getCandidateByEmail(data.email);
+		isCandidate = true;
+	} catch(e) {}
 
-		// Login valid
-		// Create session
-		try {
-			await candidates.addCandidateSession(c._id, req.sessionID);
-		} catch(e) {
-			res.status(500).render('login', {title: 'Log in', css: ["login"], js: ["login"]});
-			return;
-		}
+	try {
+		profile = await employers.getEmployerByEmail(data.email);
+		isEmployer = true;
+	} catch(e) {}
 
-		res.redirect("/home");
+	if(!isCandidate && !isEmployer) {
+		// No account for the given email
+		res.status(401).render('login', {title: 'Log in', css: ["login"], js: ["login"]});
 		return;
-	} catch(e) {
-		console.log(e);
 	}
 	
+	if(!bcrypt.compareSync(data.password, profile.password)) {
+		// Invalid password
+		res.status(401).render('login', {title: 'Log in', css: ["login"], js: ["login"]});
+		return;
+	}
 
-	res.render('login', {title: 'Log in', css: ["login"], js: ["login"]});
+	// Login valid
+	// Create session
+	req.session._id = profile._id;
+	req.session.type = (isCandidate ? "candidate" : "employer");
+	res.redirect("/home");
 });
 
 module.exports = router;

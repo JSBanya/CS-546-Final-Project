@@ -1,74 +1,69 @@
-const mongoCollections = require("../data/ollections");
+const mongoCollections = require("../data/collections");
 const employers = mongoCollections.employers;
-const uuid = require("node-uuid");
+const uuid = require("uuid");
 
-let exportedMethods = {
-    /**
-     * Grabs all employers in the collection
-     * (I do not see a use case for this but I'll keep it anyway)
-     * @return employers A list of all the employer objects in the collection
-     */
-    async getAllEmployers() {
+const getAllEmployers = async () => {
 
+}
+
+const getEmployerById = async () => {
+
+}
+
+
+// Create new Employer
+// Assumes employer data has been checked for consistency and validity prior to invokation
+const addEmployer = async (e) => {
+	const employersCollection = await employers();
+	const info = await employersCollection.insertOne(e);
+	if(info.insertedCount === 0) {
+		throw "Unable to add candidate to DB";
+	}
+}
+
+const getEmployerByEmail = async (email) => {
+	const employersCollection = await employers();
+	const result = await employersCollection.findOne({ email: email });
+    if (result === null || result === undefined) {
+    	throw "No employer for given email";
     }
 
-    /**
-     * Grabs the employer with the given employer id
-     * @param employerId The id of the requested employer
-     * @return employer The employer matching the given id
-     */
-    async getEmployerById(employerId) {
+    return result;
+}
 
+// Add or update session in candidate
+const addEmployerSession = async (id, sessionid) => {
+	const employersCollection = await employers();
+	const info = await employersCollection.updateOne({ _id: id }, { $set: { sessionID: sessionid }});
+    if (info.modifiedCount === 0) {
+      throw "Unable to update employer session";
+    }
+}
+
+const getEmployerBySession = async (sessionid) => {
+	const employersCollection = await employers();
+	const result = await employersCollection.findOne({ sessionID: sessionid });
+    if (result === null || result === undefined) {
+    	throw "No employer for given session";
     }
 
-    /**
-     * Adds an employer of the given profile object
-     * @param profile The profile object for the new employer
-     * @return added True if the employer was valid and added; False otherwise
-     */
-    async addEmployer(profile) {
+    return result;
+}
+const removeEmployer = async () => {
 
-    }
+}
 
-    /**
-     * Removes the employer by the given employer id
-     * @param employerId The id of the employer to remove
-     * @return removed True if the employer was found and removed; False otherwise
-     */
-    async removeEmployer(employerId) {
+const updateEmployer = async () => {
 
-    }
+}
 
-    /**
-     * Update an employer name with the given employer id and name
-     * @param employerId The given id for the employer to be updated
-     * @param newName The new name for the employer
-     * @return updated True if the employer was update; False otherwise
-     */
-    async updateEmployerName(employerId, newName) {
-
-    }
-
-    /**
-     * Update an employer description with the given employer id and description
-     * @param employerId The given id for the employer to be updated
-     * @param newDesc The new description for the employer
-     * @return updated True if the employer was update; False otherwise
-     */
-    async updateEmployerDesc(employerId, newDesc) {
-
-    }
-
-    /**
-     * Update an employer image with the given employer id and image
-     * @param employerId The given id for the employer to be updated
-     * @param newImg The new image for the employer
-     * @return updated True if the employer was update; False otherwise
-     */
-    async updateEmployerImg(employerId, newImg) {
-
-    }
-
+module.exports = {
+	getAllEmployers,
+	getEmployerById,
+	addEmployer,
+	getEmployerByEmail,
+	addEmployerSession,
+	getEmployerBySession,
+	removeEmployer,
+	updateEmployer
 };
-
-module.exports = exportedMethods;

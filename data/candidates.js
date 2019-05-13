@@ -5,8 +5,14 @@ const getAllCandidates = async () => {
 
 }
 
-const getCandidateById = async () => {
+const getCandidateById = async (id) => {
+	const candidatesCollection = await candidates();
+	const result = await candidatesCollection.findOne({ _id: id });
+    if (result === null || result === undefined) {
+    	throw "No candidate for given id";
+    }
 
+    return result;
 }
 
 // Create new Candidate
