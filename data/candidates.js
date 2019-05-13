@@ -1,26 +1,38 @@
-const mongoCollections = require("../data/collections");
+const mongoCollections = require("./collections");
 const candidates = mongoCollections.candidates;
-const uuid = require("node-uuid");
+const uuid = require("uuid");
 
-let exportedMethods = {
-    async getAllCandidates() {
+const getAllCandidates = async () => {
 
-    }
+}
 
-    async getCandidateById() {
+const getCandidateById = async () => {
 
-    }
+}
 
-    async addCandidate() {
 
-    }
+// Create new Candidate
+// Assumes candidate data has been checked for consistency and validity prior to invokation
+const addCandidate = async (c) => {
+	const candidatesCollection = await candidates();
+	const info = await candidatesCollection.insertOne(c);
+	if(info.insertedCount === 0) {
+		throw "Unable to add candidate to DB";
+	}
+}
 
-    async removeCandidate() {
+const removeCandidate = async () => {
 
-    }
+}
 
-    async updateCandidate() {
+const updateCandidate = async () => {
 
+}
+
+module.exports = {
+	getAllCandidates,
+	getCandidateById,
+	addCandidate,
+	removeCandidate,
+	updateCandidate
 };
-
-module.exports = exportedMethods;

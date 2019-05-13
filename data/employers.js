@@ -1,26 +1,38 @@
-const mongoCollections = require("../data/ollections");
+const mongoCollections = require("../data/collections");
 const employers = mongoCollections.employers;
-const uuid = require("node-uuid");
+const uuid = require("uuid");
 
-let exportedMethods = {
-    async getAllEmployers() {
+const getAllEmployers = async () => {
 
-    }
+}
 
-    async getEmployerById() {
+const getEmployerById = async () => {
 
-    }
+}
 
-    async addEmployer() {
 
-    }
+// Create new Employer
+// Assumes employer data has been checked for consistency and validity prior to invokation
+const addEmployer = async (e) => {
+	const employersCollection = await employers();
+	const info = await employersCollection.insertOne(e);
+	if(info.insertedCount === 0) {
+		throw "Unable to add candidate to DB";
+	}
+}
 
-    async removeEmployer() {
+const removeEmployer = async () => {
 
-    }
+}
 
-    async updateEmployer() {
+const updateEmployer = async () => {
 
+}
+
+module.exports = {
+	getAllEmployers,
+	getEmployerById,
+	addEmployer,
+	removeEmployer,
+	updateEmployer
 };
-
-module.exports = exportedMethods;

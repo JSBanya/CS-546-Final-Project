@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const moment = require("moment");
+const candidates = require("../data/candidates");
+const employers = require("../data/employers");
+const bcrypt = require('bcrypt');
 
 router.get('/', async (req, res) => {
 	res.render('create', {title: 'Create An Account', css: ["create"], js: ["create"]});
@@ -139,10 +142,42 @@ router.post('/candidate', async (req, res) => {
 		return;
 	}
 
-	// Good to go; Store
-	console.log(data);
+	// Good to go; Format
+	let newCandidate = {};
+	newCandidate.firstName = data.candidateFirstName;
+	newCandidate.lastName = data.candidateLastName;
+	newCandidate.email = data.candidateEmail;
+	newCandidate.password = bcrypt.hashSync(data.candidatePassword, 16);
+	newCandidate.biography = data.candidateBiography;
+	
+	newCandidate.skills = [];
+	if(Array.isArray(data.candidateSkill)) {
+		for(let i = 0; i < data.candidateSkill.length; i++) 
+			newCandidate.skills.push({skill: data.candidateSkill[i], years: data.candidateSkillYears[i]});
+	} else {
+		newCandidate.skills.push({skill: data.candidateSkill, years: data.candidateSkillYears});
+	}
 
-	res.redirect("/");
+	newCandidate.experience = [];
+	if(Array.isArray(data.candidateExperience)) {
+		for(let i = 0; i < data.candidateExperience.length; i++) 
+			newCandidate.experience.push({experience: data.candidateExperience[i], description: data.experienceDescription[i], from: data.candidateExperienceFrom[i], to: data.candidateExperienceTo[i]});
+	} else {
+		newCandidate.experience.push({experience: data.candidateExperience, description: data.experienceDescription, from: data.candidateExperienceFrom, to: data.candidateExperienceTo});
+	}
+
+	console.log("New candidate:")
+	console.log(newCandidate);
+
+	try {
+		await candidates.addCandidate(newCandidate);
+	} catch(e) {
+		res.status(500).send(`500 - Internal Server Error (Unable to store candidate)`);
+		console.log(e);
+		return;
+	}
+
+	res.status(200).redirect("/");
 });
 
 router.post('/employer', async (req, res) => {
@@ -167,6 +202,7 @@ router.post('/employer', async (req, res) => {
 		return;
 	}
 
+	// Check lengths
 	if(data.employerName.length > 50
 		|| data.employerEmail.length > 30
 		|| data.employerPassword.length > 30
@@ -179,8 +215,29 @@ router.post('/employer', async (req, res) => {
 		return;
 	}
 
+	// Check for valid password match
+	if(data.employerPassword != data.employerConfirmPassword) {
+		res.status(400).send("400 - Bad Request (invalid password confirmation)");
+		return;
+	}
+
 	// Good to go; Store
-	console.log(data);
+	let newEmployer = {};
+	newEmployer.name = data.employerName;
+	newEmployer.email = data.employerEmail;
+	newEmployer.password = bcrypt.hashSync(data.employerPassword, 16);
+	newEmployer.description = data.employerDescription;
+
+	console.log("New employer:")
+	console.log(newEmployer);
+
+	try {
+		await employers.addEmployer(newEmployer);
+	} catch(e) {
+		res.status(500).send(`500 - Internal Server Error (Unable to store employer)`);
+		console.log(e);
+		return;
+	}
 
 	res.redirect("/");
 });
