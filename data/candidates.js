@@ -2,7 +2,8 @@ const mongoCollections = require("./collections");
 const candidates = mongoCollections.candidates;
 
 const getAllCandidates = async () => {
-
+	const candidatesCollection = await candidates();
+    return await candidatesCollection.find({}).toArray();
 }
 
 const getCandidateById = async (id) => {

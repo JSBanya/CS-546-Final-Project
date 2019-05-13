@@ -9,15 +9,29 @@ router.get('/', async (req, res) => {
 			// Candidate is logged in
 			try {
 				let profile = await candidates.getCandidateById(req.session._id);
-				res.render('home', {title: 'JobSrc', css: ["home"], js: ["home"], firstName: profile.firstName, lastName: profile.lastName});
+				res.render('homeCandidate', { 
+					title: 'JobSrc', 
+					css: ["homeCandidate"], 
+					js: ["homeCandidate"], 
+					firstName: profile.firstName, 
+					lastName: profile.lastName,
+					jobs: []
+				});
 				return;
 			} catch(e) {
 				res.status(500).send(e); 
 				return;
 			}
 		} else {
-			res.render('home', {title: 'JobSrc', css: ["home"], js: ["home"]});
-			return;
+			try {
+				let profile = await employers.getEmployerById(req.session._id);
+				let candidateList = await candidates.getAllCandidates();
+				res.render('homeEmployer', {title: 'JobSrc', css: ["homeEmployer"], js: ["homeEmployer"], companyName: profile.name, candidates: candidateList});
+				return;
+			} catch(e) {
+				res.status(500).send(e.toString()); 
+				return;
+			}
 		}
 	}
 

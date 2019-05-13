@@ -6,8 +6,14 @@ const getAllEmployers = async () => {
 
 }
 
-const getEmployerById = async () => {
+const getEmployerById = async (id) => {
+	const employersCollection = await employers();
+	const result = await employersCollection.findOne({ _id: id });
+    if (result === null || result === undefined) {
+    	throw "No candidate for given id";
+    }
 
+    return result;
 }
 
 // Create new Employer
