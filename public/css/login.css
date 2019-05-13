@@ -119,3 +119,9 @@ main {
 #registerLink:visited {
 	text-decoration: none;
 }
+
+.error {
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 1.0em;
+	color: red;
+}

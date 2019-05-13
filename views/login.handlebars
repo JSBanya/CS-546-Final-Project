@@ -7,6 +7,10 @@
 			<input type="submit" value="Submit" id="loginSubmit">
 		</form> 
 
+		{{#if error}}
+		<p class="error">{{error}}</p>
+		{{/if}}
+
 		<div id="registerContainer">
 			<p id="registerDescription">Don't have an account?</p>
 			<a href="/create" id="registerLink">Sign Up</a>

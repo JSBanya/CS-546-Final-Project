@@ -37,13 +37,13 @@ router.post('/', async (req, res) => {
 
 	if(!isCandidate && !isEmployer) {
 		// No account for the given email
-		res.status(401).render('login', {title: 'Log in', css: ["login"], js: ["login"]});
+		res.status(401).render('login', {title: 'Log in', css: ["login"], js: ["login"], error: "Invalid email or password"});
 		return;
 	}
 	
 	if(!bcrypt.compareSync(data.password, profile.password)) {
 		// Invalid password
-		res.status(401).render('login', {title: 'Log in', css: ["login"], js: ["login"]});
+		res.status(401).render('login', {title: 'Log in', css: ["login"], js: ["login"], error: "Invalid email or password"});
 		return;
 	}
 
