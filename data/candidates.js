@@ -213,6 +213,26 @@ const hired = async(candidateId, jobId) => {
 
 };
 
+    /**
+     * Adds hired job to candidate's information;
+     * Assume the skill object looks like {name:"java", expeirence:1.2}
+     * And the skills of candidate looks like [{name:"java", expeirence:1.2},{name:C++, expeirence:3.5}]
+     * @param skill's name
+     * @param exprience of the skill
+     * @return a list of candidates
+     */
+    const searchCandidatesBySkills = async(skillName, expirence) => {
+        if (!skillName || typeof (skillName) !== "string")
+            throw "[ERROR] [ searchCandidatesBySkill() ] invalid skillName!";
+        if (!expirence || typeof (expirence) !== "number")
+            throw "[ERROR] [ searchCandidatesBySkill() ] invalid expirence!";
+
+        let allCandidates = await getAllCandidates();
+        return allCandidates.filter(x => {
+            return x.skills.find(y => y.name.toLowerCase() === skillName.toLowerCase() && parseFloat(y.expeirence) >= expirence) !== undefined;
+        });
+    };
+
 module.exports = {
     getAllCandidates,
     candidateSearch,
@@ -228,5 +248,6 @@ module.exports = {
     addExp,
     removeExp,
     applyToJob,
-    hired
+    hired,
+    searchCandidatesBySkills
 };
