@@ -35,25 +35,6 @@ const getCandidateByEmail = async (email) => {
     return result;
 }
 
-// Add or update session in candidate
-const addCandidateSession = async (id, sessionid) => {
-	const candidatesCollection = await candidates();
-	const info = await candidatesCollection.updateOne({ _id: id }, { $set: { sessionID: sessionid }});
-    if (info.modifiedCount === 0) {
-      throw "Unable to update candidate session";
-    }
-}
-
-const getCandidateBySession = async (sessionid) => {
-	const candidatesCollection = await candidates();
-	const result = await candidatesCollection.findOne({ sessionID: sessionid });
-    if (result === null || result === undefined) {
-    	throw "No candidate for given session";
-    }
-
-    return result;
-}
-
 const removeCandidate = async () => {
 
 }
@@ -67,8 +48,6 @@ module.exports = {
 	getCandidateById,
 	addCandidate,
 	getCandidateByEmail,
-	addCandidateSession,
-	getCandidateBySession,
 	removeCandidate,
 	updateCandidate
 };
