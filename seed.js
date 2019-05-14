@@ -456,18 +456,18 @@ const seedJobs = async() => {
         {
             _id: new ObjectID("aa982feb273819832feb1231"),
             name: "AI and Machine Learning Research",
-            description: "",
+            description: "Learn how to make the terminator please.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ecb4df1897fec16eac")
         },
         {
             _id: new ObjectID("aa982fee5aefefecabae2621"),
-            name: "",
-            description: "",
+            name: "QA Engineer",
+            description: "You look at data and stuff.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ec56382dbe281faa70")
         },
         {
             _id: new ObjectID("aa982feb273810100faceba2"),
