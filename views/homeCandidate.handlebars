@@ -27,7 +27,14 @@
 
 <main>
 	<div id="controlBar">
-		<a id="messagesLink" onclick='showMessages()'>{{numMessages}} Messages</a>
+		<a id="filterLink" onclick="location.href='/home?filter={{#if filter}}false{{else}}true{{/if}}'">
+			{{#if filter}}
+			[Show All Jobs]
+			{{else}}
+			[Show Open Jobs]
+			{{/if}}
+		</a>
+		<a id="messagesLink" onclick='showMessages()'>[{{numMessages}} Messages]</a>
 	</div>
 	<div id="jobContainer">
 		<div id="jobList">

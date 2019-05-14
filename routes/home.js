@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 		// Candidate is logged in
 		try {
 			let profile = await candidates.getCandidateById(req.session._id);
-			let joblist = await jobs.getAllJobs();
+			let joblist = (req.query.filter == "true" ? await jobs.getAllOpenJobs() : await jobs.getAllJobs());
 
 			for(let i = 0; i < joblist.length; i++) {
 				let owner = await employers.getEmployerById(joblist[i].owner);
@@ -39,6 +39,7 @@ router.get('/', async (req, res) => {
 				joblist: joblist,
 				messageList: messageList,
 				numMessages: messageList.length,
+				filter: (req.query.filter == "true" ? true : false),
 				layout: "home"
 			});
 			return;

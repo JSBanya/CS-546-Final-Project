@@ -255,3 +255,16 @@ main {
 	font-size: 0.8em;
 	word-wrap: break-word;
 }
+
+#filterLink {
+	color: rgba(0, 0, 0, 0.8);
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 1.0em;
+}
+
+#filterLink:hover {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 1.0);
+}

@@ -15,6 +15,16 @@ let exportedMethods = {
     },
 
     /**
+     * Grabs all jobs in the collections sorted by date
+     * @return jobs All the jobs in the collection sorted by date
+     */
+    async getAllOpenJobs() {
+        const jobsCollection = await jobs();
+        const joblist = await jobsCollection.find({open: true}).toArray();
+        return joblist;
+    },
+
+    /**
      * Grabs the job with the given job id
      * @param jobId The id of the requested job
      * @return job The job matching the given id
