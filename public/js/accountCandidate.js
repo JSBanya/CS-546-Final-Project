@@ -92,15 +92,15 @@ function sendMessage() {
 	    data.append(pair[0], pair[1]);
 	}
 
-	console.log("HELLO");
-
 	fetch("/message", {
    		method: 'post',
     	body: data,
-	}).then(() => {
-		$("#modalOuter").css("display", "none");
-		$("#messageContent input").val("");
-		$("#messageContent textarea").val("");
+	}).then((response) => {
+		if(response.ok) {
+			$("#modalOuter").css("display", "none");
+			$("#titleInput").val("");
+			$("#message").val("");
+		}
 	});
 
 	return false;

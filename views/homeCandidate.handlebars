@@ -1,4 +1,34 @@
+<div id="modalOuter">
+	<div id="modalInnerContainer">
+		<button type="button" id="modalClose" onclick="disableModal()">&#10005;</button>
+		{{#if messageList}}
+
+		<div id="entryList">
+			{{#each messageList}}
+			<div class="messageEntry">
+				<div class="messageEmployerInfo" onclick="location.href='/account/{{this.senderId}}'">
+					<div class="messageEmployerPicture" style='background-image: url("/public/images/profile/{{this.senderImage}}")'></div>
+					<p class="messageEmployerName">{{this.sender}}</p>
+				</div>
+				<div class="messageContainer">
+					<h3 class="messageTitle">Title: {{this.title}}</h3>
+					<p class="messageText">{{this.content}}</p>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+		{{else}}
+		<div class="modalRow">
+			<p class="modalText">No messages!</p>
+		</div>
+		{{/if}}
+	</div>
+</div>
+
 <main>
+	<div id="controlBar">
+		<a id="messagesLink" onclick='showMessages()'>{{numMessages}} Messages</a>
+	</div>
 	<div id="jobContainer">
 		<div id="jobList">
 			{{#if joblist}}
