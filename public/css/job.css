@@ -1,0 +1,212 @@
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#mainContent {
+	width: 60%;
+	min-height: 50%;
+	margin-top: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 1.0);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+	padding: 5px;
+}
+
+.formRow {
+	width: 100%;
+	margin-top: 5px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+#jobTitle {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.5em;
+}
+
+#ownerProfilePicture {
+	width: 30px;
+	height: 30px;
+	background-size: 100% 100%;
+	background-color: rgba(0, 0, 0, 1.0);
+	border: 1px solid rgba(0, 0, 0, 1.0);
+	margin-right: 5px;
+}
+
+#ownerName {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0em;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.openStatus {
+	padding: 3px 5px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 0.7em;
+	border: 1px solid;
+	border-radius: 10px;
+	margin-left: 20px;
+}
+
+#open {
+	color: rgba(0, 150, 0, 1.0);
+	border-color: rgba(0, 150, 0, 1.0);
+}
+
+#closed {
+	color: rgba(150, 0, 0, 1.0);
+	border-color: rgba(150, 0, 0, 1.0);
+}
+
+#jobDescription {
+	width: 80%;
+	margin:0px;
+	background: none;
+	border: none;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0em;
+	color: rgba(0, 0, 0, 1.0);
+	font-style: italic;
+}
+
+#skillsTitle {
+	width: 80%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.2em;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	margin-top: 30px;
+}
+
+#jobSkills {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	padding: 0px;
+	margin: 0px;
+}
+
+.jobSkillEntry {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0px;
+	margin: 0px;
+}
+
+.jobSkillName {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0em;
+	padding: 0px;
+	margin: 0px;
+	margin-right: 10px;
+}
+
+.jobSkillYears {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0em;
+	padding: 0px;
+	margin: 0px;
+}
+
+.formLabel {
+	width: 10%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 150, 1.0);
+	font-weight: 100;
+	font-size: 1.0em;
+	padding: 0px;
+	margin: 0px;
+	margin-right: 5px;
+}
+
+.formTextInput {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 0, 1.0);
+	font-weight: 100;
+	background-color: rgba(255, 255, 255, 0.4);
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+	padding: 5px;
+	padding-left: 10px;
+	width: 33%;
+}
+
+#jobDescriptionEdit {
+	resize: none;
+}
+
+.skillRemove {
+	padding: 0px;
+	margin: 0px;
+	margin-left: 10px;
+	background: none;
+	border: none;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.skillRemove:hover {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.addButton {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 0.8em;
+	color: rgba(0, 0, 255, 0.8);
+	width: 8em;
+	padding: 2px;
+	margin: 5px;
+	margin-bottom: 1%;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 255, 0.5);
+	border-radius: 5px;
+}
+
+.addButton:hover {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	cursor: pointer;
+	color: rgba(0, 0, 255, 1.0);
+	border: 1px solid rgba(0, 0, 255, 1.0);
+}
+
+#submitButton {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.2em;
+	color: rgba(0, 0, 255, 0.8);
+	padding: 5px 40px;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 255, 0.5);
+	border-radius: 5px;
+	margin: 20px 0px;
+}
+
+#submitButton:hover {
+	transition: all .3s ease;
+	-webkit-transition: all .3s ease;
+	cursor: pointer;
+	color: rgba(0, 0, 255, 1.0);
+	border: 1px solid rgba(0, 0, 255, 1.0);
+}

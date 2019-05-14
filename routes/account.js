@@ -75,7 +75,8 @@ router.get('/:id', async (req, res) => {
 			js: ["accountEmployer"], 
 			profile: profile,
 			joblist: joblist,
-			isOwner: (id == req.session._id)
+			isOwner: (id == req.session._id),
+			layout: "home"
 		});
 		return;
 	}
@@ -86,7 +87,8 @@ router.get('/:id', async (req, res) => {
 		css: ["accountCandidate"], 
 		js: ["accountCandidate"], 
 		profile: profile,
-		isOwner: (id == req.session._id)
+		isOwner: (id == req.session._id),
+		layout: "home"
 	});
 	return;
 });

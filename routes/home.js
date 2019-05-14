@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
 				css: ["homeCandidate"], 
 				js: ["homeCandidate"],
 				profile: profile,
-				joblist: joblist
+				joblist: joblist,
+				layout: "home"
 			});
 			return;
 		} catch(e) {
@@ -52,7 +53,7 @@ router.get('/', async (req, res) => {
 		else 
 			candidateList = await candidates.getAllCandidates();
 		
-		res.render('homeEmployer', {title: 'JobSrc', css: ["homeEmployer"], js: ["homeEmployer"], profile: profile, candidates: candidateList});
+		res.render('homeEmployer', {title: 'JobSrc', css: ["homeEmployer"], js: ["homeEmployer"], profile: profile, candidates: candidateList, layout: "home"});
 		return;
 	} catch(e) {
 		res.status(500).send(e.toString()); 

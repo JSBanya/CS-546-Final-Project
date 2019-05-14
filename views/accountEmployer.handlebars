@@ -27,10 +27,10 @@
 		</div>
 
 		<div id="jobsContainer">
-			<h3 id="jobsContainerTitle">Open Jobs</h3>
+			<h3 id="jobsContainerTitle">Jobs</h3>
 			{{#if joblist}}
 				{{#each joblist}}
-					<div class="jobEntry">
+					<div class="jobEntry" onclick="location.href='/jobs/{{this._id}}'">
 						<p class="jobTitle">{{this.name}}</p>
 						<p class="jobDescription">{{this.description}}</p>
 					</div>

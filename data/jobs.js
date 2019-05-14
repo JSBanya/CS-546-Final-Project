@@ -23,7 +23,7 @@ let exportedMethods = {
         if (!jobId) throw "You must provide an id to search for";
 
         const jobsCollection = await jobs();
-        const job = await jobsCollection.findOne({ "_id": jobId });
+        const job = await jobsCollection.findOne({ _id: new ObjectID(jobId) });
         if (job === null) throw "No job with that id";
 
         return job;
