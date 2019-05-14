@@ -63,7 +63,26 @@
 				<a class="formControlButton" id="closeJob" onclick="location.href='/jobs/close/{{job._id}}'">Close Job</a>
 				{{/if}}
 				<input type="submit" value="Save" class="formControlButton" id="submitButton">
+			{{else}}
+				{{#if job.open}}
+					{{#unless alreadyApplied}}
+					<a class="formControlButton" id="apply" onclick="location.href='/jobs/apply/{{job._id}}'">Apply</a>
+					{{/unless}}
+				{{/if}}
 			{{/if}}
 		</div>
 	</form>
+
+	{{#if isOwner}}
+	<h3 id="applicationsTitle">Applications</h3>
+	<div id="applicationsContainer">
+		{{#each candidatesApplied}}
+		<div class="applicationItem" onclick="location.href='/account/{{this._id}}'">
+			<div class="applicationImage" style="background-image: url('/public/images/profile/{{this.profileImage}}')"></div>
+			<p class="applicationName">{{this.firstName}} {{this.lastName}}</p>
+			<p class="applicationBio">{{this.biography}}</p>
+		</div>
+		{{/each}}
+	</div>
+	{{/if}}
 </main>

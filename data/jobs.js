@@ -163,6 +163,28 @@ let exportedMethods = {
         return true;
     },
 
+    // Add candidate to the job's application list
+    async addApplication(jobId, candidateId) {
+        if (!jobId || !candidateId) throw "You must provide IDs";
+
+        const jobsCollection = await jobs();
+        const job = await jobsCollection.findOne({ _id: new ObjectID(jobId) });
+        if(!job) {
+            throw "Invalid jobId"
+        }
+
+        if(job.applications.includes(candidateId.toString())) {
+            // Already exists
+            return false;
+        }
+
+        const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$push: { applications: candidateId.toString() }});
+        if (!updated) {
+            throw `[ERROR] Cannot update the job skills`;
+        }
+        return true;
+    },
+
     /*
     * searches jobs with a keyword list for a specific candidate
     * @param keyword list
