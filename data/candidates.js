@@ -1,38 +1,41 @@
-const mongoCollections = require("../data/collections");
+const mongoCollections = require("./collections");
 const candidates = mongoCollections.candidates;
+const jobData = require("./jobs");
+const employerData = require("./employers");
+const uuid = require("node-uuid");
 
-/**
- * Grabs all candidates in the collection
- * @return candidates A list of all the candidates in the collection
- */
-const getAllCandidates = async() => {
-    const candidatesCollection = await candidates();
-    const candidatesList = await candidatesCollection.find({}).toArray();
-    if(!candidatesList) {
-        throw "ERROR: Candidates collection may not exist";
-    }
-    return candidatesList;
-};
+    /**
+     * Grabs all candidates in the collection
+     * @return candidates A list of all the candidates in the collection
+     */
+    const getAllCandidates = async() => {
+        const candidatesCollection = await candidates();
+        const candidatesList = await candidatesCollection.find({}).toArray();
+        if(!candidatesList) {
+            throw "ERROR: Candidates collection may not exist";
+        }
+        return candidatesList;
+    };
 
-/**
- * Grabs all candidates that match all the given keywords
- * @param keywords A list of all the keywords to find candidates
- * @return candidates A list of candidates that match the keywords
- */
-const candidateSearch = async(keywords) => {
-    if (!keywords) {
-        throw "ERROR: No keywords provided";
-    }
-    const candidatesCollection = await candidates();
-    const filteredCandidates = await candidatesCollection.find({profile: 
-                                                            {skills: 
-                                                                {$and:
-                                                                    keywords.map(k => ({
-                                                                        $elemMatch: {name: k}}
-                                                                    ))
+    /**
+     * Grabs all candidates that match all the given keywords
+     * @param keywords A list of all the keywords to find candidates
+     * @return candidates A list of candidates that match the keywords
+     */
+    const candidateSearch = async(keywords) => {
+        if (!keywords) {
+            throw "ERROR: No keywords provided";
+        }
+        const candidatesCollection = await candidates();
+        const filteredCandidates = await candidatesCollection.find({profile: 
+                                                                {skills: 
+                                                                    {$and:
+                                                                        keywords.map(k => ({
+                                                                            $elemMatch: {name: k}}
+                                                                        ))
+                                                                    }
                                                                 }
-                                                            }
-                                                        });
+                                                            });
 
     return filteredCandidates;
 };
@@ -105,7 +108,7 @@ const removeCandidate = async(candidateId) => {
     const candidate = await candidateCollection.findOne({ _id: candidateId });
     const deletedCandidate = await candidateCollection.removeOne({ _id: candidate._id });
     if (deletedCandidate.deletedCount === 0) {
-        throw `Sorry, we could not find an animal with the id ${candidateId}.`;
+        throw `Sorry, we could not find an employer with the id ${candidateId}.`;
     }
 
     return candidate;
@@ -247,75 +250,71 @@ const removeExp = async(candidateId, oldExp) => {
     
     let updatedCandidate = {"profile": {"experience": exp}};
        
-    const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
 
-    if (!updated) {
-        throw "ERROR: There was an error updating the candidate";
-    }
-};
+    };
 
-/**
- * Update a candidate image with the given id and image
- * @param candidateId The given id for the candidate to be updated
- * @param newImg The new image for the candidate
- * @return none Throws an error if the candidate image was not updated
- */
-const updateCandidateImg = async(candidateId, newImg) => {
-    if (!candidateId || !newImg) {
-        throw "ERROR: Not enough arguments given to update function";
-    }
-    const candidateCollection = await candidates();
-    let updatedCandidate = {"profile": {"imageRef": newImg} };
+    /**
+     * Update a candidate image with the given id and image
+     * @param candidateId The given id for the candidate to be updated
+     * @param newImg The new image for the candidate
+     * @return none Throws an error if the candidate image was not updated
+     */
+    const updateCandidateImg = async(candidateId, newImg) => {
+        if (!candidateId || !newImg) {
+            throw "ERROR: Not enough arguments given to update function";
+        }
+        const candidateCollection = await candidates();
+        let updatedCandidate = {"profile": {"imageRef": newImg} };
 
-    const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+        const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
 
-    if (!updated) {
-        throw "ERROR: There was an error updating the candidate";
-    }
-};
+        if (!updated) {
+            throw "ERROR: There was an error updating the candidate";
+        }
+    };
 
-/**
- * Sends in application notice to the company that posted the job
- * @param candidateId The given id for the candidate that applied
- * @param jobId The given id for the job that was applied to
- * @return none Throws an error if the candidate application message was not sent
- */
-const applyToJob = async(candidateId, jobId) => {
-    if (!candidateId || !jobId) {
-        throw "ERROR: Not enough arguments given to update function";
-    }
+    /**
+     * Sends in application notice to the company that posted the job
+     * @param candidateId The given id for the candidate that applied
+     * @param jobId The given id for the job that was applied to
+     * @return none Throws an error if the candidate application message was not sent
+     */
+    const applyToJob = async(candidateId, jobId) => {
+        if (!candidateId || !jobId) {
+            throw "ERROR: Not enough arguments given to update function";
+        }
 
-    const candidateCollection = await candidates();
-    let candidate = await candidateCollection.find({ _id: candidateId });
-    let newApplied = (candidate.applied).push(jobId);
-    let updatedCandidate = { "applied": newApplied };
-    let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
-    let employerId = (jobData.getJobById(jobId)).owner;
-    let newMessage = "";
-    await messageData.sendMessageToEmpl(candidateId, employerId, newMessage);
+        const candidateCollection = await candidates();
+        let candidate = await candidateCollection.find({ _id: candidateId });
+        let newApplied = (candidate.applied).push(jobId);
+        let updatedCandidate = { "applied": newApplied };
+        let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+        let employerId = (jobData.getJobById(jobId)).owner;
+        let job = await jobData.getJobById(jobId);
+        let newMessage = `The candidate, ${candidate.profile.name}, has applied to your posting for position, ${job.title}.`;
+        await messageData.sendMessageToEmpl(candidateId, employerId, newMessage);
+        return updated;
+    };
 
-    return updated;
-};
+    /**
+     * Adds hired job to candidate's information
+     * @param candidateId The given id for the candidate that was hired
+     * @param jobId The given id for the job the candidate was hired for
+     * @return none Throws an error if the job was not added to the candidate's hired list
+     */
+    const hired = async(candidateId, jobId) => {
+        if (!candidateId || !jobId) {
+            throw "ERROR: Not enough arguments given to update function";
+        }
 
-/**
- * Adds hired job to candidate's information
- * @param candidateId The given id for the candidate that was hired
- * @param jobId The given id for the job the candidate was hired for
- * @return none Throws an error if the job was not added to the candidate's hired list
- */
-const hired = async(candidateId, jobId) => {
-    if (!candidateId || !jobId) {
-        throw "ERROR: Not enough arguments given to update function";
-    }
+        const candidateCollection = await candidates();
+        let candidate = await candidateCollection.find({ _id: candidateId });
+        let newApplied = (candidate.applied).push(jobId);
+        let updatedCandidate = { "applied": newApplied };
 
-    const candidateCollection = await candidates();
-    let candidate = await candidateCollection.find({ _id: candidateId });
-    let newApplied = (candidate.applied).push(jobId);
-    let updatedCandidate = { "applied": newApplied };
-
-    let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
-    return updated;
-};
+        let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+        return updated;
+    };
 
 module.exports = {
     getAllCandidates,

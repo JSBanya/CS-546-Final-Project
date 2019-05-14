@@ -186,6 +186,8 @@ router.post('/candidate',  upload.single('profileImage'), async (req, res, next)
 		newCandidate.profileImage = req.file.filename;
 	}
 
+	newCandidate.conversations = [];
+
 	console.log("New candidate:")
 	console.log(newCandidate);
 
@@ -248,6 +250,7 @@ router.post('/employer', async (req, res) => {
 	newEmployer.password = bcrypt.hashSync(data.employerPassword, 16);
 	newEmployer.description = data.employerDescription;
 	newEmployer.profileImage = "default.png";
+	newEmployer.conversations = [];
 
 	console.log("New employer:")
 	console.log(newEmployer);

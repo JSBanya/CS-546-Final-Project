@@ -7,7 +7,12 @@ const employers = mongoCollections.employers;
  * @return employers A list of all the employer objects in the collection
  */
 const getAllEmployers = async() => {
-
+    const employersCollection = await employers();
+    const employersList = await employersCollection.find({}).toArray();
+    if(!employersList) {
+        throw "ERROR: employers collection may not exist";
+    }
+    return employersList;
 }
 
 /**
@@ -19,7 +24,7 @@ const getEmployerById = async (id) => {
 	const employersCollection = await employers();
 	const result = await employersCollection.findOne({ _id: id });
     if (result === null || result === undefined) {
-    	throw "No candidate for given id";
+    	throw "No employer for given id";
     }
 
     return result;
@@ -57,7 +62,7 @@ const addEmployer = async(profile) => {
     const employersCollection = await employers();
     const info = await employersCollection.insertOne(profile);
     if(info.insertedCount === 0) {
-        throw "ERROR: Unable to add candidate to DB";
+        throw "ERROR: Unable to add employer to DB";
     }
 };
 
@@ -67,7 +72,17 @@ const addEmployer = async(profile) => {
  * @return none Throws an error if the employer was not removed
  */
 const removeEmployer = async(employerId) => {
+    if (!employerId) {
+        throw "ERROR: No id provided";
+    }
+    const employersCollection = await employers();
+    const employer = await employersCollection.findOne({ _id: employerId });
+    const deletedEmployer = await employersCollection.removeOne({ _id: employer._id });
+    if (deletedEmployer.deletedCount === 0) {
+        throw `Sorry, we could not find an employer with the id ${employerId}.`;
+    }
 
+    return employer;
 };
 
 /**
@@ -77,7 +92,17 @@ const removeEmployer = async(employerId) => {
  * @return none Throws an error if the employer was not updated
  */
 const updateEmployerName = async(employerId, newName) => {
+    if (!employerId || !newName) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
+    const employersCollection = await employers();
+    let updatedEmployer = {"profile": {"name": newName} };
 
+    const updated = await employersCollection.updateOne({ _id: employerId }, {$set: updatedEmployer});
+
+    if (!updated) {
+        throw "ERROR: There was an error updating the employers";
+    }
 };
 
 /**
@@ -87,7 +112,17 @@ const updateEmployerName = async(employerId, newName) => {
  * @return none Throws an error if the employer was not updated
  */
 const updateEmployerDesc = async(employerId, newDesc) => {
+    if (!employerId || !newDesc) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
+    const employerCollection = await employers();
+    let updatedEmployer = {"profile": {"description": newDesc} };
 
+    const updated = await employerCollection.updateOne({ _id: employerId }, {$set: updatedEmployer});
+
+    if (!updated) {
+        throw "ERROR: There was an error updating the employer";
+    }
 };
 
 /**
@@ -97,8 +132,18 @@ const updateEmployerDesc = async(employerId, newDesc) => {
  * @return none Throws an error if the employer was not updated
  */
 const updateEmployerImg = async(employerId, newImg) => {
+    if (!employerId || !newImg) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
+    const employerCollection = await employers();
+    let updatedEmployer = {"profile": {"imageRef": newImg} };
 
-};
+    const updated = await employerCollection.updateOne({ _id: employerId }, {$set: updatedEmployer});
+
+    if (!updated) {
+        throw "ERROR: There was an error updating the employer";
+    }
+};  
 
 module.exports = {
 	getAllEmployers,
