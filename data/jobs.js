@@ -93,23 +93,9 @@ let exportedMethods = {
         if (!jobId) throw "You must provide an id to search for";
 
         const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:false,
-                Title:job.Title,
-                Description:job.Description,
-                ListOfDesiredSkills:job.ListOfDesiredSkills,
-                PayRate:job.PayRate
-            }
-        };
-
-        const updated = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
+        const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: {open: false}});
         if (updated.result.ok !== 1) {
-            console.log(`[ERROR] Cannot close the job of ${jobId}`);
-            return false;
+            throw `[ERROR] Cannot update the job open status`;
         }
         return true;
     },

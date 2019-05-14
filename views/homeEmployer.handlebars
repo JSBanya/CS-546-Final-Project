@@ -1,4 +1,14 @@
 <main>
+	<div id="searchContainer">
+			<form id="searchForm" action="/home" method="get">
+				<ul id="searchTermsList">
+				</ul>
+				<div id="formBottom">
+					<button id="newTermButton" onclick="addSearchTerm()">New Term</button>
+					<input id="submitSearch" type="submit" value="Search">
+				</div>
+			</form> 
+	</div>
 	<div id="candidatesContainer">
 		<h3 id="candidatesHeader">Candidates</h3>
 		<div id="candidates">

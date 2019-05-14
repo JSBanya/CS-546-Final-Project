@@ -76,3 +76,32 @@ function validateCandidateForm() {
 
 	return true;
 }
+
+function enableModal() {
+	$("#modalOuter").css("display", "flex");
+}
+
+function disableModal() {
+	$("#modalOuter").css("display", "none");
+}
+
+function sendMessage() {
+	let formData = new FormData(document.querySelector('#messageContent'));
+	const data = new URLSearchParams();
+	for (const pair of formData) {
+	    data.append(pair[0], pair[1]);
+	}
+
+	console.log("HELLO");
+
+	fetch("/message", {
+   		method: 'post',
+    	body: data,
+	}).then(() => {
+		$("#modalOuter").css("display", "none");
+		$("#messageContent input").val("");
+		$("#messageContent textarea").val("");
+	});
+
+	return false;
+}

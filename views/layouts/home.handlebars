@@ -13,18 +13,18 @@
 <body>
     <header id="homeBar">
         <div id="homeBarLeft">
-            <div id="headerProfileImage" style="background-image: url('/public/images/profile/{{profile.profileImage}}');" onclick="location.href='/home'"></div>
+            <div id="headerProfileImage" style="background-image: url('/public/images/profile/{{myProfile.profileImage}}');" onclick="location.href='/home'"></div>
             <p id="headerProfileName">
-                {{profile.name}}
-                {{profile.firstName}}
-                {{profile.lastName}}
+                {{myProfile.name}}
+                {{myProfile.firstName}}
+                {{myProfile.lastName}}
             </p>
         </div>
         <div id="homeBarRight">
-            {{#if profile.name}}
+            {{#if myProfile.name}}
                 <a class="headerLink" id="createJobLink" href="/newjob">Create Job</a>
             {{/if}}
-            <a class="headerLink" id="profileLink" href="/account/{{profile._id}}">Profile</a>
+            <a class="headerLink" id="profileLink" href="/account/{{myProfile._id}}">Profile</a>
             <a class="headerLink" id="logoutLink" href="/logout">Log Out</a>
         </div>
     </header>

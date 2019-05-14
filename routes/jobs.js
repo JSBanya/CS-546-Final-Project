@@ -59,6 +59,46 @@ router.get('/:id', async (req, res) => {
 	return;
 });
 
+router.get('/close/:id', async (req, res) => {
+	if(req.session._id === undefined) {
+		// Not logged in
+		res.redirect("/login");
+		return;
+	}
+
+	if(req.session.type !== "employer") {
+		// Not an employer
+		res.redirect("/home");
+		return;
+	}
+
+	let ownerID;
+	try {
+		let j = await jobs.getJobById(req.params.id);
+		ownerID = j.owner;
+	} catch(e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+
+	if(ownerID.toString() != req.session._id) {
+		// Does not own the job
+		res.status(403).send("403 - Forbidden");
+		return;
+	}
+
+
+	try {
+		await jobs.closeJob(req.params.id);
+	} catch(e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+
+	res.redirect("/jobs/"+req.params.id);
+	return;
+});
+
 router.post('/edit', async (req, res) => {
 	if(req.session._id === undefined) {
 		// Not logged in
@@ -185,7 +225,6 @@ router.post('/edit', async (req, res) => {
 		return;
 	}
 
-	// Return to home
 	res.redirect("/jobs/"+data.jobID.toString());
 	return;
 });

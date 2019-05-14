@@ -1,3 +1,25 @@
+{{#if isEmployer}}
+<div id="modalOuter">
+	<div id="modalInnerContainer">
+		<button type="button" id="modalClose" onclick="disableModal()">&#10005;</button>
+		<form id="messageContent" onsubmit="return sendMessage()">
+			<input type="hidden" name="id" value="{{profile._id}}">
+			<div class="modalRow">
+			<label for="title" class="modalLabel">Title:</label>
+			<input type="text" name="title" class="modalFormInput" maxlength="50" placeholder="Message Title"required>
+			</div>
+			<div class="modalRow">
+				<textarea name="message" class="formTextInput" id="message" rows=8 placeholder="Your message" maxlength="1000" required></textarea>
+			</div>
+
+			<div class="modalRow">
+				<input type="submit" value="Send" class="submitButton">
+			</div>
+		</form>
+	</div>
+</div>
+{{/if}}
+
 <main>
 	<form id="mainContent" action="/account/edit" method="post" onsubmit="return validateCandidateForm()" enctype="multipart/form-data">
 		<header id="profileHeader">
@@ -7,6 +29,10 @@
 			<input type="text" name="candidateLastName" class="titleEdit" maxlength="30" placeholder="Last Name" value="{{profile.lastName}}" required>
 			{{else}}
 			<h2 id="title">{{profile.firstName}} {{profile.lastName}}</h2>
+			{{/if}}
+
+			{{#if isEmployer}}
+			<button type="button" id="sendMessageButton" onclick="enableModal()">Send Message</button>
 			{{/if}}
 		</header>
 			
@@ -103,7 +129,7 @@
 		<div id="error"></div>
 		
 		<div id="controlsContainer">
-			<input type="submit" value="Save" id="submitButton">
+			<input type="submit" value="Save" class="submitButton">
 		</div>
 		{{/if}}
 	</form>
