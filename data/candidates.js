@@ -27,15 +27,13 @@ const uuid = require("node-uuid");
             throw "ERROR: No keywords provided";
         }
         const candidatesCollection = await candidates();
-        const filteredCandidates = await candidatesCollection.find({profile: 
-                                                                {skills: 
+        const filteredCandidates = await candidatesCollection.find({skills: 
                                                                     {$and:
                                                                         keywords.map(k => ({
-                                                                            $elemMatch: {name: k}}
+                                                                            $elemMatch: {skill: k}}
                                                                         ))
                                                                     }
-                                                                }
-                                                            });
+                                                                });
 
     return filteredCandidates;
 };
@@ -51,7 +49,8 @@ const getCandidateById = async(candidateId) => {
     }
 
     const candidatesCollection = await candidates();
-    const candidate = await candidatesCollection.findOne({ _id: candidateId });
+    const candidate = await candidatesCollection.findOne({ "id": id });
+
     if (!candidate) {
         throw "ERROR: No candidate for given id";
     }
@@ -70,7 +69,7 @@ const getCandidateByEmail = async (email) => {
     }
 
     const candidatesCollection = await candidates();
-    const candidate = await candidatesCollection.findOne({ email: email });
+    const candidate = await candidatesCollection.findOne({ "email": email });
     if (!candidate) {
         throw "ERROR: No candidate for given email";
     }
@@ -83,13 +82,14 @@ const getCandidateByEmail = async (email) => {
  * @param profile The profile object for the new candidate
  * @return added True if the candidate was valid and added; False otherwise
  */
-const addCandidate = async(profile) => {
-    if (!profile) {
+const addCandidate = async(candidate) => {
+    if (!candidate) {
         throw "ERROR: No profile given";
     }
 
     const candidatesCollection = await candidates();
-    const info = await candidatesCollection.insertOne(profile);
+    const info = await candidatesCollection.insertOne(candidate);
+
     if(info.insertedCount === 0) {
         throw "ERROR: Unable to add candidate to DB";
     }
@@ -105,8 +105,8 @@ const removeCandidate = async(candidateId) => {
         throw "ERROR: No id provided";
     }
     const candidateCollection = await candidates();
-    const candidate = await candidateCollection.findOne({ _id: candidateId });
-    const deletedCandidate = await candidateCollection.removeOne({ _id: candidate._id });
+    const candidate = await candidateCollection.findOne({ "id": candidateId });
+    const deletedCandidate = await candidateCollection.removeOne({ "id": candidate.id });
     if (deletedCandidate.deletedCount === 0) {
         throw `Sorry, we could not find an employer with the id ${candidateId}.`;
     }
@@ -118,17 +118,18 @@ const removeCandidate = async(candidateId) => {
 /**
  * Update a candidate name with the given id and name
  * @param candidateId The given id for the candidate to be updated
- * @param newName The new name for the candidate
+ * @param newFirstName The new first name for the candidate
+ * @param newLastName The new last name for the candidate
  * @return none Throws an error if the candidate name was not updated
  */
-const updateCandidateName = async(candidateId, newName) => {
-    if (!candidateId || !newName) {
+const updateCandidateName = async(candidateId, newFirstName, newLastName) => {
+    if (!candidateId || !newFirstName || !newLastName) {
         throw "ERROR: Not enough arguments given to update function";
     }
     const candidateCollection = await candidates();
-    let updatedCandidate = {"profile": {"name": newName} };
+    let updatedCandidate = {"firstName": newFirstName, "lastName": newLastName};
 
-    const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
     if (!updated) {
         throw "ERROR: There was an error updating the candidate";
@@ -146,9 +147,9 @@ const updateCandidateBio = async(candidateId, newBio) => {
         throw "ERROR: Not enough arguments given to update function";
     }
     const candidateCollection = await candidates();
-    let updatedCandidate = {"profile": {"bio": newBio} };
+    let updatedCandidate = {"biography": newBio};
 
-    const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
     if (!updated) {
         throw "ERROR: There was an error updating the candidate";
@@ -167,14 +168,14 @@ const addSkills = async(candidateId, newSkills) => {
     }
 
     const candidateCollection = await candidates();
-    const candidate = candidateCollection.find({ _id: candidateId});
+    const candidate = candidateCollection.find({ "id": candidateId});
     let currentSkills = candidate.profile.skills;
     let union = [...new Set([...currentSkills, ...newSkills])];
     let skills = Array.from(union);
     
-    let updatedCandidate = {"profile": {"skills": skills}};
+    let updatedCandidate = {"skills": skills};
        
-    const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
     if (!updated) {
         throw "ERROR: There was an error updating the candidate";
@@ -193,13 +194,13 @@ const removeSkills = async(candidateId, oldSkills) => {
     }
 
     const candidateCollection = await candidates();
-    const candidate = candidateCollection.find({ _id: candidateId});
+    const candidate = candidateCollection.find({ "id": candidateId});
     let currentSkills = candidate.profile.skills;
     let skills = currentSkills.filter(s => { oldSkills.includes(s) })
     
-    let updatedCandidate = {"profile": {"skills": skills}};
+    let updatedCandidate = {"skills": skills};
        
-    const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
     if (!updated) {
         throw "ERROR: There was an error updating the candidate";
@@ -218,14 +219,14 @@ const addExp = async(candidateId, newExp) => {
     }
 
     const candidateCollection = await candidates();
-    const candidate = candidateCollection.find({ _id: candidateId});
+    const candidate = candidateCollection.find({ "id": candidateId});
     let currentExp = candidate.profile.experience;
     let union = [...new Set([...currentExp, ...newExp])];
     let exp = Array.from(union);
     
-    let updatedCandidate = {"profile": {"experience": exp}};
+    let updatedCandidate = {"experience": exp};
        
-    const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
     if (!updated) {
         throw "ERROR: There was an error updating the candidate";
@@ -244,11 +245,11 @@ const removeExp = async(candidateId, oldExp) => {
     }
 
     const candidateCollection = await candidates();
-    const candidate = candidateCollection.find({ _id: candidateId});
+    const candidate = candidateCollection.find({ "id": candidateId});
     let currentExp = candidate.profile.experience;
     let exp = currentExp.filter(e => { oldExp.includes(e) })
     
-    let updatedCandidate = {"profile": {"experience": exp}};
+    let updatedCandidate = {"experience": exp};
        
 
     };
@@ -264,9 +265,9 @@ const removeExp = async(candidateId, oldExp) => {
             throw "ERROR: Not enough arguments given to update function";
         }
         const candidateCollection = await candidates();
-        let updatedCandidate = {"profile": {"imageRef": newImg} };
+        let updatedCandidate = {"profileImage": newImg};
 
-        const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+        const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
         if (!updated) {
             throw "ERROR: There was an error updating the candidate";
@@ -285,10 +286,10 @@ const removeExp = async(candidateId, oldExp) => {
         }
 
         const candidateCollection = await candidates();
-        let candidate = await candidateCollection.find({ _id: candidateId });
+        let candidate = await candidateCollection.find({ "id": candidateId });
         let newApplied = (candidate.applied).push(jobId);
         let updatedCandidate = { "applied": newApplied };
-        let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+        let updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
         let employerId = (jobData.getJobById(jobId)).owner;
         let job = await jobData.getJobById(jobId);
         let newMessage = `The candidate, ${candidate.profile.name}, has applied to your posting for position, ${job.title}.`;
@@ -308,11 +309,11 @@ const removeExp = async(candidateId, oldExp) => {
         }
 
         const candidateCollection = await candidates();
-        let candidate = await candidateCollection.find({ _id: candidateId });
-        let newApplied = (candidate.applied).push(jobId);
-        let updatedCandidate = { "applied": newApplied };
+        let candidate = await candidateCollection.find({ "id": candidateId });
+        let newHired = (candidate.hired).push(jobId);
+        let updatedCandidate = { "hired": newHired };
 
-        let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
+        let updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
         return updated;
     };
 
