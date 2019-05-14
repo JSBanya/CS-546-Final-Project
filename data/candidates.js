@@ -153,8 +153,7 @@ const updateCandidateName = async(candidateId, newFirstName, newLastName) => {
     let updatedCandidate = {firstName: newFirstName, lastName: newLastName};
 
     const updated = await candidateCollection.updateOne({ _id: new ObjectID(candidateId) }, {$set: updatedCandidate});
-
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the candidate";
     }
 };
@@ -173,8 +172,7 @@ const updateCandidateBio = async(candidateId, newBio) => {
     let updatedCandidate = {biography: newBio};
 
     const updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
-
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the candidate";
     }
 };
@@ -187,7 +185,7 @@ const updateCandidatePassword = async(candidateId, newPass) => {
     let updatedCandidate = {password: newPass};
 
     const updated = await candidateCollection.updateOne({ _id: new ObjectID(candidateId) }, {$set: updatedCandidate});
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the employer";
     }
 };  
@@ -207,7 +205,7 @@ const updateSkills = async(candidateId, newSkills) => {
     let updatedCandidate = {skills: newSkills};
        
     const updated = await candidateCollection.updateOne({ _id: new ObjectID(candidateId) }, {$set: updatedCandidate});
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the candidate";
     }
 };
@@ -228,7 +226,7 @@ const updateExp = async(candidateId, newExp) => {
     let updatedCandidate = {experience: newExp};
        
     const updated = await candidateCollection.updateOne({ _id: new ObjectID(candidateId) }, {$set: updatedCandidate});
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the candidate";
     }
 };
@@ -248,7 +246,7 @@ const updateCandidateImg = async(candidateId, newImg) => {
 
     const updated = await candidateCollection.updateOne({ _id: new ObjectID(candidateId) }, {$set: updatedCandidate});
 
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the candidate";
     }
 };
