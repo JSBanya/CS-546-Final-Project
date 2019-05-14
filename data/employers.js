@@ -101,7 +101,7 @@ const updateEmployerName = async(employerId, newName) => {
 
     const updated = await employersCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
 
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the employers";
     }
 };
@@ -121,7 +121,7 @@ const updateEmployerDesc = async(employerId, newDesc) => {
 
     const updated = await employerCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
 
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the employer";
     }
 };
@@ -141,7 +141,7 @@ const updateEmployerImg = async(employerId, newImg) => {
 
     const updated = await employerCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
 
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the employer";
     }
 };  
@@ -154,7 +154,7 @@ const updateEmployerPassword = async(employerId, newPass) => {
     let updatedEmployer = {password: newPass};
 
     const updated = await employerCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
-    if (!updated) {
+    if (updated.result.ok !== 1) {
         throw "ERROR: There was an error updating the employer";
     }
 };  

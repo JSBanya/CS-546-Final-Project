@@ -114,7 +114,7 @@ router.post('/', async (req, res) => {
 		await jobs.addJob(req.session._id, newjob);	
 	} catch(e) {
 		res.status(500).send(`500 - Internal Server Error (Unable to store job)`);
-		console.log(e);
+		console.log(e.toString());
 		return;
 	}
 	

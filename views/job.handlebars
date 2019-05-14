@@ -15,6 +15,7 @@
 		</div>
 
 		{{#if isOwner}}
+		<input type="hidden" name="jobID" value="{{job._id}}">
 		<div class="formRow">
 			<label for="jobName" class="formLabel">Job Title:</label>
 			<input type="text" name="jobName" class="formTextInput" value="{{job.name}}" placeholder="Job Name" required>

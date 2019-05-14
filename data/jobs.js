@@ -78,37 +78,7 @@ let exportedMethods = {
         const deletionInfo = await jobsCollection.removeOne({ "id": jobId });
 
         if (deletionInfo.deletedCount === 0) {
-            console.log(`[ERROR] Could not delete job with id of ${jobId}`) ;
-            return false;
-        }
-        return true;
-    },
-
-    /**
-     * Updates a job posting to open
-     * @param jobId The id of the job to be opened
-     * @return opened True if the job was opened; False otherwise
-     */
-    async openJob(jobId) {
-        if (!jobId) throw "You must provide an id to search for";
-
-        const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:true,
-                Title:job.Title,
-                Description:job.Description,
-                ListOfDesiredSkills:job.ListOfDesiredSkills,
-                PayRate:job.PayRate
-            }
-        };
-
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot open the job of ${jobId}`);
+            throw `[ERROR] Could not delete job with id of ${jobId}` ;
             return false;
         }
         return true;
@@ -136,8 +106,8 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
+        const updated = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
+        if (updated.result.ok !== 1) {
             console.log(`[ERROR] Cannot close the job of ${jobId}`);
             return false;
         }
@@ -153,26 +123,14 @@ let exportedMethods = {
     async updateJobTitle(jobId, newTitle) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newTitle | typeof(newTitle) !== 'string') throw "You must provide a title for the job";
+        if (!newTitle | typeof newTitle !== 'string') throw "You must provide a title for the job";
 
         const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:job.Open,
-                Title:newTitle,
-                Description:job.Description,
-                ListOfDesiredSkills:job.ListOfDesiredSkills,
-                PayRate:job.PayRate
-            }
-        };
+        const updatedJob = { name: newTitle };
 
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot update the job title of ${jobId}`);
-            return false;
+        const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: updatedJob});
+        if (updated.result.ok !== 1) {
+            throw `[ERROR] Cannot update the job title`;
         }
         return true;
     },
@@ -189,198 +147,34 @@ let exportedMethods = {
         if (!newDesc) throw "You must provide a new description for the job";
 
         const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:job.Open,
-                Title:job.Title,
-                Description:newDesc,
-                ListOfDesiredSkills:job.ListOfDesiredSkills,
-                PayRate:job.PayRate
-            }
-        };
+        const updatedJob = { description: newDesc };
 
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot update the job description of ${jobId}`);
-            return false;
-        }
-        return true;
-    },
-
-    /**
-     * Add the given skills to a job
-     * @param jobId The id for the job to be updated
-     * @param newSkills The new skills for the requested job
-     * @return updated True if the job was updated; False otherwise
-     */
-    updateSkills: async function (jobId, newSkills) {///////////////////////////////
-        if (!jobId) throw "You must provide an id to search for";
-
-        if (!newSkills) throw "You must provide a new skills set object for the job";
-
-        const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:job.Open,
-                Title:job.Title,
-                Description:job.Description,
-                ListOfDesiredSkills:newSkills,
-                PayRate:job.PayRate
-            }
-        };
-
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot update the job skills set of ${jobId}`);
-            return false;
-        }
-        return true;
-    },
-
-    /**
-     * Add the given skills to a job
-     * @param jobId The id for the job to be updated
-     * @param newSkills The new skills for the requested job
-     * @return updated True if the job was updated; False otherwise
-     */
-    addSkills: async function (jobId, newSkills) {///////////////////////////////
-        if (!jobId) throw "You must provide an id to search for";
-
-        if (!newSkills) throw "You must provide a new skills set object for the job";
-
-        const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        let newSkillsSet = job.ListOfDesiredSkills;
-        newSkillsSet.push(newSkills);
-
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:job.Open,
-                Title:job.Title,
-                Description:job.Description,
-                ListOfDesiredSkills:newSkillsSet,
-                PayRate:job.PayRate
-            }
-        };
-
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot add the job skills set of ${jobId}`);
-            return false;
-        }
-        return true;
-    },
-
-    /**  modify it referring from Nate's code of candidate removeSkill
-     * Remove the given skills from a job
-     * @param jobId The id for the job to be updated
-     * @param skills The skills to be removed from the requested job
-     * @return updated True if the job was updated; False otherwise
-     */
-    async removeSkills(jobId, oldSkills) {
-        if (!jobId || !oldSkills) {
-            throw "ERROR: Not enough arguments given to update function";
-        }
-
-        const jobsCollection = await jobs();
-        const job = jobsCollection.find({ "id": jobId});
-        let currentSkills = job.ListOfDesiredSkills;
-        let skills = currentSkills.filter(s => { oldSkills.includes(s) })
-
-        let updatedJob = {"ListOfDesiredSkills":skills};
-
-        const updated = await jobsCollection.updateOne({ "id": jobId }, {$set: updatedJob});
-
+        const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: updatedJob});
         if (!updated) {
-            throw "ERROR: There was an error updating the candidate";
-        }
-    },
-
-    /**
-     * Updates a job with a new rate
-     * @param jobId The id for the job to be updated
-     * @param newRate The new rate for the requested job
-     * @return updated True if the job was updated; False otherwise
-     */
-    async updateJobRate(jobId, newRate) {
-        if (!jobId) throw "You must provide an id to search for";
-
-        if (!newRate) throw "You must provide a new Rate for the job";
-
-        const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:job.Open,
-                Title:job.Title,
-                Description:job.Description,
-                ListOfDesiredSkills:job.ListOfDesiredSkills,
-                PayRate:newRate
-            }
-        };
-
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot update the job Rate of ${jobId}`);
-            return false;
+            throw `[ERROR] Cannot update the job description`;
         }
         return true;
     },
 
     /**
-     * Updates a job with a new rate type
+     * Add the given skills to a job
      * @param jobId The id for the job to be updated
-     * @param newRateType The new rate type for the requested job
+     * @param newSkills The new skills for the requested job
      * @return updated True if the job was updated; False otherwise
      */
-    async updateJobRateType(jobId, newRateType) {
+    async updateJobSkills(jobId, newSkills) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newRateType) throw "You must provide a new Rate type for the job";
+        if (!newSkills) throw "You must provide a new skills set object for the job";
 
         const jobsCollection = await jobs();
-        const job = await this.get(jobId);
-        let newRate = job.PayRate;
-        newRate.RateType = newRateType; //[Chen]: I assume the PayRate is an object that contains salary and RateType
-        const updatedJob = {
-            $set:{
-                Owner:job.Owner,
-                DateOfCreation:job.DateOfCreation,
-                Open:job.Open,
-                Title:job.Title,
-                Description:job.Description,
-                ListOfDesiredSkills:job.ListOfDesiredSkills,
-                PayRate:newRate
-            }
-        };
+        const updatedJob = { skills: newSkills };
 
-        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
-        if (updateInfo.modifiedCount === 0) {
-            console.log(`[ERROR] Cannot update the job RateType of ${jobId}`);
-            return false;
+        const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: updatedJob});
+        if (!updated) {
+            throw `[ERROR] Cannot update the job skills`;
         }
         return true;
-    },
-
-    /**
-     * Updates a job with a new type
-     * @param jobId The id for the job to be updated
-     * @param newType The new type for the requested job
-     * @return updated True if the job was updated; False otherwise
-     */
-    async updateJobType(jobId, newType) { //we don't have this attribute
-
     },
 
     /*
@@ -389,7 +183,6 @@ let exportedMethods = {
     * @param candidate ID for checking whether the job has been applied by the candidate or not
     * @return a jobs list; each job object has a new attribute of applied flag
     * */
-
     async searchJobsBykeywordAndId(keywordList, candidateID) {
         if (!keywordList || !candidateID)
             throw "[ERROR] [searchJobByKeyword] parameters are wrong"
