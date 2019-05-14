@@ -99,6 +99,7 @@ router.post('/', async (req, res) => {
 	let newjob = {};
 	newjob.name = job.jobName;
 	newjob.description = job.jobDescription;
+	newjob.applications = [];
 	newjob.open = true;
 	
 	newjob.skills = [];

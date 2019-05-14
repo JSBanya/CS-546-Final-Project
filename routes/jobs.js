@@ -41,6 +41,17 @@ router.get('/:id', async (req, res) => {
 		return;
 	}
 
+	let candidatesApplied = [];
+	for(let i = 0; i < jobProfile.applications.length; i++) {
+		try {
+			let c = await candidates.getCandidateById(jobProfile.applications[i].toString());
+			candidatesApplied.push(c);
+		} catch(e) {
+			res.status(500).send(e.toString());
+			return;
+		}
+	}
+
 	res.render('job', { 
 		title: 'Create new job', 
 		css: ["job"], 
@@ -48,9 +59,35 @@ router.get('/:id', async (req, res) => {
 		job: jobProfile, 
 		myProfile: myProfile, 
 		ownerProfile: ownerProfile,
+		candidatesApplied: candidatesApplied,
+		alreadyApplied: jobProfile.applications.includes(myProfile._id.toString()),
 		isOwner: (ownerProfile._id.toString() == req.session._id.toString()),
 		layout: "home"
 	});
+	return;
+});
+
+router.get('/apply/:id', async (req, res) => {
+	if(req.session._id === undefined) {
+		// Not logged in
+		res.redirect("/login");
+		return;
+	}
+
+	if(req.session.type !== "candidate") {
+		// Not a candidate
+		res.redirect("/home");
+		return;
+	}
+
+	try {
+		await jobs.addApplication(req.params.id, req.session._id);
+	} catch(e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+
+	res.redirect("/jobs/"+req.params.id);
 	return;
 });
 
