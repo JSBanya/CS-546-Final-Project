@@ -20,21 +20,16 @@ router.get('/:id', async (req, res) => {
 		return;
 	}
 
-	let profile;
-	if(req.session.type === "employer") {
-		try {
-			profile = await employers.getEmployerById(req.session._id);
-		} catch(e) {
-			res.status(500).send(e.toString());
-			return;
+	let myProfile;
+	try {
+		if(req.session.type == "employer") {
+			myProfile = await employers.getEmployerById(req.session._id);
+		} else {
+			myProfile = await candidates.getCandidateById(req.session._id);
 		}
-	} else {
-		try {
-			profile = await candidates.getCandidateById(req.session._id);
-		} catch(e) {
-			res.status(500).send(e.toString());
-			return;
-		}
+	} catch(e) {
+		res.status(500).send(e.toString())
+		return;
 	}
 
 	let ownerProfile;
@@ -51,7 +46,7 @@ router.get('/:id', async (req, res) => {
 		css: ["job"], 
 		js: ["job"], 
 		job: jobProfile, 
-		profile: profile, 
+		myProfile: myProfile, 
 		ownerProfile: ownerProfile,
 		isOwner: (ownerProfile._id.toString() == req.session._id.toString()),
 		layout: "home"
