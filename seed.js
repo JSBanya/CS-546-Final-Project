@@ -8,7 +8,7 @@ const jobs = mongoCollections.jobs;
 
 const seedCandidates = async() => {
     const candidatesCollection = await candidates();
-    candidatesCollection.insertMany([
+    const info = candidatesCollection.insertMany([
         {
             _id: new ObjectID("5cdafc88770f37292a21461e"),
             firstName: "Steve",
@@ -362,11 +362,13 @@ const seedCandidates = async() => {
             profileImg: "default.png"
         }        
     ])
+
+    console.log(info.insertedCount);
 };
 
 const seedEmployers = async() => {
     const employersCollection = await employers();
-    employersCollection.insertMany([
+    const info = employersCollection.insertMany([
         {
             _id: new ObjectID("401a93ecb4df19ee6f7afe29"),
             name: "Life Skills Software",
@@ -374,7 +376,7 @@ const seedEmployers = async() => {
             description: "A great company for a great cause.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
         {
             _id: new ObjectID("401a93ecb4df1897fec16eac"),
@@ -383,7 +385,7 @@ const seedEmployers = async() => {
             description: "We are smarter than everyone and our workers are superior.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
         {
             _id: new ObjectID("401a93ecb4df19e9292938f9"),
@@ -392,7 +394,7 @@ const seedEmployers = async() => {
             description: "We are pretty cool I guess.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
         {
             _id: new ObjectID("401a93ecb4df191191946afe"),
@@ -401,7 +403,7 @@ const seedEmployers = async() => {
             description: "SPEED, SPEED, SPEED!",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
         {
             _id: new ObjectID("401a93ecb4df8293feb271ea"),
@@ -410,7 +412,7 @@ const seedEmployers = async() => {
             description: "We make money.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
         {
             _id: new ObjectID("401acef261fbd9de6f7afe29"),
@@ -419,7 +421,7 @@ const seedEmployers = async() => {
             description: "Cool, startup environment and such.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
         {
             _id: new ObjectID("401a93ec56382dbe281faa70"),
@@ -428,7 +430,7 @@ const seedEmployers = async() => {
             description: "Our cards are the best!",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
         {
             _id: new ObjectID("1019283fbe819afbe921dfe1"),
@@ -437,14 +439,15 @@ const seedEmployers = async() => {
             description: "I am a 40-something year old actor and I need help doing software development (for some reason).",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
-            conversations = []
+            conversations: []
         },
     ])
+    console.log(info.insertedCount);
 };
 
 const seedJobs = async() => {
     const jobsCollection = await jobs();
-    jobsCollection.insertMany([
+    const info = jobsCollection.insertMany([
         {
             _id: new ObjectID("aa982feb2738adb37ef19201"),
             name: "Software Developer - Backend",
@@ -550,6 +553,7 @@ const seedJobs = async() => {
             owner: ObjectID("401a93ec56382dbe281faa70")
         }
     ])
+    console.log(info.insertedCount);
 };
 
 // const seedMessages = async() => {
@@ -599,3 +603,9 @@ module.exports = {
     seedEmployers,
     seedJobs
 };
+
+(async () => {
+    await seedCandidates();
+    await seedEmployers();
+    await seedJobs();
+})()
