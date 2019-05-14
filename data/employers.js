@@ -1,5 +1,6 @@
 const mongoCollections = require("../data/collections");
 const employers = mongoCollections.employers;
+const ObjectID = require('mongodb').ObjectID;
 
 /**
  * Grabs all employers in the collection
@@ -22,7 +23,7 @@ const getAllEmployers = async() => {
  */
 const getEmployerById = async (id) => {
 	const employersCollection = await employers();
-	const result = await employersCollection.findOne({ _id: id });
+	const result = await employersCollection.findOne({ _id: new ObjectID(id) });
     if (result === null || result === undefined) {
     	throw "No employer for given id";
     }
@@ -96,9 +97,9 @@ const updateEmployerName = async(employerId, newName) => {
         throw "ERROR: Not enough arguments given to update function";
     }
     const employersCollection = await employers();
-    let updatedEmployer = {"name": newName};
+    let updatedEmployer = {name: newName};
 
-    const updated = await employersCollection.updateOne({ "id": employerId }, {$set: updatedEmployer});
+    const updated = await employersCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
 
     if (!updated) {
         throw "ERROR: There was an error updating the employers";
@@ -116,9 +117,9 @@ const updateEmployerDesc = async(employerId, newDesc) => {
         throw "ERROR: Not enough arguments given to update function";
     }
     const employerCollection = await employers();
-    let updatedEmployer = {"description": newDesc};
+    let updatedEmployer = {description: newDesc};
 
-    const updated = await employerCollection.updateOne({ "id": employerId }, {$set: updatedEmployer});
+    const updated = await employerCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
 
     if (!updated) {
         throw "ERROR: There was an error updating the employer";
@@ -136,10 +137,23 @@ const updateEmployerImg = async(employerId, newImg) => {
         throw "ERROR: Not enough arguments given to update function";
     }
     const employerCollection = await employers();
-    let updatedEmployer = {"profileImage": newImg};
+    let updatedEmployer = {profileImage: newImg};
 
-    const updated = await employerCollection.updateOne({ "id": employerId }, {$set: updatedEmployer});
+    const updated = await employerCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
 
+    if (!updated) {
+        throw "ERROR: There was an error updating the employer";
+    }
+};  
+
+const updateEmployerPassword = async(employerId, newPass) => {
+    if (!employerId || !newPass) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
+    const employerCollection = await employers();
+    let updatedEmployer = {password: newPass};
+
+    const updated = await employerCollection.updateOne({ _id: new ObjectID(employerId) }, {$set: updatedEmployer});
     if (!updated) {
         throw "ERROR: There was an error updating the employer";
     }
@@ -153,5 +167,6 @@ module.exports = {
 	removeEmployer,
     updateEmployerName,
     updateEmployerDesc,
-    updateEmployerImg
+    updateEmployerImg,
+    updateEmployerPassword
 };

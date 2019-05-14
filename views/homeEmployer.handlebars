@@ -1,7 +1,7 @@
 <main>
 	<header id="homeBar">
 		<div id="homeBarLeft">
-			<div id="profileImage" style="background-image: url('/public/images/profile/{{profile.profileImage}}');" onclick="location.href='/edit'"></div>
+			<div id="profileImage" style="background-image: url('/public/images/profile/{{profile.profileImage}}');" onclick="location.href='/account/{{profile._id}}'"></div>
 			<p id="profileName">
 				{{profile.name}}
 			</p>

@@ -1,6 +1,7 @@
 const mongoCollections = require("../data/collections");
 const jobs = mongoCollections.jobs;
 const candidate = require("./candidates");
+const ObjectID = require('mongodb').ObjectID;
 
 let exportedMethods = {
     /**
@@ -22,10 +23,23 @@ let exportedMethods = {
         if (!jobId) throw "You must provide an id to search for";
 
         const jobsCollection = await jobs();
-        const job = await jobsCollection.findOne({ "id": jobId });
+        const job = await jobsCollection.findOne({ "_id": jobId });
         if (job === null) throw "No job with that id";
 
         return job;
+    },
+
+     /**
+     * Grabs all jobs for the given owner
+     * @param owner The id of the owner
+     * @return jobs The jobs for the given owner
+     */
+    async getJobByOwner(owner) {
+        if (!owner) throw "You must provide an owner";
+
+        const jobsCollection = await jobs();
+        const joblist = await jobsCollection.find({ "owner": new ObjectID(owner) }).toArray();
+        return joblist;
     },
 
     /**

@@ -1,0 +1,51 @@
+<main>
+	<form id="mainContent" action="/account/edit" method="post" onsubmit="return validateEmployerForm()" enctype="multipart/form-data">
+		<header id="profileHeader">
+			<div id="profileImage" style="background-image: url('/public/images/profile/{{profile.profileImage}}')";></div>
+			{{#if isOwner}}
+			<input type="text" name="employerName" id="titleEdit" maxlength="50" placeholder="Company Name" value="{{profile.name}}" required>
+			{{else}}
+			<h2 id="title">{{profile.name}}</h2>
+			{{/if}}
+		</header>
+			
+		<div id="profileContent">
+			{{#if isOwner}}
+			<span class="formLine">
+				<label for="profileImage" class="formLabel">Profile Image:</label>
+				<input type="file" accept="image/png, image/jpeg" name="profileImage" class="formTextInput">
+			</span>
+			<span class="formLine">
+				<label for="profileImage" class="formLabel">New Password:</label>
+				<input type="password" name="employerPassword" id="employerPassword" class="formTextInput" placeholder="New Password" minlength="8" maxlength="30">
+				<input type="password" name="employerPasswordConfirm" id="employerPasswordConfirm" class="formTextInput" placeholder="Confirm New Password" minlength="8" maxlength="30">
+			</span>
+			<textarea name="employerDescription" id="descriptionEdit" rows=3 maxlength="500" placeholder="Description">{{profile.description}}</textarea>
+			{{else}}
+			<p id="description">{{profile.description}}</p>
+			{{/if}}
+		</div>
+
+		<div id="jobsContainer">
+			<h3 id="jobsContainerTitle">Open Jobs</h3>
+			{{#if joblist}}
+				{{#each joblist}}
+					<div class="jobEntry">
+						<p class="jobTitle">{{this.name}}</p>
+						<p class="jobDescription">{{this.description}}</p>
+					</div>
+				{{/each}}
+			{{else}}
+				<p id="noJobsMessage">No jobs.</p>
+			{{/if}}
+		</div>
+
+		{{#if isOwner}}
+		<div id="controlsContainer">
+			<input type="submit" value="Save" id="submitButton">
+		</div>
+
+		<div id="error"></div>
+		{{/if}}
+	</form>
+</main>

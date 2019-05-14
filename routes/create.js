@@ -4,7 +4,7 @@ const moment = require("moment");
 const candidates = require("../data/candidates");
 const employers = require("../data/employers");
 const bcrypt = require('bcrypt');
-const multer = require('multer')
+const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 
 var storage = multer.diskStorage({
@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 	res.render('create', {title: 'Create An Account', css: ["create"], js: ["create"]});
 });
 
-router.post('/candidate',  upload.single('profileImage'), async (req, res, next) => {
+router.post('/candidate', upload.single('profileImage'), async (req, res, next) => {
 	let data = req.body;
 	let isEmpty = (x) => {
 		if(x === undefined || x === null || x === "") {
@@ -244,7 +244,7 @@ router.post('/employer', upload.single('profileImage'), async (req, res, next) =
 		|| data.employerConfirmPassword.length > 30
 		|| data.employerPassword.length < 8
 		|| data.employerConfirmPassword.length < 8
-		|| (!isEmpty(data.employerDescription) && !isEmpty(data.employerDescription) && data.employerDescription > 500))
+		|| data.employerDescription > 500)
 	{
 		res.status(400).send("400 - Bad Request (bad size check)");
 		return;

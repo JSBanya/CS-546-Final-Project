@@ -89,4 +89,6 @@ function validateEmployerForm() {
 		alertError("Error: Passwords do not match.");
 		return false;
 	}
+
+	return true;
 }

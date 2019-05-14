@@ -51,11 +51,7 @@ router.get('/', async (req, res) => {
 			candidateList = await candidates.candidateSearch(search.skill, search.years);
 		else 
 			candidateList = await candidates.getAllCandidates();
-
-		for(let i = 0; i < candidateList.length; i++) {
-			console.log(candidateList[i]);
-		}
-
+		
 		res.render('homeEmployer', {title: 'JobSrc', css: ["homeEmployer"], js: ["homeEmployer"], profile: profile, candidates: candidateList});
 		return;
 	} catch(e) {

@@ -2,6 +2,7 @@ const mongoCollections = require("./collections");
 const candidates = mongoCollections.candidates;
 const jobData = require("./jobs");
 const employerData = require("./employers");
+const ObjectID = require('mongodb').ObjectID;
 
 /**
  * Grabs all candidates in the collection
@@ -66,18 +67,18 @@ const candidateSearch = async(keywords, years) => {
 * @return candidate The candidate matching the given id
 */
 const getCandidateById = async(candidateId) => {
-if(!candidateId) {
-    throw "ERROR: No candidate id given";
-}
+    if(!candidateId) {
+        throw "ERROR: No candidate id given";
+    }
 
-const candidatesCollection = await candidates();
-const candidate = await candidatesCollection.findOne({ _id: candidateId });
+    const candidatesCollection = await candidates();
+    const candidate = await candidatesCollection.findOne({ _id: new ObjectID(candidateId) });
 
-if (!candidate) {
-    throw "ERROR: No candidate for given id";
-}
+    if (!candidate) {
+        throw "ERROR: No candidate for given id";
+    }
 
-return candidate;
+    return candidate;
 };
 
 /**
@@ -86,17 +87,17 @@ return candidate;
 * @return candidate The candidate matching the given email
 */
 const getCandidateByEmail = async (email) => {
-if (!email) {
-    throw "ERROR: No email provided";
-}
+    if (!email) {
+        throw "ERROR: No email provided";
+    }
 
-const candidatesCollection = await candidates();
-const candidate = await candidatesCollection.findOne({ email: email });
-if (!candidate) {
-    throw "ERROR: No candidate for given email";
-}
+    const candidatesCollection = await candidates();
+    const candidate = await candidatesCollection.findOne({ email: email });
+    if (!candidate) {
+        throw "ERROR: No candidate for given email";
+    }
 
-return candidate;
+    return candidate;
 };
 
 /**
@@ -105,16 +106,16 @@ return candidate;
 * @return added True if the candidate was valid and added; False otherwise
 */
 const addCandidate = async(candidate) => {
-if (!candidate) {
-    throw "ERROR: No profile given";
-}
+    if (!candidate) {
+        throw "ERROR: No profile given";
+    }
 
-const candidatesCollection = await candidates();
-const info = await candidatesCollection.insertOne(candidate);
+    const candidatesCollection = await candidates();
+    const info = await candidatesCollection.insertOne(candidate);
 
-if(info.insertedCount === 0) {
-    throw "ERROR: Unable to add candidate to DB";
-}
+    if(info.insertedCount === 0) {
+        throw "ERROR: Unable to add candidate to DB";
+    }
 };
 
 /**
@@ -123,17 +124,17 @@ if(info.insertedCount === 0) {
 * @return none Throws an error if the candidate was not removed
 */
 const removeCandidate = async(candidateId) => {
-if (!candidateId) {
-    throw "ERROR: No id provided";
-}
-const candidateCollection = await candidates();
-const candidate = await candidateCollection.findOne({ _id: candidateId });
-const deletedCandidate = await candidateCollection.removeOne({ _id: candidate.id });
-if (deletedCandidate.deletedCount === 0) {
-    throw `Sorry, we could not find an employer with the id ${candidateId}.`;
-}
+    if (!candidateId) {
+        throw "ERROR: No id provided";
+    }
+    const candidateCollection = await candidates();
+    const candidate = await candidateCollection.findOne({ _id: candidateId });
+    const deletedCandidate = await candidateCollection.removeOne({ _id: candidate.id });
+    if (deletedCandidate.deletedCount === 0) {
+        throw `Sorry, we could not find an employer with the id ${candidateId}.`;
+    }
 
-return candidate;
+    return candidate;
 
 };
 
@@ -145,17 +146,17 @@ return candidate;
 * @return none Throws an error if the candidate name was not updated
 */
 const updateCandidateName = async(candidateId, newFirstName, newLastName) => {
-if (!candidateId || !newFirstName || !newLastName) {
-    throw "ERROR: Not enough arguments given to update function";
-}
-const candidateCollection = await candidates();
-let updatedCandidate = {"firstName": newFirstName, "lastName": newLastName};
+    if (!candidateId || !newFirstName || !newLastName) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
+    const candidateCollection = await candidates();
+    let updatedCandidate = {"firstName": newFirstName, "lastName": newLastName};
 
-const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
-if (!updated) {
-    throw "ERROR: There was an error updating the candidate";
-}
+    if (!updated) {
+        throw "ERROR: There was an error updating the candidate";
+    }
 };
 
 /**
@@ -165,17 +166,17 @@ if (!updated) {
 * @return none Throws an error if the candidate biography was not updated
 */
 const updateCandidateBio = async(candidateId, newBio) => {
-if (!candidateId || !newBio) {
-    throw "ERROR: Not enough arguments given to update function";
-}
-const candidateCollection = await candidates();
-let updatedCandidate = {"biography": newBio};
+    if (!candidateId || !newBio) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
+    const candidateCollection = await candidates();
+    let updatedCandidate = {"biography": newBio};
 
-const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
-if (!updated) {
-    throw "ERROR: There was an error updating the candidate";
-}
+    if (!updated) {
+        throw "ERROR: There was an error updating the candidate";
+    }
 };
 
 /**
@@ -185,23 +186,23 @@ if (!updated) {
 * @return none Throws an error if the candidate skills were not added
 */
 const addSkills = async(candidateId, newSkills) => {
-if (!candidateId || !newSkills) {
-    throw "ERROR: Not enough arguments given to update function";
-}
+    if (!candidateId || !newSkills) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
 
-const candidateCollection = await candidates();
-const candidate = candidateCollection.find({ "id": candidateId});
-let currentSkills = candidate.profile.skills;
-let union = [...new Set([...currentSkills, ...newSkills])];
-let skills = Array.from(union);
+    const candidateCollection = await candidates();
+    const candidate = candidateCollection.find({ "id": candidateId});
+    let currentSkills = candidate.profile.skills;
+    let union = [...new Set([...currentSkills, ...newSkills])];
+    let skills = Array.from(union);
 
-let updatedCandidate = {"skills": skills};
-   
-const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
+    let updatedCandidate = {"skills": skills};
+       
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
-if (!updated) {
-    throw "ERROR: There was an error updating the candidate";
-}
+    if (!updated) {
+        throw "ERROR: There was an error updating the candidate";
+    }
 };
 
 /**
@@ -211,22 +212,22 @@ if (!updated) {
 * @return none Throws an error if the candidate skills were not removed
 */
 const removeSkills = async(candidateId, oldSkills) => {
-if (!candidateId || !oldSkills) {
-    throw "ERROR: Not enough arguments given to update function";
-}
+    if (!candidateId || !oldSkills) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
 
-const candidateCollection = await candidates();
-const candidate = candidateCollection.find({ "id": candidateId});
-let currentSkills = candidate.profile.skills;
-let skills = currentSkills.filter(s => { oldSkills.includes(s) })
+    const candidateCollection = await candidates();
+    const candidate = candidateCollection.find({ "id": candidateId});
+    let currentSkills = candidate.profile.skills;
+    let skills = currentSkills.filter(s => { oldSkills.includes(s) })
 
-let updatedCandidate = {"skills": skills};
-   
-const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
+    let updatedCandidate = {"skills": skills};
+       
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
-if (!updated) {
-    throw "ERROR: There was an error updating the candidate";
-}
+    if (!updated) {
+        throw "ERROR: There was an error updating the candidate";
+    }
 };
 
 /**
@@ -236,23 +237,23 @@ if (!updated) {
 * @return none Throws an error if the candidate experiences were not added
 */
 const addExp = async(candidateId, newExp) => {
-if (!candidateId || !newExp) {
-    throw "ERROR: Not enough arguments given to update function";
-}
+    if (!candidateId || !newExp) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
 
-const candidateCollection = await candidates();
-const candidate = candidateCollection.find({ "id": candidateId});
-let currentExp = candidate.profile.experience;
-let union = [...new Set([...currentExp, ...newExp])];
-let exp = Array.from(union);
+    const candidateCollection = await candidates();
+    const candidate = candidateCollection.find({ "id": candidateId});
+    let currentExp = candidate.profile.experience;
+    let union = [...new Set([...currentExp, ...newExp])];
+    let exp = Array.from(union);
 
-let updatedCandidate = {"experience": exp};
-   
-const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
+    let updatedCandidate = {"experience": exp};
+       
+    const updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
 
-if (!updated) {
-    throw "ERROR: There was an error updating the candidate";
-}
+    if (!updated) {
+        throw "ERROR: There was an error updating the candidate";
+    }
 };
 
 /**
@@ -262,16 +263,16 @@ if (!updated) {
 * @return none Throws an error if the candidate experiences were not removed
 */
 const removeExp = async(candidateId, oldExp) => {
-if (!candidateId || !oldExp) {
-    throw "ERROR: Not enough arguments given to update function";
-}
+    if (!candidateId || !oldExp) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
 
-const candidateCollection = await candidates();
-const candidate = candidateCollection.find({ "id": candidateId});
-let currentExp = candidate.profile.experience;
-let exp = currentExp.filter(e => { oldExp.includes(e) })
+    const candidateCollection = await candidates();
+    const candidate = candidateCollection.find({ "id": candidateId});
+    let currentExp = candidate.profile.experience;
+    let exp = currentExp.filter(e => { oldExp.includes(e) })
 
-let updatedCandidate = {"experience": exp};
+    let updatedCandidate = {"experience": exp};
    
 
 };
