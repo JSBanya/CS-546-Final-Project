@@ -11,22 +11,54 @@ const seedCandidates = async() => {
     candidatesCollection.insertMany([
         {
             _id: new ObjectID("5cdafc88770f37292a21461e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Steve",
+            lastName: "Buchemy",
+            email: "sbuchemy@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "Java",
+                    year: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Spotify",
+                    description: "I did work here... I promise.",
+                    from: "2012-05-06",
+                    to: "2019-04-12"
+                }
+            ],
             profileImg: "default.png"
         },
         {
             _id: new ObjectID("5cdafc88770f37a56a21461e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Michael",
+            lastName: "Grosso",
+            email: "mgrosso@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -35,8 +67,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -45,8 +97,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -55,8 +127,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -65,8 +157,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -75,8 +187,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -85,8 +217,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -95,8 +247,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -105,8 +277,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -115,8 +307,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         },
         {
@@ -125,8 +337,28 @@ const seedCandidates = async() => {
             lastName: "",
             email: "",
             password: bcrypt.hashSync("Password123", 16),
-            skills: [],
-            experience: [],
+            skills: [
+                {
+                    skill: "C++",
+                    years: "5"
+                },
+                {
+                    skill: "Java",
+                    years: "2",
+                },
+                {
+                    skill: "Rust",
+                    years: "2"
+                }
+            ],
+            experience: [
+                {
+                    experience: "Google",
+                    description: "Google's pretty ok.",
+                    from: "2015-06-01",
+                    to: "2019-05-14"
+                }
+            ],
             profileImg: "default.png"
         }        
     ])
@@ -230,7 +462,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID("aa982fe12837189783efebee"),
+            _id: new ObjectID("aa982fee5aefefecabae2621"),
             name: "",
             description: "",
             open: true,
@@ -238,7 +470,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("aa982feb273810100faceba2"),
             name: "",
             description: "",
             open: true,
@@ -246,7 +478,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("fceb182beac738ecfa893b3d"),
             name: "",
             description: "",
             open: true,
@@ -254,7 +486,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("aa982feb2728194febe9dab2"),
             name: "",
             description: "",
             open: true,
@@ -262,7 +494,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("abefd526adecadb37ef19201"),
             name: "",
             description: "",
             open: true,
@@ -270,7 +502,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("1784fbe18023adb37ef19201"),
             name: "",
             description: "",
             open: true,
@@ -278,7 +510,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("aa982feb2731910491feb4eb"),
             name: "",
             description: "",
             open: true,
@@ -286,7 +518,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("aa982feb2192009feb1728e1"),
             name: "",
             description: "",
             open: true,
@@ -294,7 +526,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("aa982feb2735610ebabed073"),
             name: "",
             description: "",
             open: true,
@@ -302,7 +534,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("a231231231f31b1e21a1d112"),
             name: "",
             description: "",
             open: true,
@@ -310,7 +542,7 @@ const seedJobs = async() => {
             owner: ""  
         },
         {
-            _id: new ObjectID(),
+            _id: new ObjectID("aa982feb2738adaaabbdbef8"),
             name: "",
             description: "",
             open: true,
