@@ -22,9 +22,9 @@ store.on('error', function(error) {
 });
 
 // Set up middleware
-app.use("/public", express.static("./public"));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use("/public", express.static("./public"));
 app.use(session({
 	name: 'AuthCookie',
 	secret: '96be76e6abc3414d3876e427e8209f08e1314af983a2540571712d625ab9a93b',

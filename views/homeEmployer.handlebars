@@ -13,7 +13,7 @@
 	</header>
 
 	<div id="searchContainer">
-		<form id="searchForm" action="/search" method="post">
+		<form id="searchForm" action="/home" method="get">
 			<ul id="searchTermsList">
 			</ul>
 			<div id="formBottom">
@@ -36,7 +36,7 @@
 					</div>
 				{{/each}}
 			{{else}}
-				<p id="noCandidatesMessage">No candidates found! Come back later after a candidate makes a profile!</p>
+				<p id="noCandidatesMessage">No candidates found!</p>
 			{{/if}}
 		</div>
 	</div>
