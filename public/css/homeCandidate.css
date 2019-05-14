@@ -67,6 +67,7 @@ body, main {
 	height: 50px;
 	background-size: 100% 100%;
 	background-color: rgba(0, 0, 0, 1.0);
+	margin-left: 1%;
 }
 
 #profileImage:hover {
@@ -139,7 +140,7 @@ body, main {
 .jobEmployer {
 	padding: 0px;
 	margin: 0px;
-	width: 5em;
+	width: 7em;
 	height: 3em;
 	text-align: center;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;

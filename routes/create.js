@@ -16,7 +16,20 @@ var storage = multer.diskStorage({
   }
 })
  
-var upload = multer({ storage: storage })
+var upload = multer({ 
+	storage: storage,
+	limits: { 
+		fileSize: 1024 * 1024, //bytes 
+		files: 1,
+	},
+	fileFilter: (req, file, cb) => {
+		if(file.mimetype != "image/png" && file.mimetype != "image/jpeg") {
+			cb(null, false);
+		} else {
+			cb(null, true);
+		}
+	}
+});
 
 
 router.get('/', async (req, res) => {
@@ -131,7 +144,7 @@ router.post('/candidate',  upload.single('profileImage'), async (req, res, next)
 			}
 		}
 	} else if(!isEmpty(data.candidateSkillYears)) {
-		if(Number(data.candidateSkillYears) == NaN || data.candidateSkillYears[i] < 0.1 || data.candidateSkillYears[i] > 100) {
+		if(Number(data.candidateSkillYears) == NaN || data.candidateSkillYears < 0.1 || data.candidateSkillYears > 100) {
 			res.status(400).send("400 - Bad Request (bad skill years)");
 			return;
 		}
@@ -202,7 +215,7 @@ router.post('/candidate',  upload.single('profileImage'), async (req, res, next)
 	res.status(200).redirect("/login");
 });
 
-router.post('/employer', async (req, res) => {
+router.post('/employer', upload.single('profileImage'), async (req, res, next) => {
 	let data = req.body;
 	let isEmpty = (x) => {
 		if(x === undefined || x === null || x === "") {
@@ -249,7 +262,13 @@ router.post('/employer', async (req, res) => {
 	newEmployer.email = data.employerEmail;
 	newEmployer.password = bcrypt.hashSync(data.employerPassword, 16);
 	newEmployer.description = data.employerDescription;
-	newEmployer.profileImage = "default.png";
+
+	if(!req.file) {
+		newEmployer.profileImage = "default.png";
+	} else {
+		newEmployer.profileImage = req.file.filename;
+	}
+
 	newEmployer.conversations = [];
 
 	console.log("New employer:")

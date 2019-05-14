@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
 			try {
 				let profile = await employers.getEmployerById(req.session._id);
 				let candidateList = await candidates.getAllCandidates();
-				res.render('homeEmployer', {title: 'JobSrc', css: ["homeEmployer"], js: ["homeEmployer"], companyName: profile.name, candidates: candidateList});
+				res.render('homeEmployer', {title: 'JobSrc', css: ["homeEmployer"], js: ["homeEmployer"], profile: profile, candidates: candidateList});
 				return;
 			} catch(e) {
 				res.status(500).send(e.toString()); 
