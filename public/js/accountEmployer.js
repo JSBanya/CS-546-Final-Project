@@ -13,7 +13,7 @@ function validateEmployerForm() {
 		return false;
 	}
 
-	if(password !== password2) {
+	if((password && password2) && password !== password2) {
 		alertError("Error: Passwords do not match.");
 		return false;
 	}

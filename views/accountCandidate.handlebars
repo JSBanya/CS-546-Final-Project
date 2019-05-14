@@ -1,0 +1,110 @@
+<main>
+	<form id="mainContent" action="/account/edit" method="post" onsubmit="return validateCandidateForm()" enctype="multipart/form-data">
+		<header id="profileHeader">
+			<div id="profileImage" style="background-image: url('/public/images/profile/{{profile.profileImage}}')";></div>
+			{{#if isOwner}}
+			<input type="text" name="candidateFirstName" class="titleEdit" maxlength="30" placeholder="First Name" value="{{profile.firstName}}" required>
+			<input type="text" name="candidateLastName" class="titleEdit" maxlength="30" placeholder="Last Name" value="{{profile.lastName}}" required>
+			{{else}}
+			<h2 id="title">{{profile.firstName}} {{profile.lastName}}</h2>
+			{{/if}}
+		</header>
+			
+		<div id="profileContent">
+			{{#if isOwner}}
+			<span class="formLine">
+				<label for="profileImage" class="formLabel">Profile Image:</label>
+				<input type="file" accept="image/png, image/jpeg" name="profileImage" class="formTextInput">
+			</span>
+			<span class="formLine">
+				<label for="profileImage" class="formLabel">New Password:</label>
+				<input type="password" name="candidatePassword" id="candidatePassword" class="formTextInput" placeholder="New Password" minlength="8" maxlength="30">
+				<input type="password" name="candidatePasswordConfirm" id="candidatePasswordConfirm" class="formTextInput" placeholder="Confirm New Password" minlength="8" maxlength="30">
+			</span>
+			<textarea name="candidateBiography" id="biographyEdit" rows=5 maxlength="500" placeholder="Biography">{{profile.biography}}</textarea>
+			{{else}}
+			<p id="biography">{{profile.biography}}</p>
+			{{/if}}
+		</div>
+
+		<h3 class="containerTitle">Skills</h3>
+		<ol id="skillsContainer">
+
+		{{#if isOwner}}
+			{{#each profile.skills}}
+				<li class="skillEntry" id="candidateSkill{{@index}}">
+					<div class="skillEntryContainer">
+						<input type="text" name="candidateSkill" class="formTextInput skillNameEdit" placeholder="Skill (e.g. Javascript)" value="{{this.skill}}" maxlength="30" required>
+						<input type="number" name="candidateSkillYears" class="formTextInput skillYearsEdit" placeholder="Years (e.g. 2.5)" step="0.1" min="0.1" max="100" value="{{this.years}}" required>
+						<button type="button" class="SERemove" onclick="$('#candidateSkill{{@index}}').remove()">&#10005;</button>
+					</div>
+				</li>
+			{{/each}}
+		{{else}}
+			{{#if profile.skills}}
+				{{#each profile.skills}}
+				<li class="skillEntry">
+					<div class="skillEntryContainer">
+						<p class="skillName">{{this.skill}}:</p>
+						<p class="skillYears">{{this.years}} years</p>
+					</div>
+				</li>
+				{{/each}}
+			{{else}}
+				<p class="message">No skills listed.</p>
+			{{/if}}
+		{{/if}}
+		</ol>
+
+		{{#if isOwner}}
+		<button type="button" class="addButton" onclick="addSkill()">New Skill</button>
+		{{/if}}
+
+		<h3 class="containerTitle">Experience</h3>
+		<div id="experienceContainer">
+		{{#if isOwner}}
+			{{#each profile.experience}}
+			<div class="experienceEntryRow" id="candidateExperience{{@index}}">
+				<button type="button" class="SERemove" onclick="$('#candidateExperience{{@index}}').remove()">&#10005;</button>
+				<div class="experienceEntryContainerEdit">
+					<input type="text" name="candidateExperience" class="formTextInput" placeholder="Location" maxlength="50" value="{{this.experience}}" required>
+					<textarea name="experienceDescription" class="formTextInput experienceDescriptionEdit" rows=3 placeholder="Job Description" maxlength="1000" required>{{this.description}}</textarea>
+					<div class="experienceEntryRow">
+						<input type="date" name="candidateExperienceFrom" class="formTextInput experienceDate candidateExperienceFrom" value="{{this.from}}" required>
+						<p class="datesDivider">to</p>
+						<input type="date" name="candidateExperienceTo" class="formTextInput experienceDate candidateExperienceTo" value="{{this.to}}" required>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		{{else}}
+			{{#if profile.experience}}
+				{{#each profile.experience}}
+					<div class="experienceEntryContainer">
+						<div class="experienceEntryRow">
+							<p class="experienceName">{{this.experience}}</p>
+							<p class="experienceDates">({{this.from}} - {{this.to}})</p>
+						</div>
+
+						<p class="experienceDescription">{{this.description}}</p>
+					</div>
+				{{/each}}
+			{{else}}
+				<p class="message">No experience listed.</p>
+			{{/if}}
+		{{/if}}
+		</div>
+
+		{{#if isOwner}}
+		<button type="button" class="addButton" onclick="addExperience()">New Experience</button>
+		{{/if}}
+
+		{{#if isOwner}}
+		<div id="error"></div>
+		
+		<div id="controlsContainer">
+			<input type="submit" value="Save" id="submitButton">
+		</div>
+		{{/if}}
+	</form>
+</main>
