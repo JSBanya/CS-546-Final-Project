@@ -4,12 +4,26 @@ const moment = require("moment");
 const candidates = require("../data/candidates");
 const employers = require("../data/employers");
 const bcrypt = require('bcrypt');
+const multer = require('multer')
+const uuidv4 = require('uuid/v4');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, __dirname+'/../public/images/profile/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, ""+uuidv4()+(file.mimetype == "image/png" ? ".png" : ".jpg"))
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
 
 router.get('/', async (req, res) => {
 	res.render('create', {title: 'Create An Account', css: ["create"], js: ["create"]});
 });
 
-router.post('/candidate', async (req, res) => {
+router.post('/candidate',  upload.single('profileImage'), async (req, res, next) => {
 	let data = req.body;
 	let isEmpty = (x) => {
 		if(x === undefined || x === null || x === "") {
@@ -166,7 +180,11 @@ router.post('/candidate', async (req, res) => {
 		newCandidate.experience.push({experience: data.candidateExperience, description: data.experienceDescription, from: data.candidateExperienceFrom, to: data.candidateExperienceTo});
 	}
 
-	newCandidate.profileImage = "default.png";
+	if(!req.file) {
+		newCandidate.profileImage = "default.png";
+	} else {
+		newCandidate.profileImage = req.file.filename;
+	}
 
 	console.log("New candidate:")
 	console.log(newCandidate);
@@ -229,6 +247,7 @@ router.post('/employer', async (req, res) => {
 	newEmployer.email = data.employerEmail;
 	newEmployer.password = bcrypt.hashSync(data.employerPassword, 16);
 	newEmployer.description = data.employerDescription;
+	newEmployer.profileImage = "default.png";
 
 	console.log("New employer:")
 	console.log(newEmployer);

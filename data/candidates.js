@@ -48,7 +48,7 @@ const getCandidateById = async(candidateId) => {
     }
 
     const candidatesCollection = await candidates();
-    const candidate = await candidatesCollection.findOne({ _id: id });
+    const candidate = await candidatesCollection.findOne({ _id: candidateId });
     if (!candidate) {
         throw "ERROR: No candidate for given id";
     }
@@ -86,7 +86,7 @@ const addCandidate = async(profile) => {
     }
 
     const candidatesCollection = await candidates();
-    const info = await candidatesCollection.insertOne(c);
+    const info = await candidatesCollection.insertOne(profile);
     if(info.insertedCount === 0) {
         throw "ERROR: Unable to add candidate to DB";
     }

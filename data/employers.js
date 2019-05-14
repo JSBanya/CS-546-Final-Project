@@ -55,7 +55,7 @@ const addEmployer = async(profile) => {
     }
 
     const employersCollection = await employers();
-    const info = await employersCollection.insertOne(e);
+    const info = await employersCollection.insertOne(profile);
     if(info.insertedCount === 0) {
         throw "ERROR: Unable to add candidate to DB";
     }
