@@ -77,8 +77,8 @@ const removeEmployer = async(employerId) => {
         throw "ERROR: No id provided";
     }
     const employersCollection = await employers();
-    const employer = await employersCollection.findOne({ "id": employerId });
-    const deletedEmployer = await employersCollection.removeOne({ "id": employer.id });
+    const employer = await employersCollection.findOne({ _id: new ObjectID(employerId) });
+    const deletedEmployer = await employersCollection.removeOne({ _id: employer.id });
     if (deletedEmployer.deletedCount === 0) {
         throw `Sorry, we could not find an employer with the id ${employerId}.`;
     }
