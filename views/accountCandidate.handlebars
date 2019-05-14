@@ -2,11 +2,12 @@
 <div id="modalOuter">
 	<div id="modalInnerContainer">
 		<button type="button" id="modalClose" onclick="disableModal()">&#10005;</button>
-		<form id="messageContent" onsubmit="return sendMessage()">
-			<input type="hidden" name="id" value="{{profile._id}}">
+		<form id="messageContent" onsubmit="return sendMessage();">
+			<input type="hidden" name="receiver" value="{{profile._id}}">
+			<input type="hidden" name="sender" value="{{myProfile._id}}">
 			<div class="modalRow">
 			<label for="title" class="modalLabel">Title:</label>
-			<input type="text" name="title" class="modalFormInput" maxlength="50" placeholder="Message Title"required>
+			<input type="text" name="title" class="modalFormInput" id="titleInput" maxlength="50" placeholder="Message Title"required>
 			</div>
 			<div class="modalRow">
 				<textarea name="message" class="formTextInput" id="message" rows=8 placeholder="Your message" maxlength="1000" required></textarea>

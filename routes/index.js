@@ -6,6 +6,7 @@ const newjobRoutes = require("./newjob")
 const candidates = require("../data/candidates");
 const accountRoutes = require("./account");
 const jobRoutes = require("./jobs");
+const messageRoutes = require("./message");
 
 const constructorMethod = app => {
 	app.use("/login", loginRoutes);
@@ -15,6 +16,7 @@ const constructorMethod = app => {
 	app.use("/newjob", newjobRoutes);
 	app.use("/account", accountRoutes);
 	app.use("/jobs", jobRoutes);
+	app.use("/message", messageRoutes);
 
 	app.get("/", async (req, res) => {
 		res.render('index', {title: 'JobSrc', css: ["index"], js: ["index"]});

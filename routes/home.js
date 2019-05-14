@@ -3,6 +3,7 @@ const router = express.Router();
 const candidates = require("../data/candidates");
 const employers = require("../data/employers");
 const jobs = require("../data/jobs");
+const messages = require("../data/messages");
 
 router.get('/', async (req, res) => {
 	if(req.session._id === undefined) {
@@ -22,12 +23,22 @@ router.get('/', async (req, res) => {
 				joblist[i].employer = owner.name;
 			}
 
+			// Messages
+			let messageList = await messages.getMessagesForCandidate(req.session._id);
+			for(let i = 0; i < messageList.length; i++) {
+				let sender = await employers.getEmployerById(messageList[i].senderId);
+				messageList[i].senderImage = sender.profileImage;
+				messageList[i].sender = sender.name;
+			}
+
 			res.render('homeCandidate', { 
 				title: 'JobSrc', 
 				css: ["homeCandidate"], 
 				js: ["homeCandidate"],
 				myProfile: profile,
 				joblist: joblist,
+				messageList: messageList,
+				numMessages: messageList.length,
 				layout: "home"
 			});
 			return;

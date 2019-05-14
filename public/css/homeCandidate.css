@@ -5,6 +5,13 @@ main {
 	align-items: flex-start;
 }
 
+#controlBar {
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+	justify-content: flex-end;
+}
+
 #jobContainer {
 	width: 100%;
 	height: 100%;
@@ -93,5 +100,158 @@ main {
 	font-style: italic;
 }
 
+/***********
+* Messaging
+***********/
 
+#modalOuter {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 999;
+	top: 0px;
+	left: 0px;
+}
 
+#modalInnerContainer {
+	width: 50%;
+	min-height: 25%;
+	max-height: 80%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: rgba(255, 255, 255, 1.0);
+	border-radius: 10px;
+	position: relative;
+	overflow-y: auto;
+}
+
+#entryList {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#modalClose {
+	background: none;
+	border: none;
+	font-size: 1.5em;
+	color: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+#modalClose:hover {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 1.0);
+}
+
+.modalRow {
+	width: 90%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.modalText {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: rgba(0, 0, 0, 1.0);
+	font-weight: 100;
+	font-size: 1.0em;
+}
+
+#messagesLink {
+	color: rgba(0, 0, 0, 0.8);
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 1.0em;
+}
+
+#messagesLink:hover {
+	cursor: pointer;
+	color: rgba(0, 0, 0, 1.0);
+}
+
+.messageEntry {
+	margin: 0px;
+	padding: 0px;
+	width: 90%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.messageEmployerInfo {
+	margin: 0px;
+	margin-right: 5px;
+	padding: 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 20%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.075);
+}
+
+.messageEmployerInfo:hover {
+	cursor: pointer;
+}
+
+.messageEmployerPicture {
+	width: 50px;
+	height: 50px;
+	background-size: 100% 100%;
+	background-color: rgba(0, 0, 0, 1.0);
+	border: 1px solid rgba(0, 0, 0, 1.0);
+}
+
+.messageEmployerName {
+	width: 100%;
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+	margin-top: 5px;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 1.0em;
+	overflow-x: hidden;
+}
+
+.messageContainer {
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.messageTitle {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 1.0em;
+	color: rgba(0, 0, 200, 1.0);
+}
+
+.messageText {
+	padding: 2px;
+	margin: 0px;
+	width: 100%;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 0.8em;
+	word-wrap: break-word;
+}

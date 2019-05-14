@@ -1,7 +1,5 @@
 const mongoCollections = require("./collections");
 const messages = mongoCollections.messages;
-const uuid = require("node-uuid");
-
 
     /**
      * Messages Object Structure (stand-alone):
@@ -9,7 +7,8 @@ const uuid = require("node-uuid");
      *                  messageId,
      *                  senderId,
      *                  receiverId,
-     *                  content
+     *                  content,
+     *                  title
      *          }
      */
 
@@ -38,13 +37,8 @@ const uuid = require("node-uuid");
             throw "ERROR: No employer id provided";
         }
         let messagesCollection = await messages();
-        const messagesList = await messagesCollection.find({ "receiverId": employerId }).toArray();
-
-        if (!messagesList) {
-            throw "ERROR: Messages collection may not exist";
-        }
+        const messagesList = await messagesCollection.find({ senderId: employerId.toString() }).toArray();
         return messagesList;
-
     };
 
     /**
@@ -56,13 +50,9 @@ const uuid = require("node-uuid");
         if (!candidateId) {
             throw "ERROR: no candidate id provided";
         }
+
         let messagesCollection = await messages();
-        const messagesList = await messagesCollection.find({ "receiverId": candidateId }).toArray();
-
-        if (!messagesList) {
-            throw "ERROR: Messages collection may not exist";
-        }
-
+        const messagesList = await messagesCollection.find({ receiverId: candidateId.toString() }).toArray();
         return messagesList;
     };
 
@@ -70,17 +60,18 @@ const uuid = require("node-uuid");
      * Adds a message of the given object to the given candidate
      * @param candidateId The candidate's id of the message
      * @param employerId The employer's id of the message
-     * @param newMessage The new message object
+     * @param newMessage The new message text
+     * @param title The new message's title
      * @return none Throws an error if the message was not sent
      */
-    const sendMessageToCand = async(candidateId, employerId, newMessage) => {
+    const sendMessageToCand = async(candidateId, employerId, newMessage, title) => {
         let messagesCollection = await messages();
 
         let message = {
-            "id": uuid.v4(),
-            "senderId": candidateId,
-            "receiverId": employerId,
-            "content": newMessage
+            senderId: employerId,
+            receiverId: candidateId,
+            content: newMessage,
+            title: title
         }
 
         let info = await messagesCollection.insertOne(message);
@@ -89,49 +80,10 @@ const uuid = require("node-uuid");
         }
     };
 
-    /**
-     * Adds a message of the given object to the given employer
-     * @param candidateId The candidate's id of the message
-     * @param employerId The employer's id of the message
-     * @param newMessage The new message object
-     * @return none Throws an error if the message was not sent
-     */
-    const sendMessageToEmpl = async(candidateId, employerId, newMessage) => {
-        let messagesCollection = await messages();
-
-        let message = {
-            "id": uuid.v4(),
-            "senderId": employerId,
-            "receiverId": candidateId,
-            "content": newMessage
-        }
-
-        let info = await messagesCollection.insertOne(message);
-        if (info.insertedCount === 0) {
-            throw "ERROR: Unable to add to messages collection";
-        }
-    };
-
-    /**
-     * Deletes a conversation with the given candidate and employer id 
-     * @param condidateId The id of the message's candidate
-     * @param employerId The id of the message's employer
-     * @return none Throws an error if the conversation was not deleted
-     */
-    const deleteConversation = async(candidateId, employerId) => {
-        let messagesCollection = await messages();
-
-        let info = await messagesCollection.removeOne({"senderId": employerId, "receiverId": candidateId});
-        if (info.deleteCount === 0) {
-            throw "ERROR: No messages to be deleted";
-        }
-    };
 
 module.exports = {
     getAllMessages,
     getMessagesForCandidate,
     getMessagesForEmployer,
-    sendMessageToCand,
-    sendMessageToEmpl,
-    deleteConversation
+    sendMessageToCand
 };
