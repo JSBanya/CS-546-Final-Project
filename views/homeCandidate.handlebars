@@ -1,10 +1,10 @@
 <main>
 	<header id="homeBar">
 		<div id="homeBarLeft">
-			<div id="profileImage" onclick="location.href='/edit'"></div>
+			<div id="profileImage" style="background-image: url('/public/images/profile/{{profile.profileImage}}');" onclick="location.href='/edit'"></div>
 			<p id="profileName">
-				{{#if firstName}} {{firstName}} {{/if}}
-				{{#if lastName}} {{lastName}} {{/if}}
+				{{profile.firstName}}
+				{{profile.lastName}}
 			</p>
 		</div>
 		<div id="homeBarRight">
@@ -21,12 +21,12 @@
 
 	<div id="jobContainer">
 		<div id="jobList">
-			{{#if jobs}}
-				{{#each jobs}}
+			{{#if joblist}}
+				{{#each joblist}}
 					<div class="jobEntry">
 						<div class="jobImage" style='background-image: url("/public/images/profile/{{this.employerImage}}")'></div>
 						<p class="jobEmployer">{{this.employer}}</p>
-						<p class="jobTitle">{{this.title}}</p>
+						<p class="jobTitle">{{this.name}}</p>
 						<p class="jobDescription">{{this.description}}</p>
 					</div>
 				{{/each}}

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const candidates = require("../data/candidates");
 const employers = require("../data/employers");
+const jobs = require("../data/jobs");
 
 router.get('/', async (req, res) => {
 	if(req.session._id !== undefined) {
@@ -9,17 +10,24 @@ router.get('/', async (req, res) => {
 			// Candidate is logged in
 			try {
 				let profile = await candidates.getCandidateById(req.session._id);
+				let joblist = await jobs.getAllJobs();
+
+				for(let i = 0; i < joblist.length; i++) {
+					let owner = await employers.getEmployerById(joblist[i].owner);
+					joblist[i].employerImage = owner.profileImage;
+					joblist[i].employer = owner.name;
+				}
+
 				res.render('homeCandidate', { 
 					title: 'JobSrc', 
 					css: ["homeCandidate"], 
-					js: ["homeCandidate"], 
-					firstName: profile.firstName, 
-					lastName: profile.lastName,
-					jobs: []
+					js: ["homeCandidate"],
+					profile: profile,
+					joblist: joblist
 				});
 				return;
 			} catch(e) {
-				res.status(500).send(e); 
+				res.status(500).send(e.toString()); 
 				return;
 			}
 		} else {

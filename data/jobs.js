@@ -9,11 +9,8 @@ let exportedMethods = {
      */
     async getAllJobs() {
         const jobsCollection = await jobs();
-
-        const jobs = await jobsCollection.find({}).toArray();
-
-        return jobs;
-
+        const joblist = await jobsCollection.find({}).toArray();
+        return joblist;
     },
 
     /**
@@ -49,9 +46,9 @@ let exportedMethods = {
         const jobsCollection = await jobs();
         const insertInfo = await jobsCollection.insertOne(newJob);
         if (insertInfo.insertedCount === 0) {
-            console.log( "Could not add job");
-            return false;
+            throw "Could not add job";
         }
+
         return true;
     },
 
