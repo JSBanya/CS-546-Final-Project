@@ -471,83 +471,83 @@ const seedJobs = async() => {
         },
         {
             _id: new ObjectID("aa982feb273810100faceba2"),
-            name: "",
-            description: "",
+            name: "Systems Programming",
+            description: "Deep dive into databases.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ecb4df191191946afe")
         },
         {
             _id: new ObjectID("fceb182beac738ecfa893b3d"),
-            name: "",
-            description: "",
+            name: "Database Developer",
+            description: "Build stuff for data stuff.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ecb4df19e9292938f9")
         },
         {
             _id: new ObjectID("aa982feb2728194febe9dab2"),
-            name: "",
-            description: "",
+            name: "Software Developer - Intern",
+            description: "Get no money but do mad work.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ecb4df1897fec16eac")
         },
         {
             _id: new ObjectID("abefd526adecadb37ef19201"),
-            name: "",
-            description: "",
+            name: "Software Development - Frontend",
+            description: "Make pretty things for us.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401acef261fbd9de6f7afe29")
         },
         {
             _id: new ObjectID("1784fbe18023adb37ef19201"),
-            name: "",
-            description: "",
+            name: "Curriculum Engineer",
+            description: "Make courses and such.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401acef261fbd9de6f7afe29")
         },
         {
             _id: new ObjectID("aa982feb2731910491feb4eb"),
-            name: "",
-            description: "",
+            name: "Data Science - Intern",
+            description: "Manage lots of data. Its fun.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ec56382dbe281faa70")
         },
         {
             _id: new ObjectID("aa982feb2192009feb1728e1"),
-            name: "",
-            description: "",
+            name: "Web Developer",
+            description: "Web developent needed for my personal project",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("1019283fbe819afbe921dfe1")
         },
         {
             _id: new ObjectID("aa982feb2735610ebabed073"),
-            name: "",
-            description: "",
+            name: "Cloud Engineer",
+            description: "Move stuff on the cloud.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ecb4df191191946afe")
         },
         {
             _id: new ObjectID("a231231231f31b1e21a1d112"),
-            name: "",
-            description: "",
+            name: "Senior Software Engineer",
+            description: "You will manage all the scrub coders.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ecb4df8293feb271ea")
         },
         {
             _id: new ObjectID("aa982feb2738adaaabbdbef8"),
-            name: "",
-            description: "",
+            name: "Linux Engineer",
+            description: "You make our operations run super smooth",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401a93ec56382dbe281faa70")
         }
     ])
 };
