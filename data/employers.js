@@ -22,7 +22,7 @@ const getAllEmployers = async() => {
  */
 const getEmployerById = async (id) => {
 	const employersCollection = await employers();
-	const result = await employersCollection.findOne({ _id: id });
+	const result = await employersCollection.findOne({ "id": id });
     if (result === null || result === undefined) {
     	throw "No employer for given id";
     }
@@ -41,7 +41,7 @@ const getEmployerByEmail = async (email) => {
     }
 
     const employersCollection = await employers();
-    const employer = await employersCollection.findOne({ email: email });
+    const employer = await employersCollection.findOne({ "email": email });
     if (!employer) {
         throw "ERROR: No employer for given email";
     }
@@ -54,13 +54,13 @@ const getEmployerByEmail = async (email) => {
  * @param profile The profile object for the new employer
  * @return none Throws an error if the employer was not created
  */
-const addEmployer = async(profile) => {
-    if (!profile) {
+const addEmployer = async(employer) => {
+    if (!employer) {
         throw "ERROR: No profile provided";
     }
 
     const employersCollection = await employers();
-    const info = await employersCollection.insertOne(e);
+    const info = await employersCollection.insertOne(employer);
     if(info.insertedCount === 0) {
         throw "ERROR: Unable to add employer to DB";
     }
@@ -76,8 +76,8 @@ const removeEmployer = async(employerId) => {
         throw "ERROR: No id provided";
     }
     const employersCollection = await employers();
-    const employer = await employersCollection.findOne({ _id: employerId });
-    const deletedEmployer = await employersCollection.removeOne({ _id: employer._id });
+    const employer = await employersCollection.findOne({ "id": employerId });
+    const deletedEmployer = await employersCollection.removeOne({ "id": employer.id });
     if (deletedEmployer.deletedCount === 0) {
         throw `Sorry, we could not find an employer with the id ${employerId}.`;
     }
@@ -96,9 +96,9 @@ const updateEmployerName = async(employerId, newName) => {
         throw "ERROR: Not enough arguments given to update function";
     }
     const employersCollection = await employers();
-    let updatedEmployer = {"profile": {"name": newName} };
+    let updatedEmployer = {"name": newName};
 
-    const updated = await employersCollection.updateOne({ _id: employerId }, {$set: updatedEmployer});
+    const updated = await employersCollection.updateOne({ "id": employerId }, {$set: updatedEmployer});
 
     if (!updated) {
         throw "ERROR: There was an error updating the employers";
@@ -116,9 +116,9 @@ const updateEmployerDesc = async(employerId, newDesc) => {
         throw "ERROR: Not enough arguments given to update function";
     }
     const employerCollection = await employers();
-    let updatedEmployer = {"profile": {"description": newDesc} };
+    let updatedEmployer = {"description": newDesc};
 
-    const updated = await employerCollection.updateOne({ _id: employerId }, {$set: updatedEmployer});
+    const updated = await employerCollection.updateOne({ "id": employerId }, {$set: updatedEmployer});
 
     if (!updated) {
         throw "ERROR: There was an error updating the employer";
@@ -136,9 +136,9 @@ const updateEmployerImg = async(employerId, newImg) => {
         throw "ERROR: Not enough arguments given to update function";
     }
     const employerCollection = await employers();
-    let updatedEmployer = {"profile": {"imageRef": newImg} };
+    let updatedEmployer = {"profileImage": newImg};
 
-    const updated = await employerCollection.updateOne({ _id: employerId }, {$set: updatedEmployer});
+    const updated = await employerCollection.updateOne({ "id": employerId }, {$set: updatedEmployer});
 
     if (!updated) {
         throw "ERROR: There was an error updating the employer";

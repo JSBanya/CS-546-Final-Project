@@ -1,38 +1,16 @@
 const mongoCollections = require("./collections");
 const messages = mongoCollections.messages;
-const employerData = require("./employers");
-const candidateData = require("./candidates");
 const uuid = require("node-uuid");
 
 
     /**
      * Messages Object Structure (stand-alone):
      *          { 
-     *                  id,
+     *                  messageId,
      *                  senderId,
      *                  receiverId,
      *                  content
      *          }
-     *
-     * Message Object Structure (employer/candidate):
-     *
-     *          conversations: [ 
-     *                          { 
-     *                           candidateId/employerId,
-     *                           messages: [ 
-     *                                      {
-     *                                       messageId,
-     *                                       jobId
-     *                                      },
-     *                                      {
-     *                                       messageId,
-     *                                       jobId
-     *                                      }
-     *                                     ]
-     *                          } 
-     *                            ]
-     *
-     *
      */
 
     /**
@@ -96,7 +74,19 @@ const uuid = require("node-uuid");
      * @return none Throws an error if the message was not sent
      */
     const sendMessageToCand = async(candidateId, employerId, newMessage) => {
+        let messagesCollection = await messages();
 
+        let message = {
+            "id": uuid.v4(),
+            "senderId": candidateId,
+            "receiverId": employerId,
+            "content": newMessage
+        }
+
+        let info = await messagesCollection.insertOne(message);
+        if (info.insertedCount === 0) {
+            throw "ERROR: Unable to add to messages collection";
+        }
     };
 
     /**
@@ -107,19 +97,34 @@ const uuid = require("node-uuid");
      * @return none Throws an error if the message was not sent
      */
     const sendMessageToEmpl = async(candidateId, employerId, newMessage) => {
+        let messagesCollection = await messages();
 
+        let message = {
+            "id": uuid.v4(),
+            "senderId": employerId,
+            "receiverId": candidateId,
+            "content": newMessage
+        }
+
+        let info = await messagesCollection.insertOne(message);
+        if (info.insertedCount === 0) {
+            throw "ERROR: Unable to add to messages collection";
+        }
     };
 
     /**
      * Deletes a conversation with the given candidate and employer id 
-     * (Only removes the conversation for the profile that requests the deletion)
      * @param condidateId The id of the message's candidate
      * @param employerId The id of the message's employer
-     * @param whoDeleted A string indicating who is deleting the conversation ("candidate" | "employer")
      * @return none Throws an error if the conversation was not deleted
      */
-    const deleteConversation = async(candidateId, employerId, whoDeleted) => {
-        
+    const deleteConversation = async(candidateId, employerId) => {
+        let messagesCollection = await messages();
+
+        let info = await messagesCollection.removeOne({"senderId": employerId, "receiverId": candidateId});
+        if (info.deleteCount === 0) {
+            throw "ERROR: No messages to be deleted";
+        }
     };
 
 module.exports = {

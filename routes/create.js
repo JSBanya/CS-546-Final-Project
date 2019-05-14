@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const moment = require("moment");
+const uuid = require("node-uuid");
 const candidates = require("../data/candidates");
 const employers = require("../data/employers");
 const bcrypt = require('bcrypt');
@@ -144,6 +145,7 @@ router.post('/candidate', async (req, res) => {
 
 	// Good to go; Format
 	let newCandidate = {};
+	newCandidate.id = uuid.v4();
 	newCandidate.firstName = data.candidateFirstName;
 	newCandidate.lastName = data.candidateLastName;
 	newCandidate.email = data.candidateEmail;
@@ -166,8 +168,9 @@ router.post('/candidate', async (req, res) => {
 		newCandidate.experience.push({experience: data.candidateExperience, description: data.experienceDescription, from: data.candidateExperienceFrom, to: data.candidateExperienceTo});
 	}
 
-	newCandidate.profileImage = "default.png";
-	newCandidate.conversations = [];
+	newCandidate.profileImage = "default.png"
+	newCandidate.applied = [];
+	newCandidate.hired = [];
 
 	console.log("New candidate:")
 	console.log(newCandidate);
@@ -226,11 +229,12 @@ router.post('/employer', async (req, res) => {
 
 	// Good to go; Store
 	let newEmployer = {};
+	newEmployer.id = uuid.v4();
 	newEmployer.name = data.employerName;
 	newEmployer.email = data.employerEmail;
 	newEmployer.password = bcrypt.hashSync(data.employerPassword, 16);
 	newEmployer.description = data.employerDescription;
-	newEmployer.conversations = []
+	newEmployer.profileImage = "default.png"
 
 	console.log("New employer:")
 	console.log(newEmployer);

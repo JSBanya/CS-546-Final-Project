@@ -25,7 +25,7 @@ let exportedMethods = {
         if (!jobId) throw "You must provide an id to search for";
 
         const jobsCollection = await jobs();
-        const job = await jobsCollection.findOne({ _id: jobId });
+        const job = await jobsCollection.findOne({ "id": jobId });
         if (job === null) throw "No job with that id";
 
         return job;
@@ -64,7 +64,7 @@ let exportedMethods = {
         if (!jobId) throw "You must provide an id to search for";
 
         const jobsCollection = await jobs();
-        const deletionInfo = await jobsCollection.removeOne({ _id: jobId });
+        const deletionInfo = await jobsCollection.removeOne({ "id": jobId });
 
         if (deletionInfo.deletedCount === 0) {
             console.log(`[ERROR] Could not delete job with id of ${jobId}`) ;
@@ -95,7 +95,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot open the job of ${jobId}`);
             return false;
@@ -125,7 +125,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot close the job of ${jobId}`);
             return false;
@@ -158,7 +158,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot update the job title of ${jobId}`);
             return false;
@@ -191,7 +191,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot update the job description of ${jobId}`);
             return false;
@@ -225,7 +225,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot update the job skills set of ${jobId}`);
             return false;
@@ -261,7 +261,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot add the job skills set of ${jobId}`);
             return false;
@@ -281,13 +281,13 @@ let exportedMethods = {
         }
 
         const jobsCollection = await jobs();
-        const job = jobsCollection.find({ _id: jobId});
+        const job = jobsCollection.find({ "id": jobId});
         let currentSkills = job.ListOfDesiredSkills;
         let skills = currentSkills.filter(s => { oldSkills.includes(s) })
 
         let updatedJob = {"ListOfDesiredSkills":skills};
 
-        const updated = await jobsCollection.updateOne({ _id: jobId }, {$set: updatedJob});
+        const updated = await jobsCollection.updateOne({ "id": jobId }, {$set: updatedJob});
 
         if (!updated) {
             throw "ERROR: There was an error updating the candidate";
@@ -319,7 +319,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot update the job Rate of ${jobId}`);
             return false;
@@ -354,7 +354,7 @@ let exportedMethods = {
             }
         };
 
-        const updateInfo = await jobsCollection.updateOne({ _id: jobId }, updatedJob);
+        const updateInfo = await jobsCollection.updateOne({ "id": jobId }, updatedJob);
         if (updateInfo.modifiedCount === 0) {
             console.log(`[ERROR] Cannot update the job RateType of ${jobId}`);
             return false;
