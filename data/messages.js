@@ -96,7 +96,7 @@ const uuid = require("node-uuid");
      * @return none Throws an error if the message was not sent
      */
     const sendMessageToCand = async(candidateId, employerId, newMessage) => {
-        
+
     };
 
     /**
@@ -119,7 +119,7 @@ const uuid = require("node-uuid");
      * @return none Throws an error if the conversation was not deleted
      */
     const deleteConversation = async(candidateId, employerId, whoDeleted) => {
-
+        
     };
 
 module.exports = {

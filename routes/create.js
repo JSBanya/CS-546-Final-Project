@@ -167,6 +167,7 @@ router.post('/candidate', async (req, res) => {
 	}
 
 	newCandidate.profileImage = "default.png";
+	newCandidate.conversations = [];
 
 	console.log("New candidate:")
 	console.log(newCandidate);
@@ -229,6 +230,7 @@ router.post('/employer', async (req, res) => {
 	newEmployer.email = data.employerEmail;
 	newEmployer.password = bcrypt.hashSync(data.employerPassword, 16);
 	newEmployer.description = data.employerDescription;
+	newEmployer.conversations = []
 
 	console.log("New employer:")
 	console.log(newEmployer);
