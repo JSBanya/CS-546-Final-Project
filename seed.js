@@ -1,4 +1,4 @@
-const mongoCollections = require("./collections");
+const mongoCollections = require("./data/collections");
 const bcrypt = require('bcrypt');
 const ObjectID = require('mongodb').ObjectID;
 const candidates = mongoCollections.candidates;
@@ -63,9 +63,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("2fecfc88770f37292a21461e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Kevin",
+            lastName: "Brown",
+            email: "kbrown@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -93,9 +93,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("5cdafc51f0ec7a292a21461e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Rob",
+            lastName: "Hurley",
+            email: "rhurley@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -123,9 +123,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("1a0f963cebf25619aecbd0d6"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Andrew",
+            lastName: "Biggens",
+            email: "abiggens@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -153,9 +153,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("5cdafc88770f37292a22101e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Jerry",
+            lastName: "Sanchez",
+            email: "jsanchez@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -183,9 +183,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("777caef8770f37292a21461e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Henry",
+            lastName: "Hills",
+            email: "hhills@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -213,9 +213,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("5cdafc88770f31134fec461e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Chad",
+            lastName: "Greene",
+            email: "cgreene@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -243,9 +243,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("5cdafc88770f37981bae061e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Khayyam",
+            lastName: "Saleem",
+            email: "khayyam@lifeskillssoftware.tech",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -273,9 +273,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("000192cf25eab6793bdfce10"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Mike",
+            lastName: "Dineen",
+            email: "mdineen@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -303,9 +303,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("5cdafc88770f193758fe62ac"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "Lenny",
+            lastName: "Cravets",
+            email: "lcravets@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -333,9 +333,9 @@ const seedCandidates = async() => {
         },
         {
             _id: new ObjectID("3782fb9e8a1c37292a21461e"),
-            firstName: "",
-            lastName: "",
-            email: "",
+            firstName: "George",
+            lastName: "Vosper",
+            email: "gvosper@gmial.com",
             password: bcrypt.hashSync("Password123", 16),
             skills: [
                 {
@@ -369,72 +369,72 @@ const seedEmployers = async() => {
     employersCollection.insertMany([
         {
             _id: new ObjectID("401a93ecb4df19ee6f7afe29"),
-            name: "",
-            email: "",
-            description: "",
+            name: "Life Skills Software",
+            email: "jgrodes@lifeskillssoftware.com",
+            description: "A great company for a great cause.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
         },
         {
             _id: new ObjectID("401a93ecb4df1897fec16eac"),
-            name: "",
-            email: "",
-            description: "",
+            name: "IBM",
+            email: "ftank@ibm.com",
+            description: "We are smarter than everyone and our workers are superior.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
         },
         {
             _id: new ObjectID("401a93ecb4df19e9292938f9"),
-            name: "",
-            email: "",
-            description: "",
+            name: "Mongo",
+            email: "sdobs@mongo.com",
+            description: "We are pretty cool I guess.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
         },
         {
             _id: new ObjectID("401a93ecb4df191191946afe"),
-            name: "",
-            email: "",
-            description: "",
+            name: "DexterityDB",
+            email: "ashroger@dexdb.com",
+            description: "SPEED, SPEED, SPEED!",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
         },
         {
             _id: new ObjectID("401a93ecb4df8293feb271ea"),
-            name: "",
-            email: "",
-            description: "",
+            name: "JPMorgan",
+            email: "mknight@jpmorgan.com",
+            description: "We make money.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
         },
         {
             _id: new ObjectID("401acef261fbd9de6f7afe29"),
-            name: "",
-            email: "",
-            description: "",
+            name: "Codecademy",
+            email: "lkapisky@codecademy.com",
+            description: "Cool, startup environment and such.",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
         },
         {
             _id: new ObjectID("401a93ec56382dbe281faa70"),
-            name: "",
-            email: "",
-            description: "",
+            name: "American Express",
+            email: "achen@amex.com",
+            description: "Our cards are the best!",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
         },
         {
             _id: new ObjectID("1019283fbe819afbe921dfe1"),
-            name: "",
-            email: "",
-            description: "",
+            name: "Danny McBride",
+            email: "dmcbride@gmail.com",
+            description: "I am a 40-something year old actor and I need help doing software development (for some reason).",
             password: bcrypt.hashSync("Password123", 16),
             profileImg: "default.png",
             conversations = []
@@ -447,15 +447,15 @@ const seedJobs = async() => {
     jobsCollection.insertMany([
         {
             _id: new ObjectID("aa982feb2738adb37ef19201"),
-            name: "",
-            description: "",
+            name: "Software Developer - Backend",
+            description: "You do all the work, we watch and eat chinese food.",
             open: true,
             skills: [],
-            owner: ""  
+            owner: ObjectID("401acef261fbd9de6f7afe29")
         },
         {
             _id: new ObjectID("aa982feb273819832feb1231"),
-            name: "",
+            name: "AI and Machine Learning Research",
             description: "",
             open: true,
             skills: [],

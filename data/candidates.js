@@ -263,13 +263,13 @@ const applyToJob = async(candidateId, jobId) => {
     }
 
     const candidateCollection = await candidates();
-    let candidate = await candidateCollection.find({ "id": candidateId });
+    let candidate = await candidateCollection.find({ _id: candidateId });
     let newApplied = (candidate.applied).push(jobId);
     let updatedCandidate = { "applied": newApplied };
-    let updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
+    let updated = await candidateCollection.updateOne({ _id: candidateId }, {$set: updatedCandidate});
     let employerId = (jobData.getJobById(jobId)).owner;
     let job = await jobData.getJobById(jobId);
-    let newMessage = `The candidate, ${candidate.profile.name}, has applied to your posting for position, ${job.title}.`;
+    let newMessage = `The candidate, ${candidate.firstName} ${candidate.lastName}, has applied to your posting for position, ${job.name}.`;
     await messageData.sendMessageToEmpl(candidateId, employerId, newMessage);
     return updated;
 };
