@@ -22,7 +22,7 @@ const getAllEmployers = async() => {
  */
 const getEmployerById = async (id) => {
 	const employersCollection = await employers();
-	const result = await employersCollection.findOne({ "id": id });
+	const result = await employersCollection.findOne({ _id: id });
     if (result === null || result === undefined) {
     	throw "No employer for given id";
     }
@@ -41,7 +41,7 @@ const getEmployerByEmail = async (email) => {
     }
 
     const employersCollection = await employers();
-    const employer = await employersCollection.findOne({ "email": email });
+    const employer = await employersCollection.findOne({ email: email });
     if (!employer) {
         throw "ERROR: No employer for given email";
     }

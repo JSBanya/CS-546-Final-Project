@@ -49,7 +49,7 @@ const getCandidateById = async(candidateId) => {
     }
 
     const candidatesCollection = await candidates();
-    const candidate = await candidatesCollection.findOne({ "id": id });
+    const candidate = await candidatesCollection.findOne({ _id: candidateId });
 
     if (!candidate) {
         throw "ERROR: No candidate for given id";
@@ -69,7 +69,7 @@ const getCandidateByEmail = async (email) => {
     }
 
     const candidatesCollection = await candidates();
-    const candidate = await candidatesCollection.findOne({ "email": email });
+    const candidate = await candidatesCollection.findOne({ email: email });
     if (!candidate) {
         throw "ERROR: No candidate for given email";
     }
@@ -105,8 +105,8 @@ const removeCandidate = async(candidateId) => {
         throw "ERROR: No id provided";
     }
     const candidateCollection = await candidates();
-    const candidate = await candidateCollection.findOne({ "id": candidateId });
-    const deletedCandidate = await candidateCollection.removeOne({ "id": candidate.id });
+    const candidate = await candidateCollection.findOne({ _id: candidateId });
+    const deletedCandidate = await candidateCollection.removeOne({ _id: candidate.id });
     if (deletedCandidate.deletedCount === 0) {
         throw `Sorry, we could not find an employer with the id ${candidateId}.`;
     }
