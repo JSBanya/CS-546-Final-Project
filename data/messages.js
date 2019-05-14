@@ -1,5 +1,7 @@
-const mongoCollections = require("../data/collections");
+const mongoCollections = require("./collections");
 const messages = mongoCollections.messages;
+const employerData = require("./employers");
+const candidateData = require("./candidates");
 const uuid = require("node-uuid");
 
 
@@ -8,7 +10,7 @@ const uuid = require("node-uuid");
      *          { 
      *                  id,
      *                  senderId,
-     *                  recieverId,
+     *                  receiverId,
      *                  content
      *          }
      *
@@ -39,7 +41,13 @@ const uuid = require("node-uuid");
      * @return messages All messages in the collection
      */
     const getAllMessages = async() => {
+        let messagesCollection = await messages();
+        const messagesList = await messagesCollection.find({}).toArray();
 
+        if (!messagesList) {
+            throw "ERROR: Messages collection may not exist";
+        }
+        return messagesList;
     };
     
     /**
@@ -47,7 +55,17 @@ const uuid = require("node-uuid");
      * @param employerId The id for the employer
      * @return conversations The conversations of an employer
      */
-    const getAllEmployerConversations = async(employerId) => {
+    const getMessagesForEmployer = async(employerId) => {
+        if (!employerId) {
+            throw "ERROR: No employer id provided";
+        }
+        let messagesCollection = await messages();
+        const messagesList = await messagesCollection.find({ "receiverId": employerId }).toArray();
+
+        if (!messagesList) {
+            throw "ERROR: Messages collection may not exist";
+        }
+        return messagesList;
 
     };
 
@@ -56,8 +74,18 @@ const uuid = require("node-uuid");
      * @param candidateId The id for the requested candidate
      * @return conversations The conversations of a candidate
      */
-    const getAllCandidateConversations = async(candidateId) => {
+    const getMessagesForCandidate = async(candidateId) => {
+        if (!candidateId) {
+            throw "ERROR: no candidate id provided";
+        }
+        let messagesCollection = await messages();
+        const messagesList = await messagesCollection.find({ "receiverId": candidateId }).toArray();
 
+        if (!messagesList) {
+            throw "ERROR: Messages collection may not exist";
+        }
+
+        return messagesList;
     };
 
     /**
@@ -68,7 +96,7 @@ const uuid = require("node-uuid");
      * @return none Throws an error if the message was not sent
      */
     const sendMessageToCand = async(candidateId, employerId, newMessage) => {
-
+        
     };
 
     /**
@@ -96,8 +124,8 @@ const uuid = require("node-uuid");
 
 module.exports = {
     getAllMessages,
-    getAllCandidateConversations,
-    getAllEmployerConversations,
+    getMessagesForCandidate,
+    getMessagesForEmployer,
     sendMessageToCand,
     sendMessageToEmpl,
     deleteConversation
