@@ -229,6 +229,16 @@ router.post('/edit', async (req, res) => {
 		}
 	}
 
+	if(isEmpty(data.jobRate) || data.jobRate.length > 50) {
+		res.status(400).send("400 - Bad Request (bad job rate)");
+		return;
+	}
+
+	if(data.jobType != "part-time" && data.jobType != "full-time") {
+		res.status(400).send("400 - Bad Request (bad job type)");
+		return;
+	}
+
 	// Good to go; update
 	try {
 		await jobs.updateJobTitle(data.jobID, data.jobName);

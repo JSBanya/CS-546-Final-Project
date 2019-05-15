@@ -98,6 +98,16 @@ router.post('/', async (req, res) => {
 		}
 	}
 
+	if(isEmpty(job.jobRate) || job.jobRate.length > 50) {
+		res.status(400).send("400 - Bad Request (bad job rate)");
+		return;
+	}
+
+	if(job.jobType != "part-time" && job.jobType != "full-time") {
+		res.status(400).send("400 - Bad Request (bad job type)");
+		return;
+	}
+
 	// Good to go; Format
 	let newjob = {};
 	newjob.name = job.jobName;
