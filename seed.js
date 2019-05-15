@@ -7,13 +7,15 @@ const jobs = mongoCollections.jobs;
 
 const seedCandidates = async() => {
     const candidatesCollection = await candidates();
-    const info = candidatesCollection.insertMany([
+    const info = await candidatesCollection.insertMany([
         {
             _id: new ObjectID("5cdafc88770f37292a21461e"),
             firstName: "Steve",
             lastName: "Buchemy",
             email: "sbuchemy@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "Java",
@@ -28,7 +30,7 @@ const seedCandidates = async() => {
                     to: "2019-04-12"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("5cdafc88770f37a56a21461e"),
@@ -36,6 +38,8 @@ const seedCandidates = async() => {
             lastName: "Grosso",
             email: "mgrosso@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "C++",
@@ -43,11 +47,31 @@ const seedCandidates = async() => {
                 },
                 {
                     skill: "Java",
-                    years: "2",
+                    years: "6",
                 },
                 {
                     skill: "Rust",
+                    years: "1.5"
+                },
+                {
+                    skill: "Go",
                     years: "2"
+                },
+                {
+                    skill: "Javascript",
+                    years: "5"
+                },
+                {
+                    skill: "HTML",
+                    years: "5"
+                },
+                {
+                    skill: "CSS",
+                    years: "5"
+                },
+                {
+                    skill: "Node.js",
+                    years: "3"
                 }
             ],
             experience: [
@@ -58,7 +82,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("2fecfc88770f37292a21461e"),
@@ -66,6 +90,8 @@ const seedCandidates = async() => {
             lastName: "Brown",
             email: "kbrown@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "C++",
@@ -88,7 +114,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("5cdafc51f0ec7a292a21461e"),
@@ -96,18 +122,16 @@ const seedCandidates = async() => {
             lastName: "Hurley",
             email: "rhurley@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
-                    skill: "C++",
+                    skill: "Java",
                     years: "5"
                 },
                 {
-                    skill: "Java",
-                    years: "2",
-                },
-                {
-                    skill: "Rust",
-                    years: "2"
+                    skill: "Javascript",
+                    years: "5",
                 }
             ],
             experience: [
@@ -118,7 +142,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("1a0f963cebf25619aecbd0d6"),
@@ -126,17 +150,19 @@ const seedCandidates = async() => {
             lastName: "Biggens",
             email: "abiggens@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
-                    skill: "C++",
+                    skill: "Java",
                     years: "5"
                 },
                 {
-                    skill: "Java",
-                    years: "2",
+                    skill: "C",
+                    years: "3",
                 },
                 {
-                    skill: "Rust",
+                    skill: "Python",
                     years: "2"
                 }
             ],
@@ -148,7 +174,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("5cdafc88770f37292a22101e"),
@@ -156,6 +182,8 @@ const seedCandidates = async() => {
             lastName: "Sanchez",
             email: "jsanchez@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "C++",
@@ -178,7 +206,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("777caef8770f37292a21461e"),
@@ -186,6 +214,8 @@ const seedCandidates = async() => {
             lastName: "Hills",
             email: "hhills@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "C++",
@@ -208,7 +238,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("5cdafc88770f31134fec461e"),
@@ -216,17 +246,23 @@ const seedCandidates = async() => {
             lastName: "Greene",
             email: "cgreene@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
-                    skill: "C++",
-                    years: "5"
+                    skill: "Node.js",
+                    years: "2"
                 },
                 {
-                    skill: "Java",
+                    skill: "Javascript",
                     years: "2",
                 },
                 {
-                    skill: "Rust",
+                    skill: "HTML",
+                    years: "2"
+                },
+                {
+                    skill: "CSS",
                     years: "2"
                 }
             ],
@@ -238,7 +274,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("5cdafc88770f37981bae061e"),
@@ -246,18 +282,20 @@ const seedCandidates = async() => {
             lastName: "Saleem",
             email: "khayyam@lifeskillssoftware.tech",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
-                    skill: "C++",
-                    years: "5"
+                    skill: "Python",
+                    years: "2"
                 },
                 {
                     skill: "Java",
-                    years: "2",
+                    years: "5",
                 },
                 {
-                    skill: "Rust",
-                    years: "2"
+                    skill: "Go",
+                    years: "4"
                 }
             ],
             experience: [
@@ -268,7 +306,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("000192cf25eab6793bdfce10"),
@@ -276,18 +314,20 @@ const seedCandidates = async() => {
             lastName: "Dineen",
             email: "mdineen@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "C++",
                     years: "5"
                 },
                 {
-                    skill: "Java",
-                    years: "2",
+                    skill: "C",
+                    years: "4",
                 },
                 {
                     skill: "Rust",
-                    years: "2"
+                    years: "1.2"
                 }
             ],
             experience: [
@@ -298,7 +338,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("5cdafc88770f193758fe62ac"),
@@ -306,6 +346,8 @@ const seedCandidates = async() => {
             lastName: "Cravets",
             email: "lcravets@gmail.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "C++",
@@ -328,7 +370,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         },
         {
             _id: new ObjectID("3782fb9e8a1c37292a21461e"),
@@ -336,18 +378,16 @@ const seedCandidates = async() => {
             lastName: "Vosper",
             email: "gvosper@gmial.com",
             password: bcrypt.hashSync("Password123", 16),
+            biography: "",
+            links: [],
             skills: [
                 {
                     skill: "C++",
                     years: "5"
                 },
                 {
-                    skill: "Java",
+                    skill: "Go",
                     years: "2",
-                },
-                {
-                    skill: "Rust",
-                    years: "2"
                 }
             ],
             experience: [
@@ -358,7 +398,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImg: "default.png"
+            profileImage: "default.png"
         }        
     ])
 
@@ -367,15 +407,15 @@ const seedCandidates = async() => {
 
 const seedEmployers = async() => {
     const employersCollection = await employers();
-    const info = employersCollection.insertMany([
+    const info = await employersCollection.insertMany([
         {
             _id: new ObjectID("401a93ecb4df19ee6f7afe29"),
             name: "Life Skills Software",
             email: "jgrodes@lifeskillssoftware.com",
             description: "A great company for a great cause.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
         {
             _id: new ObjectID("401a93ecb4df1897fec16eac"),
@@ -383,8 +423,8 @@ const seedEmployers = async() => {
             email: "ftank@ibm.com",
             description: "We are smarter than everyone and our workers are superior.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
         {
             _id: new ObjectID("401a93ecb4df19e9292938f9"),
@@ -392,8 +432,8 @@ const seedEmployers = async() => {
             email: "sdobs@mongo.com",
             description: "We are pretty cool I guess.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
         {
             _id: new ObjectID("401a93ecb4df191191946afe"),
@@ -401,8 +441,8 @@ const seedEmployers = async() => {
             email: "ashroger@dexdb.com",
             description: "SPEED, SPEED, SPEED!",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
         {
             _id: new ObjectID("401a93ecb4df8293feb271ea"),
@@ -410,8 +450,8 @@ const seedEmployers = async() => {
             email: "mknight@jpmorgan.com",
             description: "We make money.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
         {
             _id: new ObjectID("401acef261fbd9de6f7afe29"),
@@ -419,8 +459,8 @@ const seedEmployers = async() => {
             email: "lkapisky@codecademy.com",
             description: "Cool, startup environment and such.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
         {
             _id: new ObjectID("401a93ec56382dbe281faa70"),
@@ -428,8 +468,8 @@ const seedEmployers = async() => {
             email: "achen@amex.com",
             description: "Our cards are the best!",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
         {
             _id: new ObjectID("1019283fbe819afbe921dfe1"),
@@ -437,8 +477,8 @@ const seedEmployers = async() => {
             email: "dmcbride@gmail.com",
             description: "I am a 40-something year old actor and I need help doing software development (for some reason).",
             password: bcrypt.hashSync("Password123", 16),
-            profileImg: "default.png",
-            conversations: []
+            profileImage: "default.png"
+
         },
     ])
     console.log(info.insertedCount);
@@ -446,13 +486,16 @@ const seedEmployers = async() => {
 
 const seedJobs = async() => {
     const jobsCollection = await jobs();
-    const info = jobsCollection.insertMany([
+    const info = await jobsCollection.insertMany([
         {
             _id: new ObjectID("aa982feb2738adb37ef19201"),
             name: "Software Developer - Backend",
             description: "You do all the work, we watch and eat chinese food.",
             open: true,
-            skills: [],
+            payRate: "$25 per hour",
+            type: "full-time",
+            applications: [],
+            skills: [ {skill: "Java", years: 2.0 } ],
             owner: ObjectID("401acef261fbd9de6f7afe29")
         },
         {
@@ -460,7 +503,10 @@ const seedJobs = async() => {
             name: "AI and Machine Learning Research",
             description: "Learn how to make the terminator please.",
             open: true,
-            skills: [],
+            payRate: "$15 per hour",
+            type: "full-time",
+            applications: [],
+            skills: [ {skill: "Python", years: 5.0 } ],
             owner: ObjectID("401a93ecb4df1897fec16eac")
         },
         {
@@ -468,7 +514,10 @@ const seedJobs = async() => {
             name: "QA Engineer",
             description: "You look at data and stuff.",
             open: true,
-            skills: [],
+            payRate: "$12 per hour",
+            type: "part-time",
+            applications: [],
+            skills: [ {skill: "HTML", years: 1.0 } ],
             owner: ObjectID("401a93ec56382dbe281faa70")
         },
         {
@@ -476,7 +525,10 @@ const seedJobs = async() => {
             name: "Systems Programming",
             description: "Deep dive into databases.",
             open: true,
-            skills: [],
+            payRate: "$53000 per year",
+            type: "full-time",
+            applications: [],
+            skills: [ {skill: "C", years: 5.0 } ],
             owner: ObjectID("401a93ecb4df191191946afe")
         },
         {
@@ -484,7 +536,10 @@ const seedJobs = async() => {
             name: "Database Developer",
             description: "Build stuff for data stuff.",
             open: true,
-            skills: [],
+            payRate: "$50 per hour",
+            type: "part-time",
+            applications: [],
+            skills: [ {skill: "SQL", years: 4.0 } ],
             owner: ObjectID("401a93ecb4df19e9292938f9")
         },
         {
@@ -492,7 +547,10 @@ const seedJobs = async() => {
             name: "Software Developer - Intern",
             description: "Get no money but do mad work.",
             open: true,
-            skills: [],
+            payRate: "$0 per hour",
+            type: "full-time",
+            applications: [],
+            skills: [ {skill: "Java", years: 2.0 }, {skill: "Go", years: 5.0 }, {skill: "C", years: 4.0 } ],
             owner: ObjectID("401a93ecb4df1897fec16eac")
         },
         {
@@ -500,7 +558,10 @@ const seedJobs = async() => {
             name: "Software Development - Frontend",
             description: "Make pretty things for us.",
             open: true,
-            skills: [],
+            payRate: "$50 per hour",
+            type: "full-time",
+            applications: [],
+            skills: [ {skill: "Javascript", years: 2.0 } ],
             owner: ObjectID("401acef261fbd9de6f7afe29")
         },
         {
@@ -508,6 +569,9 @@ const seedJobs = async() => {
             name: "Curriculum Engineer",
             description: "Make courses and such.",
             open: true,
+            payRate: "$33 per hour",
+            type: "full-time",
+            applications: [],
             skills: [],
             owner: ObjectID("401acef261fbd9de6f7afe29")
         },
@@ -516,6 +580,9 @@ const seedJobs = async() => {
             name: "Data Science - Intern",
             description: "Manage lots of data. Its fun.",
             open: true,
+            payRate: "$12 per hour",
+            type: "part-time",
+            applications: [],
             skills: [],
             owner: ObjectID("401a93ec56382dbe281faa70")
         },
@@ -524,7 +591,10 @@ const seedJobs = async() => {
             name: "Web Developer",
             description: "Web developent needed for my personal project",
             open: true,
-            skills: [],
+            payRate: "$80000 per year",
+            type: "full-time",
+            applications: [],
+            skills: [{skill: "Java", years: 2.0 }, {skill: "Javascript", years: 4.0 }],
             owner: ObjectID("1019283fbe819afbe921dfe1")
         },
         {
@@ -532,6 +602,9 @@ const seedJobs = async() => {
             name: "Cloud Engineer",
             description: "Move stuff on the cloud.",
             open: true,
+            payRate: "$78 per hour",
+            type: "full-time",
+            applications: [],
             skills: [],
             owner: ObjectID("401a93ecb4df191191946afe")
         },
@@ -540,7 +613,10 @@ const seedJobs = async() => {
             name: "Senior Software Engineer",
             description: "You will manage all the scrub coders.",
             open: true,
-            skills: [],
+            payRate: "$90 per hour",
+            type: "full-time",
+            applications: [],
+            skills: [{skill: "Go", years: 5.0 }, {skill: "Java", years: 5.0 }, {skill: "C", years: 5.0 }, {skill: "C++", years: 5.0 }],
             owner: ObjectID("401a93ecb4df8293feb271ea")
         },
         {
@@ -548,8 +624,11 @@ const seedJobs = async() => {
             name: "Linux Engineer",
             description: "You make our operations run super smooth",
             open: true,
-            skills: [],
-            owner: ObjectID("401a93ec56382dbe281faa70")
+            payRate: "$42 per hour",
+            type: "part-time",
+            applications: [],
+            skills: [{skill: "C", years: 5.0 }],
+            owner: ObjectID("401a93ecb4df1897fec16eac")
         }
     ])
     console.log(info.insertedCount);
@@ -564,7 +643,11 @@ module.exports = {
 };
 
 (async () => {
+    console.log("Seeding candidates...");
     await seedCandidates();
+    console.log("Seeding employers...");
     await seedEmployers();
+    console.log("Seeding jobs...");
     await seedJobs();
+    console.log("Done");
 })()

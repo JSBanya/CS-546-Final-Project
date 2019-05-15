@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 
 
 	// Check for emptiness of required fields
-	if(isEmpty(job.jobName) || isEmpty(job.jobDescription) || isEmpty(job.jobRate) || isEmpty(job.jobType)) {
+	if(isEmpty(job.jobName) || isEmpty(job.jobDescription) || isEmpty(job.jobType)) {
 		res.status(400).send("400 - Bad Request (empty required field)");
 		return;
 	}
@@ -98,7 +98,7 @@ router.post('/', async (req, res) => {
 		}
 	}
 
-	if(isEmpty(job.jobRate) || job.jobRate.length > 50) {
+	if(!isEmpty(job.jobRate) && job.jobRate.length > 50) {
 		res.status(400).send("400 - Bad Request (bad job rate)");
 		return;
 	}

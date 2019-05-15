@@ -161,8 +161,6 @@ let exportedMethods = {
     async updateJobRate(jobId, newRate) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newRate) throw "You must provide a new rate for the job";
-
         const jobsCollection = await jobs();
         const updatedJob = { payRate: newRate };
 
@@ -182,7 +180,7 @@ let exportedMethods = {
     async updateJobType(jobId, newType) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newType) throw "You must provide a new description for the job";
+        if (!newType) throw "You must provide a new type for the job";
 
         const jobsCollection = await jobs();
         const updatedJob = { type: newType };

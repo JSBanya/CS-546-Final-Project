@@ -16,5 +16,13 @@ sudo npm start
 
 The server is required to run as root because we bind to port 80 and 443. We use a self-signed certificate, so SSL warnings will appear and should just be accepted.
 
+To seed the database, use the command
+```
+npm run seed
+```
+
+One candidate account given by seeding the database is (mgrosso@gmail.com, Password123)
+One employer account given by seeding the database is (ftank@ibm.com, Password123)
+
 ## The Website
 The website itself is straight forward: a user can create either a candidate account or employer account, and perform actions related to the needs of that type of account. For example, an employer account can create jobs, search through candidates by skills, and message candidates. A candidate can look though available jobs, apply to them, and create a detailed custom profile.

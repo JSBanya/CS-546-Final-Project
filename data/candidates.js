@@ -162,9 +162,6 @@ const updateCandidateName = async(candidateId, newFirstName, newLastName) => {
 * @return none Throws an error if the candidate biography was not updated
 */
 const updateCandidateBio = async(candidateId, newBio) => {
-    if (!candidateId || !newBio) {
-        throw "BIO ERROR: Not enough arguments given to update function";
-    }
     const candidateCollection = await candidates();
     let updatedCandidate = {biography: newBio};
 

@@ -110,9 +110,6 @@ const updateEmployerName = async(employerId, newName) => {
  * @return none Throws an error if the employer was not updated
  */
 const updateEmployerDesc = async(employerId, newDesc) => {
-    if (!employerId || !newDesc) {
-        throw "ERROR: Not enough arguments given to update function";
-    }
     const employerCollection = await employers();
     let updatedEmployer = {description: newDesc};
 

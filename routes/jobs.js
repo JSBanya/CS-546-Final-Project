@@ -174,7 +174,7 @@ router.post('/edit', async (req, res) => {
 		return;
 	}
 
-	if(isEmpty(data.jobName) || isEmpty(data.jobDescription) || isEmpty(data.jobRate) || isEmpty(data.jobType)) {
+	if(isEmpty(data.jobName) || isEmpty(data.jobDescription) || isEmpty(data.jobType)) {
 		res.status(400).send("400 - Bad Request (empty required field)");
 		return;
 	}
@@ -229,7 +229,7 @@ router.post('/edit', async (req, res) => {
 		}
 	}
 
-	if(isEmpty(data.jobRate) || data.jobRate.length > 50) {
+	if(!isEmpty(data.jobRate) && data.jobRate.length > 50) {
 		res.status(400).send("400 - Bad Request (bad job rate)");
 		return;
 	}

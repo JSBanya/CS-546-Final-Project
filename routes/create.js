@@ -289,8 +289,6 @@ router.post('/candidate', upload.single('profileImage'), async (req, res, next) 
 	} else {
 		newCandidate.profileImage = req.file.filename;
 	}
-	newCandidate.applied = [];
-	newCandidate.hired = [];
 	
 	console.log("New candidate:")
 	console.log(newCandidate);
@@ -390,8 +388,6 @@ router.post('/employer', upload.single('profileImage'), async (req, res, next) =
 	} else {
 		newEmployer.profileImage = req.file.filename;
 	}
-
-	newEmployer.conversations = [];
 
 	console.log("New employer:")
 	console.log(newEmployer);
