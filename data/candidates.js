@@ -90,13 +90,10 @@ const getCandidateByEmail = async (email) => {
     if (!email) {
         throw "ERROR: No email provided";
     }
-
+    email = email.toLowerCase();
+    
     const candidatesCollection = await candidates();
     const candidate = await candidatesCollection.findOne({ email: email });
-    if (!candidate) {
-        throw "ERROR: No candidate for given email";
-    }
-
     return candidate;
 };
 
@@ -251,48 +248,20 @@ const updateCandidateImg = async(candidateId, newImg) => {
     }
 };
 
-/**
- * Sends in application notice to the company that posted the job
- * @param candidateId The given id for the candidate that applied
- * @param jobId The given id for the job that was applied to
- * @return none Throws an error if the candidate application message was not sent
- */
-const applyToJob = async(candidateId, jobId) => {
-    if (!candidateId || !jobId) {
-        throw "ERROR: Not enough arguments given to update function";
+const updateLinks = async (candidateId, newLinks) => {
+    if (!candidateId || !newLinks) {
+        throw "LINKS ERROR: Not enough arguments given to update function";
     }
 
     const candidateCollection = await candidates();
-    let candidate = await candidateCollection.find({ _id: new ObjectID(candidateId) });
-    let newApplied = (candidate.applied).push(jobId);
-    let updatedCandidate = { "applied": newApplied };
-    let updated = await candidateCollection.updateOne({ _id: new ObjectID(candidateId) }, {$set: updatedCandidate});
-    let employerId = (jobData.getJobById(jobId)).owner;
-    let job = await jobData.getJobById(jobId);
-    let newMessage = `The candidate, ${candidate.firstName} ${candidate.lastName}, has applied to your posting for position, ${job.name}.`;
-    await messageData.sendMessageToEmpl(candidateId, employerId, newMessage);
-    return updated;
-};
+    let updatedCandidate = {links: newLinks};
 
-/**
- * Adds hired job to candidate's information
- * @param candidateId The given id for the candidate that was hired
- * @param jobId The given id for the job the candidate was hired for
- * @return none Throws an error if the job was not added to the candidate's hired list
- */
-const hired = async(candidateId, jobId) => {
-    if (!candidateId || !jobId) {
-        throw "ERROR: Not enough arguments given to update function";
+    const updated = await candidateCollection.updateOne({ _id: new ObjectID(candidateId) }, {$set: updatedCandidate});
+
+    if (updated.result.ok !== 1) {
+        throw "ERROR: There was an error updating the candidate";
     }
-
-    const candidateCollection = await candidates();
-    let candidate = await candidateCollection.find({ "id": candidateId });
-    let newHired = (candidate.hired).push(jobId);
-    let updatedCandidate = { "hired": newHired };
-
-    let updated = await candidateCollection.updateOne({ "id": candidateId }, {$set: updatedCandidate});
-    return updated;
-};
+}
 
 module.exports = {
     getAllCandidates,
@@ -307,6 +276,5 @@ module.exports = {
     updateCandidateImg,
     updateSkills,
     updateExp,
-    applyToJob,
-    hired
+    updateLinks
 };

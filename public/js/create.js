@@ -1,9 +1,11 @@
 let skillID = 0;
 let expID = 0;
+let linkID = 0;
 
 $(document).ready(function() {
 	addSkill();
 	addExperience();
+	addLink();
     $("#selectCandidate").click(showCandidate);
     $("#selectEmployer").click(showEmployer);
 });
@@ -50,6 +52,18 @@ function addExperience() {
 	</li>`;
 	expID++;
 	$("#experienceContainer").append(el);
+}
+
+function addLink() {
+	let el = `
+	<li class="candidateLinkItem" id="candidateLinkItem${linkID}">
+		<input type="url" name="candidateLink" class="formTextInput linkTextInput" placeholder="A website" maxlength="100" required>
+		<button type="button" class="SERemove" onclick="$('#candidateLinkItem${linkID}').remove()">&#10005;</button>
+	</li>
+	`;
+
+	linkID++;
+	$("#linksContainer").append(el);
 }
 
 function alertError(err) {

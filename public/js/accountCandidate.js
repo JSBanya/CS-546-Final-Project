@@ -33,6 +33,18 @@ function addExperience() {
 	$("#experienceContainer").append(el);
 }
 
+function addLink() {
+	let linkID = $(".candidateLinkItem").length;
+	let el = `
+	<li class="candidateLinkItem" id="candidateLinkItem${linkID}">
+		<input type="url" name="candidateLink" class="formTextInput linkTextInput" placeholder="A website" maxlength="100" required>
+		<button type="button" class="SERemove" onclick="$('#candidateLinkItem${linkID}').remove()">&#10005;</button>
+	</li>
+	`;
+
+	$("#linksContainer").append(el);
+}
+
 function alertError(err) {
 	$("#error").text(err);
 }

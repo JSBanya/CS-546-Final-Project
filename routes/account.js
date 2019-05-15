@@ -312,6 +312,36 @@ router.post('/edit', upload.single('profileImage'), async (req, res, next) => {
 		return;
 	}
 
+	// Update Links
+	if(!Array.isArray(data.candidateLink) && !isEmpty(data.candidateLink) && data.candidateLink.length > 100) {
+		res.status(400).send("400 - Bad Request (bad size check)");
+		return;
+	}
+
+	if(Array.isArray(data.candidateLink)) {
+		for(let i = 0; i < data.candidateLink.length; i++) {
+			if(data.candidateLink[i].length > 100) {
+				res.status(400).send("400 - Bad Request (bad link array size check)");
+				return;
+			}
+		}
+	}
+
+	let links = [];
+	if(Array.isArray(data.candidateLink)) {
+		for(let i = 0; i < data.candidateLink.length; i++) 
+			links.push(data.candidateLink[i]);
+	} else {
+		links.push(data.candidateLink);
+	}
+
+	try {
+		await candidates.updateLinks(req.session._id, links);
+	} catch(e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+	
 	res.redirect("/account/" + req.session._id);
 	return;
 });

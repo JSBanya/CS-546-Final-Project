@@ -45,6 +45,13 @@ router.post('/candidate', upload.single('profileImage'), async (req, res, next) 
 		return false;
 	};
 
+	let isString = (s) => {
+		if(typeof s !== "string") {
+			return false;
+		}
+		return true;
+	}
+
 	/*****************
 	* Validate request
 	******************/
@@ -61,6 +68,59 @@ router.post('/candidate', upload.single('profileImage'), async (req, res, next) 
 		return;
 	}
 
+	// Make sure that fields are proper strings
+	if(!isString(data.candidateFirstName)
+		|| !isString(data.candidateLastName)
+		|| !isString(data.candidateEmail)
+		|| (!isEmpty(data.candidateBiography) && !isString(data.candidateBiography))
+		|| !isString(data.candidatePassword)
+		|| !isString(data.candidateConfirmPassword)
+		|| !isString(data.candidateConfirmPassword) 
+		|| (!Array.isArray(data.candidateSkill) && !isString(data.candidateSkill))
+		|| (!Array.isArray(data.candidateExperience) && !isString(data.candidateExperience))
+		|| (!Array.isArray(data.experienceDescription) && !isString(data.experienceDescription))
+		|| (!Array.isArray(data.candidateLink) && !isString(data.candidateLink)))
+	{
+		res.status(400).send("400 - Bad Request (bad string check)");
+		return;
+	}
+
+	if(Array.isArray(data.candidateSkill)) {
+		for(let i = 0; i < data.candidateSkill.length; i++) {
+			if(!isString(data.candidateSkill[i])) {
+				res.status(400).send("400 - Bad Request (bad array string check)");
+				return;
+			}
+		}
+	}
+
+	if(Array.isArray(data.candidateExperience)) {
+		for(let i = 0; i < data.candidateExperience.length; i++) {
+			if(!isString(data.candidateExperience[i])) {
+				res.status(400).send("400 - Bad Request (bad array string check)");
+				return;
+			}
+		}
+	}
+
+	if(Array.isArray(data.experienceDescription)) {
+		for(let i = 0; i < data.experienceDescription.length; i++) {
+			if(!isString(data.experienceDescription[i])) {
+				res.status(400).send("400 - Bad Request (bad array string check)");
+				return;
+			}
+		}
+	}
+
+	if(Array.isArray(data.candidateLink)) {
+		for(let i = 0; i < data.candidateLink.length; i++) {
+			if(!isString(data.candidateLink[i])) {
+				res.status(400).send("400 - Bad Request (bad array string check)");
+				return;
+			}
+		}
+	}
+
 	// Size of fields is greater or less than permitted
 	if(data.candidateFirstName.length > 30
 		|| data.candidateLastName.length > 30
@@ -72,7 +132,8 @@ router.post('/candidate', upload.single('profileImage'), async (req, res, next) 
 		|| data.candidateConfirmPassword.length < 8
 		|| (!Array.isArray(data.candidateSkill) && !isEmpty(data.candidateSkill) && data.candidateSkill.length > 30)
 		|| (!Array.isArray(data.candidateExperience) && !isEmpty(data.candidateExperience) && data.candidateExperience.length > 50)
-		|| (!Array.isArray(data.experienceDescription) && !isEmpty(data.experienceDescription) && data.experienceDescription.length > 1000))
+		|| (!Array.isArray(data.experienceDescription) && !isEmpty(data.experienceDescription) && data.experienceDescription.length > 1000)
+		|| (!Array.isArray(data.candidateLink) && !isEmpty(data.candidateLink) && data.candidateLink.length > 100))
 	{
 		res.status(400).send("400 - Bad Request (bad size check)");
 		return;
@@ -135,6 +196,15 @@ router.post('/candidate', upload.single('profileImage'), async (req, res, next) 
 		}
 	}
 
+	if(Array.isArray(data.candidateLink)) {
+		for(let i = 0; i < data.candidateLink.length; i++) {
+			if(data.candidateLink[i].length > 100) {
+				res.status(400).send("400 - Bad Request (bad link array size check)");
+				return;
+			}
+		}
+	}
+
 	// Check for valid numbers of skill years
 	if(Array.isArray(data.candidateSkillYears)) {
 		for(let i = 0; i < data.candidateSkillYears.length; i++) {
@@ -169,11 +239,24 @@ router.post('/candidate', upload.single('profileImage'), async (req, res, next) 
 		return;
 	}
 
+	// Check if email is already in use
+	try {
+		let c = await candidates.getCandidateByEmail(data.candidateEmail);
+		let e = await employers.getEmployerByEmail(data.candidateEmail);
+		if(c || e) {
+			res.status(400).send("Email already in use");
+			return;
+		}
+	} catch(e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+
 	// Good to go; Format
 	let newCandidate = {};
 	newCandidate.firstName = data.candidateFirstName;
 	newCandidate.lastName = data.candidateLastName;
-	newCandidate.email = data.candidateEmail;
+	newCandidate.email = data.candidateEmail.toLowerCase();
 	newCandidate.password = bcrypt.hashSync(data.candidatePassword, 16);
 	newCandidate.biography = data.candidateBiography;
 	
@@ -191,6 +274,14 @@ router.post('/candidate', upload.single('profileImage'), async (req, res, next) 
 			newCandidate.experience.push({experience: data.candidateExperience[i], description: data.experienceDescription[i], from: data.candidateExperienceFrom[i], to: data.candidateExperienceTo[i]});
 	} else {
 		newCandidate.experience.push({experience: data.candidateExperience, description: data.experienceDescription, from: data.candidateExperienceFrom, to: data.candidateExperienceTo});
+	}
+
+	newCandidate.links = [];
+	if(Array.isArray(data.candidateLink)) {
+		for(let i = 0; i < data.candidateLink.length; i++) 
+			newCandidate.links.push(data.candidateLink[i]);
+	} else {
+		newCandidate.links.push(data.candidateLink);
 	}
 
 	if(!req.file) {
@@ -224,6 +315,13 @@ router.post('/employer', upload.single('profileImage'), async (req, res, next) =
 		return false;
 	};
 
+	let isString = (s) => {
+		if(typeof s !== "string") {
+			return false;
+		}
+		return true;
+	}
+
 	/*****************
 	* Validate request
 	******************/
@@ -234,6 +332,17 @@ router.post('/employer', upload.single('profileImage'), async (req, res, next) =
 	{
 		// A required field is empty
 		res.status(400).send("400 - Bad Request (empty required field)");
+		return;
+	}
+
+	// String check
+	if(!isString(data.employerName)
+		|| !isString(data.employerEmail)
+		|| !isString(data.employerPassword)
+		|| !isString(data.employerConfirmPassword)
+		|| !isString(data.employerDescription))
+	{
+		res.status(400).send("400 - Bad Request (bad string check)");
 		return;
 	}
 
@@ -256,10 +365,23 @@ router.post('/employer', upload.single('profileImage'), async (req, res, next) =
 		return;
 	}
 
+	// Check if email is already in use
+	try {
+		let c = await candidates.getCandidateByEmail(data.employerEmail);
+		let e = await employers.getEmployerByEmail(data.employerEmail);
+		if(c || e) {
+			res.status(400).send("Email already in use");
+			return;
+		}
+	} catch(e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+
 	// Good to go; Store
 	let newEmployer = {};
 	newEmployer.name = data.employerName;
-	newEmployer.email = data.employerEmail;
+	newEmployer.email = data.employerEmail.toLowerCase();
 	newEmployer.password = bcrypt.hashSync(data.employerPassword, 16);
 	newEmployer.description = data.employerDescription;
 

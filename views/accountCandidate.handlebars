@@ -126,6 +126,27 @@
 		<button type="button" class="addButton" onclick="addExperience()">New Experience</button>
 		{{/if}}
 
+		<h3 class="containerTitle">Links</h3>
+		<ul id="linksContainer">
+			{{#if isOwner}}
+				{{#each profile.links}}
+				<li class="candidateLinkItem" id="candidateLinkItem{{@index}}">
+					<input type="url" name="candidateLink" class="formTextInput linkTextInput" placeholder="A website" maxlength="100" value="{{this}}" required>
+					<button type="button" class="SERemove" onclick="$('#candidateLinkItem{{@index}}').remove()">&#10005;</button>
+				</li>
+				{{/each}}
+			{{else}}
+				{{#each profile.links}}
+				<li class="candidateLinkItem">
+					<a href="{{this}}" class="candidateLink">{{this}}</a>
+				</li>
+				{{/each}}
+			{{/if}}
+		</ul>
+		{{#if isOwner}}
+		<button type="button" class="addButton" onclick="addLink()">New Link</button>
+		{{/if}}
+
 		{{#if isOwner}}
 		<div id="error"></div>
 		

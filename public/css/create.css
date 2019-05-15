@@ -248,6 +248,7 @@ main {
 .listContainer {
 	margin: 0px;
 	padding: 0px;
+	list-style-type: none;
 }
 
 .addButton {
@@ -343,6 +344,17 @@ main {
 
 #addExperienceButton {
 	width: 12em;
+}
+
+.candidateLinkItem {
+	margin-bottom: 1%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0em;
+}
+
+.linkTextInput {
+
 }
 
 /************************

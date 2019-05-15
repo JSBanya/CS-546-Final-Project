@@ -27,13 +27,19 @@ router.post('/', async (req, res) => {
 	let profile;
 	try {
 		profile = await candidates.getCandidateByEmail(data.email);
-		isCandidate = true;
-	} catch(e) {}
+		if(profile) {
+			isCandidate = true;
+		} else {
+			profile = await employers.getEmployerByEmail(data.email);
+			if(profile) {
+				isEmployer = true;
+			}
+		}
+	} catch(e) {
+		res.status(400).send(e.toString());
+		return;
+	}
 
-	try {
-		profile = await employers.getEmployerByEmail(data.email);
-		isEmployer = true;
-	} catch(e) {}
 
 	if(!isCandidate && !isEmployer) {
 		// No account for the given email

@@ -40,13 +40,10 @@ const getEmployerByEmail = async (email) => {
     if (!email) {
         throw "ERROR: No email provided";
     }
+    email = email.toLowerCase();
 
     const employersCollection = await employers();
     const employer = await employersCollection.findOne({ email: email });
-    if (!employer) {
-        throw "ERROR: No employer for given email";
-    }
-
     return employer;
 }
 
