@@ -4,7 +4,6 @@ const ObjectID = require('mongodb').ObjectID;
 const candidates = mongoCollections.candidates;
 const employers = mongoCollections.employers;
 const jobs = mongoCollections.jobs;
-// const messages = mongoCollections.messages;
 
 const seedCandidates = async() => {
     const candidatesCollection = await candidates();
@@ -556,47 +555,7 @@ const seedJobs = async() => {
     console.log(info.insertedCount);
 };
 
-// const seedMessages = async() => {
-//     const messagesCollection = await messages();
-//     messagesCollection.insertMany([
-//         {
-//             _id: new ObjectID(),
-//             senderId: new ObjectID(),
-//             receiverId: new ObjectID(),
-//             content: ""
-//         },
-//         {
-//             _id: new ObjectID(),
-//             senderId: new ObjectID(),
-//             receiverId: new ObjectID(),
-//             content: ""
-//         },
-//         {
-//             _id: new ObjectID(),
-//             senderId: new ObjectID(),
-//             receiverId: new ObjectID(),
-//             content: ""
-//         },
-//         {
-//             _id: new ObjectID(),
-//             senderId: new ObjectID(),
-//             receiverId: new ObjectID(),
-//             content: ""
-//         },
-//         {
-//             _id: new ObjectID(),
-//             senderId: new ObjectID(),
-//             receiverId: new ObjectID(),
-//             content: ""
-//         },
-//         {
-//             _id: new ObjectID(),
-//             senderId: new ObjectID(),
-//             receiverId: new ObjectID(),
-//             content: ""
-//         },
-//     ])
-// };
+
 
 module.exports = {
     seedCandidates,
