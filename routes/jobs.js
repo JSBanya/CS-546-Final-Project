@@ -173,7 +173,7 @@ router.post('/edit', async (req, res) => {
 		return;
 	}
 
-	if(isEmpty(data.jobName) || isEmpty(data.jobDescription)) {
+	if(isEmpty(data.jobName) || isEmpty(data.jobDescription) || isEmpty(data.jobRate) || isEmpty(data.jobType)) {
 		res.status(400).send("400 - Bad Request (empty required field)");
 		return;
 	}
@@ -181,6 +181,8 @@ router.post('/edit', async (req, res) => {
 	// Size of fields is greater than permitted
 	if(data.jobName.length > 50
 		|| data.jobDescription.length > 1000
+		|| data.jobRate > 50
+		|| data.jobType > 50
 		|| (!Array.isArray(data.jobSkillName) && !isEmpty(data.jobSkillName) && data.jobSkillName.length > 30))
 	{
 		res.status(400).send("400 - Bad Request (bad size check)");
@@ -236,6 +238,20 @@ router.post('/edit', async (req, res) => {
 
 	try {
 		await jobs.updateJobDesc(data.jobID, data.jobDescription);
+	} catch (e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+
+	try {
+		await jobs.updateJobRate(data.jobID, data.jobRate);
+	} catch (e) {
+		res.status(500).send(e.toString());
+		return;
+	}
+
+	try {
+		await jobs.updateJobType(data.jobID, data.jobType);
 	} catch (e) {
 		res.status(500).send(e.toString());
 		return;
