@@ -104,8 +104,8 @@ router.post('/', async (req, res) => {
 	newjob.description = job.jobDescription;
 	newjob.applications = [];
 	newjob.open = true;
-	newJob.payRate = job.jobRate;
-	newJob.type = job.jobType;
+	newjob.payRate = job.jobRate;
+	newjob.type = job.jobType;
 	
 	newjob.skills = [];
 	if(Array.isArray(job.jobSkill)) {

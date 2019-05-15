@@ -164,7 +164,7 @@ let exportedMethods = {
         if (!newRate) throw "You must provide a new rate for the job";
 
         const jobsCollection = await jobs();
-        const updatedJob = { rate: newRate };
+        const updatedJob = { payRate: newRate };
 
         const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: updatedJob});
         if (!updated) {
@@ -179,7 +179,7 @@ let exportedMethods = {
      * @param newType The new type for the requested job
      * @return updated True if the job was updated; False otherwise
      */
-    async updateJobDesc(jobId, newType) {
+    async updateJobType(jobId, newType) {
         if (!jobId) throw "You must provide an id to search for";
 
         if (!newType) throw "You must provide a new description for the job";
