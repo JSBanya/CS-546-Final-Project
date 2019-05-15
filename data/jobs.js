@@ -153,6 +153,48 @@ let exportedMethods = {
     },
 
     /**
+     * Updates a job with a new rate
+     * @param jobId The id for the job to be updated
+     * @param newRate The new rate for the requested job
+     * @return updated True if the job was updated; False otherwise
+     */
+    async updateJobRate(jobId, newRate) {
+        if (!jobId) throw "You must provide an id to search for";
+
+        if (!newRate) throw "You must provide a new rate for the job";
+
+        const jobsCollection = await jobs();
+        const updatedJob = { payRate: newRate };
+
+        const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: updatedJob});
+        if (!updated) {
+            throw `[ERROR] Cannot update the job description`;
+        }
+        return true;
+    },
+
+    /**
+     * Updates a job with a new type
+     * @param jobId The id for the job to be updated
+     * @param newType The new type for the requested job
+     * @return updated True if the job was updated; False otherwise
+     */
+    async updateJobType(jobId, newType) {
+        if (!jobId) throw "You must provide an id to search for";
+
+        if (!newType) throw "You must provide a new description for the job";
+
+        const jobsCollection = await jobs();
+        const updatedJob = { description: newType };
+
+        const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: updatedJob});
+        if (!updated) {
+            throw `[ERROR] Cannot update the job description`;
+        }
+        return true;
+    },
+
+    /**
      * Add the given skills to a job
      * @param jobId The id for the job to be updated
      * @param newSkills The new skills for the requested job

@@ -42,14 +42,17 @@ router.post('/', async (req, res) => {
 
 
 	// Check for emptiness of required fields
-	if(isEmpty(job.jobName) || isEmpty(job.jobDescription)) {
+	if(isEmpty(job.jobName) || isEmpty(job.jobDescription) || isEmpty(job.jobRate) || isEmpty(job.jobType)) {
 		res.status(400).send("400 - Bad Request (empty required field)");
 		return;
 	}
+	
 
 	// Size of fields is greater than permitted
 	if(job.jobName.length > 50
 		|| job.jobDescription.length > 1000
+		|| job.jobRate.length > 50
+		|| job.jobType.length > 50
 		|| (!Array.isArray(job.jobSkill) && !isEmpty(job.jobSkill) && job.jobSkill.length > 30))
 	{
 		res.status(400).send("400 - Bad Request (bad size check)");
@@ -101,6 +104,8 @@ router.post('/', async (req, res) => {
 	newjob.description = job.jobDescription;
 	newjob.applications = [];
 	newjob.open = true;
+	newjob.payRate = job.jobRate;
+	newjob.type = job.jobType;
 	
 	newjob.skills = [];
 	if(Array.isArray(job.jobSkill)) {

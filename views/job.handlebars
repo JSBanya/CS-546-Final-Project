@@ -25,11 +25,23 @@
 			<label for="jobDescription" class="formLabel">Description:</label>
 			<textarea name="jobDescription" class="formTextInput" id="jobDescriptionEdit" rows=5 placeholder="Description" maxlength="1000">{{job.description}}</textarea>
 		</div>
+
+		<div class="formRow">
+			<label for="jobRate" class="formLabel">Job Rate:</label>
+			<input type="text" name="jobRate" class="formTextInput" value="{{job.rate}}" placeholder="Job Rate" required>
+		</div>
+
+		<div class="formRow">
+			<label for="jobType" class="formLabel">Job Type:</label>
+			<input type="text" name="jobType" class="formTextInput" value="{{job.type}}" placeholder="Job Type" required>
+		</div>
 		{{else}}
 		<h2 id="jobTitle">
 			Job Title: {{job.name}}
 		</h2>
 		<p id="jobDescription">Description: {{job.description}}</p>
+		<p id="jobRate">Description: {{job.rate}}</p>
+		<p id="jobType">Description: {{job.type}}</p>
 		{{/if}}
 
 		<h3 id="skillsTitle">Required Skills</h3>
