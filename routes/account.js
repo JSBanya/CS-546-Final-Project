@@ -240,12 +240,14 @@ router.post('/edit', upload.single('profileImage'), async (req, res, next) => {
 			}
 			skills.push({skill: data.candidateSkill[i], years: data.candidateSkillYears[i]});
 		}
-	} else if(!Array.isArray(data.candidateSkill) && !Array.isArray(data.candidateSkillYears)) {
+	} else if(!Array.isArray(data.candidateSkill) && !Array.isArray(data.candidateSkillYears) && !isEmpty(data.candidateSkill) && !isEmpty(data.candidateSkillYears)) {
 		if(data.candidateSkill.length > 30 || Number(data.candidateSkillYears) == NaN || data.candidateSkillYears < 0.1 || data.candidateSkillYears > 100) {
 				res.status(400).send("400 - Bad Request (bad skills)");
 				return;
 			}
 			skills.push({skill: data.candidateSkill, years: data.candidateSkillYears});
+	} else if(isEmpty(data.candidateSkill) && isEmpty(data.candidateSkillYears)) {
+		// Do nothing
 	} else {
 		res.status(400).send("400 - Bad Request (bad skills)");
 		return;
@@ -286,8 +288,11 @@ router.post('/edit', upload.single('profileImage'), async (req, res, next) => {
 		for(let i = 0; i < data.candidateExperience.length; i++) {
 			experience.push({experience: data.candidateExperience[i], description: data.experienceDescription[i], from: data.candidateExperienceFrom[i], to: data.candidateExperienceTo[i]})
 		}
-	} else {
+	} else if (!isEmpty(data.candidateExperience) && !isEmpty(data.experienceDescription) && !isEmpty(data.candidateExperienceFrom) && !isEmpty(data.candidateExperienceTo)) {
 		experience.push({experience: data.candidateExperience, description: data.experienceDescription, from: data.candidateExperienceFrom, to: data.candidateExperienceTo})
+	} else if (!(isEmpty(data.candidateExperience) && isEmpty(data.experienceDescription) && isEmpty(data.candidateExperienceFrom) && isEmpty(data.candidateExperienceTo))) {
+		res.status(400).send("400 - Bad Request (bad experience formatting)");
+		return;
 	}
 
 	for(let i = 0; i < experience.length; i++) {
