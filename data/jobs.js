@@ -185,7 +185,7 @@ let exportedMethods = {
         if (!newType) throw "You must provide a new description for the job";
 
         const jobsCollection = await jobs();
-        const updatedJob = { description: newType };
+        const updatedJob = { type: newType };
 
         const updated = await jobsCollection.updateOne({ _id: new ObjectID(jobId) }, {$set: updatedJob});
         if (!updated) {
