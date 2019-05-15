@@ -61,6 +61,7 @@ router.get('/:id', async (req, res) => {
 		ownerProfile: ownerProfile,
 		candidatesApplied: candidatesApplied,
 		alreadyApplied: jobProfile.applications.includes(myProfile._id.toString()),
+		isFullTime: (jobProfile.type == "full-time"),
 		isOwner: (ownerProfile._id.toString() == req.session._id.toString()),
 		layout: "home"
 	});

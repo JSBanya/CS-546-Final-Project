@@ -28,20 +28,23 @@
 
 		<div class="formRow">
 			<label for="jobRate" class="formLabel">Job Rate:</label>
-			<input type="text" name="jobRate" class="formTextInput" value="{{job.rate}}" placeholder="Job Rate" required>
+			<input type="text" name="jobRate" class="formTextInput" value="{{job.payRate}}" placeholder="Job Rate">
 		</div>
 
 		<div class="formRow">
 			<label for="jobType" class="formLabel">Job Type:</label>
-			<input type="text" name="jobType" class="formTextInput" value="{{job.type}}" placeholder="Job Type" required>
+			<select name="jobType" class="formTextInput">
+			  <option value="full-time" {{#if isFullTime}}selected{{/if}}>Full Time</option>
+			  <option value="part-time" {{#unless isFullTime}}selected{{/unless}}>Part Time</option>
+			</select> 
 		</div>
 		{{else}}
 		<h2 id="jobTitle">
 			Job Title: {{job.name}}
 		</h2>
 		<p id="jobDescription">Description: {{job.description}}</p>
-		<p id="jobRate">Description: {{job.rate}}</p>
-		<p id="jobType">Description: {{job.type}}</p>
+		<p class="formText" id="jobRate">Rate: {{#if job.rate}} {{job.rate}} {{else}} Not Provided {{/if}}</p>
+		<p class="formText" id="jobType">Type: {{job.type}}</p>
 		{{/if}}
 
 		<h3 id="skillsTitle">Required Skills</h3>

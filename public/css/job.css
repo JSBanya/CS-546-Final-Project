@@ -82,8 +82,19 @@ main {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	font-weight: 100;
 	font-size: 1.0em;
-	color: rgba(0, 0, 0, 1.0);
+	color: rgba(0, 0, 0, 0.8);
 	font-style: italic;
+}
+
+.formText {
+	width: 80%;
+	margin:0px;
+	background: none;
+	border: none;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-weight: 100;
+	font-size: 1.0em;
+	color: rgba(0, 0, 0, 1.0);
 }
 
 #skillsTitle {
