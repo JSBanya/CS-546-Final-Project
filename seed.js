@@ -19,7 +19,7 @@ const seedCandidates = async() => {
             skills: [
                 {
                     skill: "Java",
-                    year: "2"
+                    years: "2"
                 }
             ],
             experience: [

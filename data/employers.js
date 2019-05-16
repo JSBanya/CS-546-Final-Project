@@ -1,6 +1,43 @@
 const mongoCollections = require("../data/collections");
 const employers = mongoCollections.employers;
 const ObjectID = require('mongodb').ObjectID;
+const utils = require("./utils");
+
+const validName = (name) => {
+    if(utils.isEmpty(name) || !utils.isString(name)) {
+        return false;
+    }
+
+    if(name.length > 50) {
+        return false;
+    }
+
+    return true;
+}
+
+const validEmail = (email) => {
+    if(utils.isEmpty(email) || !utils.isString(email)) {
+        return false;
+    }
+
+    if(email.length > 30) {
+        return false;
+    }
+
+    return true;
+}
+
+const validDescription = (desc) => {
+    if(!utils.isString(desc)) {
+        return false;
+    }
+
+    if(desc.length > 500) {
+        return false;
+    }
+
+    return true;
+}
 
 /**
  * Grabs all employers in the collection
@@ -22,6 +59,10 @@ const getAllEmployers = async() => {
  * @return employer The employer matching the given id
  */
 const getEmployerById = async (id) => {
+    if (!id) {
+        throw "ERROR: Employer ID not provided";
+    }
+
 	const employersCollection = await employers();
 	const result = await employersCollection.findOne({ _id: new ObjectID(id) });
     if (result === null || result === undefined) {
@@ -40,12 +81,18 @@ const getEmployerByEmail = async (email) => {
     if (!email) {
         throw "ERROR: No email provided";
     }
+
+    if(!validEmail(email)) {
+        throw "invalid email";   
+    }
+
     email = email.toLowerCase();
 
     const employersCollection = await employers();
     const employer = await employersCollection.findOne({ email: email });
     return employer;
 }
+
 
 /**
  * Adds an employer of the given profile object
@@ -55,6 +102,20 @@ const getEmployerByEmail = async (email) => {
 const addEmployer = async(employer) => {
     if (!employer) {
         throw "ERROR: No profile provided";
+    }
+
+    if(!validName(employer.name)) {
+        throw "Invalid name"
+    }
+
+    if(!validEmail(employer.email)) {
+        throw "Invalid email"
+    }
+    employer.email = employer.email.toLowerCase();
+
+
+    if(!validDescription(employer.description)) {
+        throw "Invalid description"
     }
 
     const employersCollection = await employers();
@@ -90,9 +151,14 @@ const removeEmployer = async(employerId) => {
  * @return none Throws an error if the employer was not updated
  */
 const updateEmployerName = async(employerId, newName) => {
-    if (!employerId || !newName) {
+    if (!employerId) {
         throw "ERROR: Not enough arguments given to update function";
     }
+
+    if(!validName(newName)) {
+        throw "Invalid name"
+    }
+
     const employersCollection = await employers();
     let updatedEmployer = {name: newName};
 
@@ -110,6 +176,14 @@ const updateEmployerName = async(employerId, newName) => {
  * @return none Throws an error if the employer was not updated
  */
 const updateEmployerDesc = async(employerId, newDesc) => {
+    if (!employerId) {
+        throw "ERROR: Not enough arguments given to update function";
+    }
+
+    if(!validDescription(newDesc)) {
+        throw "Invalid description"
+    }
+
     const employerCollection = await employers();
     let updatedEmployer = {description: newDesc};
 
