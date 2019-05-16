@@ -45,6 +45,10 @@ main {
 	margin-right: 5px;
 }
 
+#ownerProfilePicture:hover {
+	cursor: pointer;
+}
+
 #ownerName {
 	margin: 0px;
 	padding: 0px;

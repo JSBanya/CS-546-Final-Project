@@ -3,7 +3,7 @@
 		<div class="formRow">
 
 			{{#unless isOwner}}
-			<div id="ownerProfilePicture" style="background-image: url('/public/images/profile/{{ownerProfile.profileImage}}')"></div>
+			<div id="ownerProfilePicture" onclick="location.href='/account/{{ownerProfile._id}}'" style="background-image: url('/public/images/profile/{{ownerProfile.profileImage}}')"></div>
 			<p id="ownerName">{{ownerProfile.name}}</p>
 			{{/unless}}
 

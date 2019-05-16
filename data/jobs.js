@@ -2,6 +2,67 @@ const mongoCollections = require("../data/collections");
 const jobs = mongoCollections.jobs;
 const candidate = require("./candidates");
 const ObjectID = require('mongodb').ObjectID;
+const utils = require("./utils");
+
+function validName(name) {
+    if(!utils.isString(name) || utils.isEmpty(name)) {
+        return false;
+    }
+
+    if(name.length > 50) {
+        return false;
+    }
+
+    return true;
+}
+
+function validDescription(desc) {
+    if(!utils.isString(desc) || utils.isEmpty(desc)) {
+        return false;
+    }
+
+    if(desc.length > 1000) {
+        return false;
+    }
+
+    return true;
+}
+
+function validRate(rate) {
+    if(!utils.isString(rate)) {
+        return false;
+    }
+
+    if(rate.length > 50) {
+        return false;
+    }
+
+    return true;
+}
+
+function validType(type) {
+    if(!utils.isString(type) || utils.isEmpty(type)) {
+        return false;
+    }
+
+    if(type != "part-time" && type != "full-time") {
+        return false;
+    }
+
+    return true;
+}
+
+function validSkill(skill) {
+    if(!utils.isObject(skill) || !utils.isString(skill.skill) || utils.isEmpty(skill.skill) || !utils.isString(skill.years) || utils.isEmpty(skill.years) || isNaN(skill.years)) {
+        return false;
+    }
+
+    if(skill.skill.length > 30 || skill.years < 0.1 || skill.years > 100) {
+        return false;
+    }
+
+    return true;
+}
 
 let exportedMethods = {
     /**
@@ -67,6 +128,35 @@ let exportedMethods = {
         if (!employerId)
             throw "[ERROR] empty employer when[adding new job]";
 
+        if(!validName(newJob.name)) {
+            throw "Invalid name"
+        }
+
+        if(!validDescription(newJob.description)) {
+            throw "Invalid name"
+        }
+
+        if(!validRate(newJob.payRate)) {
+            throw "Invalid name"
+        }
+
+        if(!validType(newJob.type)) {
+            throw "Invalid name"
+        }
+
+        if(!Array.isArray(newJob.skills)) {
+            throw "Invalid skills";
+        }
+
+        for(let i = 0; i < newJob.skills.length; i++) {
+            if(!validSkill(newJob.skills[i])) {
+                throw "Invalid skill"
+            }
+        }
+
+        newJob.applications = [];
+        newJob.open = true;
+
         const jobsCollection = await jobs();
         const insertInfo = await jobsCollection.insertOne(newJob);
         if (insertInfo.insertedCount === 0) {
@@ -119,7 +209,9 @@ let exportedMethods = {
     async updateJobTitle(jobId, newTitle) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newTitle | typeof newTitle !== 'string') throw "You must provide a title for the job";
+        if(!validName(newTitle)) {
+            throw "Invalid name"
+        }
 
         const jobsCollection = await jobs();
         const updatedJob = { name: newTitle };
@@ -140,7 +232,9 @@ let exportedMethods = {
     async updateJobDesc(jobId, newDesc) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newDesc) throw "You must provide a new description for the job";
+        if(!validDescription(newDesc)) {
+            throw "Invalid name"
+        }
 
         const jobsCollection = await jobs();
         const updatedJob = { description: newDesc };
@@ -161,6 +255,10 @@ let exportedMethods = {
     async updateJobRate(jobId, newRate) {
         if (!jobId) throw "You must provide an id to search for";
 
+        if(!validRate(newRate)) {
+            throw "Invalid name"
+        }
+
         const jobsCollection = await jobs();
         const updatedJob = { payRate: newRate };
 
@@ -180,7 +278,9 @@ let exportedMethods = {
     async updateJobType(jobId, newType) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newType) throw "You must provide a new type for the job";
+        if(!validType(newType)) {
+            throw "Invalid name"
+        }
 
         const jobsCollection = await jobs();
         const updatedJob = { type: newType };
@@ -201,7 +301,15 @@ let exportedMethods = {
     async updateJobSkills(jobId, newSkills) {
         if (!jobId) throw "You must provide an id to search for";
 
-        if (!newSkills) throw "You must provide a new skills set object for the job";
+        if(!Array.isArray(newSkills)) {
+            throw "Invalid skills";
+        }
+
+        for(let i = 0; i < newSkills.length; i++) {
+            if(!validSkill(newSkills[i])) {
+                throw "Invalid skill"
+            }
+        }
 
         const jobsCollection = await jobs();
         const updatedJob = { skills: newSkills };

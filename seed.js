@@ -82,7 +82,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImage: "default.png"
+            profileImage: "4d43ac4c-84db-458d-9811-20614aa92c7e.jpg"
         },
         {
             _id: new ObjectID("2fecfc88770f37292a21461e"),
@@ -142,7 +142,7 @@ const seedCandidates = async() => {
                     to: "2019-05-14"
                 }
             ],
-            profileImage: "default.png"
+            profileImage: "e66a5c87-8ffa-4dd6-9054-171b19b2789f.jpg"
         },
         {
             _id: new ObjectID("1a0f963cebf25619aecbd0d6"),
@@ -423,7 +423,7 @@ const seedEmployers = async() => {
             email: "ftank@ibm.com",
             description: "We are smarter than everyone and our workers are superior.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImage: "default.png"
+            profileImage: "5b091ece-babc-4e8b-b3f9-dc1bb055a3f1.png"
 
         },
         {
@@ -432,7 +432,7 @@ const seedEmployers = async() => {
             email: "sdobs@mongo.com",
             description: "We are pretty cool I guess.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImage: "default.png"
+            profileImage: "b0b41dbc-e849-4f13-9ba6-cd8c19900345.jpg"
 
         },
         {
@@ -459,7 +459,7 @@ const seedEmployers = async() => {
             email: "lkapisky@codecademy.com",
             description: "Cool, startup environment and such.",
             password: bcrypt.hashSync("Password123", 16),
-            profileImage: "default.png"
+            profileImage: "81f7fe58-04be-47f0-95be-ec96f12d3b79.jpg"
 
         },
         {
@@ -468,7 +468,7 @@ const seedEmployers = async() => {
             email: "achen@amex.com",
             description: "Our cards are the best!",
             password: bcrypt.hashSync("Password123", 16),
-            profileImage: "default.png"
+            profileImage: "758c0374-ab35-4e22-af15-1efce2ff1b5a.png"
 
         },
         {
@@ -650,4 +650,5 @@ module.exports = {
     console.log("Seeding jobs...");
     await seedJobs();
     console.log("Done");
+    process.exit(0);
 })()
